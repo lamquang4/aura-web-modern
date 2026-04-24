@@ -1,0 +1,126 @@
+import Image from "../ui/Image";
+import { useState } from "react";
+import Loading from "../ui/Loading";
+import Overplay from "./ui/Overplay";
+import Input from "../ui/Input";
+import Button from "../ui/Button";
+import Label from "../ui/Label";
+import { Eye, EyeOff } from "lucide-react";
+
+function LoginForm() {
+  const [data, setData] = useState({ email: "", password: "" });
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+
+  const isLoading = false;
+
+  const toggleShowPassword = () => {
+    setShowPassword((prev) => !prev);
+  };
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
+    const { name, value } = e.target;
+    setData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    setData({
+      email: "",
+      password: "",
+    });
+  };
+
+  return (
+    <>
+      <section className="bg-[#F1F4F9] w-full">
+        <div className="flex justify-center items-center h-screen sm:px-[15px] px-[10px]">
+          <div className="relative bg-white rounded-lg shadow-md border border-gray-300 max-w-[850px] w-full h-[500px]">
+            <div className="h-full grid grid-cols-1 sm:grid-cols-2 items-center">
+              <div className="w-full px-4 sm:px-8 bg-white">
+                <h1 className="relative text-center uppercase mb-6">
+                  Đăng nhập
+                </h1>
+
+                <form className="space-y-[15px]" onSubmit={handleSubmit}>
+                  <div className="space-y-[5px]">
+                    <Label htmlFor="" required>
+                      Email
+                    </Label>
+                    <Input
+                      type="text"
+                      name="email"
+                      value={data.email}
+                      onChange={handleChange}
+                      className="block w-full px-3 py-2 border border-gray-300"
+                      placeholder="Nhập email"
+                      required
+                    />
+                  </div>
+
+                  <div className="space-y-[5px]">
+                    <Label htmlFor="" required>
+                      Mật khẩu
+                    </Label>
+
+                    <div className="relative">
+                      <Input
+                        type={!showPassword ? "password" : "text"}
+                        name="password"
+                        value={data.password}
+                        onChange={handleChange}
+                        placeholder="Nhập mật khẩu"
+                        className="block w-full px-3 pr-12 py-2 border border-gray-300"
+                        required
+                      />
+
+                      <Button
+                        type="button"
+                        className="absolute hover-scale right-3 top-1/2 -translate-y-1/2 text-neutral"
+                        onClick={toggleShowPassword}
+                      >
+                        {!showPassword ? (
+                          <Eye size={22} />
+                        ) : (
+                          <EyeOff size={22} />
+                        )}
+                      </Button>
+                    </div>
+                  </div>
+
+                  <Button
+                    disabled={isLoading}
+                    type="submit"
+                    className="w-full bg-primary text-[0.9rem] text-white focus:outline-none font-semibold rounded-sm px-5 py-2.5 text-center mt-6"
+                  >
+                    Đăng nhập
+                  </Button>
+                </form>
+              </div>
+
+              <div className="hidden sm:block border-l-2 border-gray-200 sm:px-2">
+                <Image
+                  source={"/assets/hero1.webp"}
+                  alt={""}
+                  className={"w-auto"}
+                  loading="eager"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {isLoading && (
+        <Overplay>
+          <Loading height={0} size={55} color="white" thickness={8} />
+          <h4 className="text-white">Vui lòng chờ trong giây lát ...</h4>
+        </Overplay>
+      )}
+    </>
+  );
+}
+
+export default LoginForm;
