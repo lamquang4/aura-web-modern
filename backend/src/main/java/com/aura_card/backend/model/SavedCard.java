@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Document(collection = "saved_card")
+@Document(collection = "saved_cards")
 public class SavedCard {
     @Id
     private String savedCardId;

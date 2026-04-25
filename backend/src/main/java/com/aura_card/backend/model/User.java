@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Document(collection = "user")
+@Document(collection = "users")
 public class User {
     @Id
     private String userId;
@@ -30,7 +30,6 @@ public class User {
     private String fullname;
 
     @Email(message = "Email không hợp lệ")
-    @NotBlank(message = "Email không để trống")
     @Indexed(unique = true)
     private String email;
 

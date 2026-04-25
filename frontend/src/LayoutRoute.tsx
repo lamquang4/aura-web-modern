@@ -12,6 +12,7 @@ import EditUserPage from "./pages/admin/EditUserPage";
 import CardListAdminPage from "./pages/admin/CardListPage";
 import CreateCardPage from "./pages/admin/CreateCardPage";
 import EditCardPage from "./pages/admin/EditCardPage";
+import AccountAdminPage from "./pages/admin/AccountPage";
 function LayoutRoute() {
   return (
     <Routes>
@@ -23,6 +24,7 @@ function LayoutRoute() {
       <Route path="/saved" element={<SavedCardPage />} />
 
       <Route path="/admin/login" element={<LoginPage />} />
+      <Route path="/admin/account/profile" element={<AccountAdminPage />} />
 
       <Route path="/admin/users" element={<UserListPage />} />
       <Route path="/admin/users/create" element={<CreateUserPage />} />

@@ -1,15 +1,45 @@
 // Request
 
-export interface UserRequest {
-  email?: string;
-  fullname: string;
-  password?: string;
-  role?: "CUSTOMER" | "ADMIN";
-  status?: "ACTIVE" | "LOCKED";
-  provider?: string;
+export interface LoginRequest {
+  email: string;
+  password: string;
 }
 
-export interface CardRequest {
+export interface RegisterRequest {
+  email: string;
+  fullname: string;
+  password: string;
+}
+
+export interface OAuth2LoginRequest {
+  accessToken: string;
+  provider: string; // GOOGLE, FACEBOOK
+}
+
+export interface CreateUserRequest {
+  email: string;
+  fullname: string;
+  password: string;
+  role: "CUSTOMER" | "ADMIN";
+  status: "ACTIVE" | "LOCKED";
+}
+
+export interface UpdateUserRequest {
+  fullname: string;
+  password: string;
+  role: "CUSTOMER" | "ADMIN";
+  status: "ACTIVE" | "LOCKED";
+}
+
+export interface CreateCardRequest {
+  name: string;
+  frontImage: string;
+  backImage?: string;
+  content: string;
+  status: "ACTIVE" | "INACTIVE";
+}
+
+export interface UpdateCardRequest {
   name: string;
   frontImage: string;
   backImage?: string;
@@ -35,6 +65,12 @@ export interface ApiResponse<T> {
   total?: number;
 }
 
+export interface ErrorResponse {
+  message: string;
+  path: string;
+  timestamp: string;
+}
+
 export interface LoginResponse {
   token: string;
   role: string;
@@ -48,6 +84,13 @@ export interface UserResponse {
   status: "ACTIVE" | "LOCKED";
   createdAt?: string;
   updatedAt?: string;
+}
+
+export interface AccountResponse {
+  userId: string;
+  email: string;
+  fullname: string;
+  role: "CUSTOMER" | "ADMIN";
 }
 
 export interface CardListItemResponse {
@@ -108,6 +151,7 @@ export interface TextStyle {
 
 export interface JwtPayload {
   id: string;
-  role: "ADMIN" | "CUSTOMER";
   exp: number;
+  iat: number;
+  role: "CUSTOMER" | "ADMIN";
 }

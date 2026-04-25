@@ -12,7 +12,6 @@ function EditUserForm() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [data, setData] = useState({
-    email: "",
     fullname: "",
     password: "",
     status: "",
@@ -34,7 +33,6 @@ function EditUserForm() {
 
     setData({
       fullname: user.fullname || "",
-      email: user.email || "",
       password: "",
       status: user.status?.toString() || "",
       role: user.role || "",
@@ -47,16 +45,12 @@ function EditUserForm() {
     const { name, value } = e.target;
     setData((prev) => ({
       ...prev,
-      [name]: name === "email" ? value.toLowerCase() : value,
+      [name]: value,
     }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validateEmail(data.email)) {
-      toast.error("Email không hợp lệ");
-      return;
-    }
 
     if (data.password.trim().length < 6 && data.password) {
       toast.error("Mật khẩu phải có ít nhất 6 ký tự");
@@ -99,9 +93,10 @@ function EditUserForm() {
               <Input
                 type="email"
                 name="email"
-                value={data.email}
+                value={user.email}
                 onChange={handleChange}
                 required
+                readOnly
                 className="lowercase border border-gray-300 p-[6px_10px] w-full focus:border-gray-400  "
               />
             </div>

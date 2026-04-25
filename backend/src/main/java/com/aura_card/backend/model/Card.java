@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Document(collection = "card")
+@Document(collection = "cards")
 public class Card {
     @Id
     private String cardId;

@@ -79,7 +79,7 @@ function Header() {
                 onMouseEnter={toggleProfileMenu}
                 onMouseLeave={toggleProfileMenu}
               >
-                <UserRound size={24} />
+                <UserRound strokeWidth={1.5} size={24} />
                 <ProfileMenu profileMenuOpen={profileMenuOpen} />
               </div>
             </div>
