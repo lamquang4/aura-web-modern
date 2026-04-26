@@ -15,18 +15,21 @@ import com.aura_card.backend.exception.AppException;
 import com.aura_card.backend.exception.ErrorCode;
 import com.aura_card.backend.dto.response.AccountResponse;
 import com.aura_card.backend.mapper.UserMapper;
+import com.aura_card.backend.repository.SavedCardRepository;
 import com.aura_card.backend.repository.UserRepository;
 
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final SavedCardRepository savedCardRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository,
+    public UserService(UserRepository userRepository, SavedCardRepository savedCardRepository,
             UserMapper userMapper,
             PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.savedCardRepository = savedCardRepository;
         this.userMapper = userMapper;
         this.passwordEncoder = passwordEncoder;
     }
@@ -69,12 +72,8 @@ public class UserService {
     public AccountResponse getAccount(String userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
-        return AccountResponse.builder()
-                .userId(user.getUserId())
-                .email(user.getEmail())
-                .fullname(user.getFullname())
-                .role(user.getRole())
-                .build();
+
+        return userMapper.toAccountResponse(user);
     }
 
     // Tạo người dùng
@@ -90,6 +89,14 @@ public class UserService {
     public UserResponse updateUser(String userId, UpdateUserRequest request) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+
+        if ("GOOGLE".equals(user.getProvider())
+                && request.getPassword() != null
+                && !request.getPassword().isBlank()) {
+
+            throw new AppException(ErrorCode.GOOGLE_ACCOUNT_CANNOT_SET_PASSWORD);
+        }
+
         userMapper.updateUser(user, request, passwordEncoder);
         return userMapper.toResponse(userRepository.save(user));
     }
@@ -110,9 +117,17 @@ public class UserService {
 
     // Xóa người dùng
     public void deleteUser(String userId) {
-        if (!userRepository.existsById(userId)) {
-            throw new AppException(ErrorCode.USER_NOT_FOUND);
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+
+        if ("CUSTOMER".equals(user.getRole())) {
+            boolean hasSavedCard = savedCardRepository.existsByUserId(userId);
+
+            if (hasSavedCard) {
+                throw new AppException(ErrorCode.USER_HAS_SAVED_CARD);
+            }
         }
+
         userRepository.deleteById(userId);
     }
 }

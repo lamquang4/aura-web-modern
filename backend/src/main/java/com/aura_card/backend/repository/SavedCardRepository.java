@@ -10,4 +10,6 @@ import com.aura_card.backend.model.SavedCard;
 @Repository
 public interface SavedCardRepository extends MongoRepository<SavedCard, String> {
     Page<SavedCard> findByUserId(String userId, Pageable pageable);
+
+    boolean existsByUserId(String userId);
 }

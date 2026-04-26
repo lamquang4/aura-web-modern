@@ -3,6 +3,7 @@ import Input from "../../ui/Input";
 import Button from "../../ui/Button";
 import Label from "../../ui/Label";
 import { useGetMe, useUpdateUser } from "../../../hooks/queries/useUsers";
+import toast from "react-hot-toast";
 
 function AccountForm() {
   const [data, setData] = useState({
@@ -39,6 +40,11 @@ function AccountForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (data.password.trim() && account?.provider === "GOOGLE") {
+      toast.error("Tài khoản Google không thể đặt mật khẩu");
+      return;
+    }
 
     updateUser(
       {
@@ -104,6 +110,7 @@ function AccountForm() {
                 Mật khẩu mới
               </Label>
               <Input
+             disabled={account?.provider === "GOOGLE"}
                 type="password"
                 name="password"
                 value={data.password}

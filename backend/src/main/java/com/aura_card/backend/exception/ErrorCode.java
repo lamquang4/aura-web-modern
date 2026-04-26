@@ -20,6 +20,8 @@ public enum ErrorCode {
 
     // User
     USER_NOT_FOUND("Người dùng không tồn tại", HttpStatus.NOT_FOUND),
+    GOOGLE_ACCOUNT_CANNOT_SET_PASSWORD("Tài khoản Google không thể đặt mật khẩu", HttpStatus.FORBIDDEN),
+    USER_HAS_SAVED_CARD("Người dùng đã có thiệp lưu, không thể xóa", HttpStatus.BAD_REQUEST),
 
     // Card
     CARD_NOT_FOUND("Thiệp không tồn tại", HttpStatus.NOT_FOUND),

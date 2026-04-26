@@ -92,6 +92,7 @@ export interface UserResponse {
   fullname: string;
   role: "CUSTOMER" | "ADMIN";
   status: "ACTIVE" | "LOCKED";
+  provider: "GOOGLE" | "LOCAL";
   createdAt?: string;
   updatedAt?: string;
 }
@@ -101,6 +102,7 @@ export interface AccountResponse {
   email: string;
   fullname: string;
   role: "CUSTOMER" | "ADMIN";
+  provider: "GOOGLE" | "LOCAL";
 }
 
 export interface CardListItemResponse {

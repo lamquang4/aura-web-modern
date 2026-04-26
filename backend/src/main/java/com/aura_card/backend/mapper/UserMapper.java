@@ -2,6 +2,7 @@ package com.aura_card.backend.mapper;
 
 import com.aura_card.backend.dto.request.CreateUserRequest;
 import com.aura_card.backend.dto.request.UpdateUserRequest;
+import com.aura_card.backend.dto.response.AccountResponse;
 import com.aura_card.backend.dto.response.UserResponse;
 import com.aura_card.backend.model.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -38,8 +39,19 @@ public class UserMapper {
                 .fullname(user.getFullname())
                 .role(user.getRole())
                 .status(user.getStatus())
+                .provider(user.getProvider())
                 .createdAt(user.getCreatedAt())
                 .updatedAt(user.getUpdatedAt())
+                .build();
+    }
+
+    public AccountResponse toAccountResponse(User user) {
+        return AccountResponse.builder()
+                .userId(user.getUserId())
+                .email(user.getEmail())
+                .fullname(user.getFullname())
+                .role(user.getRole())
+                .provider(user.getProvider()) 
                 .build();
     }
 }

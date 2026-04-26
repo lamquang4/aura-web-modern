@@ -69,6 +69,11 @@ function EditUserForm() {
       return;
     }
 
+    if (data.password.trim() && user?.provider === "GOOGLE") {
+      toast.error("Tài khoản Google không thể đặt mật khẩu");
+      return;
+    }
+
     updateUser(
       {
         userId: id ?? "",

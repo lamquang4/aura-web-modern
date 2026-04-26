@@ -14,4 +14,5 @@ public class AccountResponse {
     private String email;
     private String fullname;
     private String role;
+    private String provider;
 }
