@@ -143,9 +143,9 @@ function LoginModal({ onClose, onSwitchRegister }: Props) {
                     Đăng kí
                   </Button>
                 </p>
-              </form>
 
-              <SocialAuth title="đăng nhập" />
+                <SocialAuth title="đăng nhập" />
+              </form>
             </div>
           </div>
         </div>

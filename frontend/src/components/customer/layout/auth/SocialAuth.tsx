@@ -43,7 +43,7 @@ function SocialAuth({ title }: Props) {
             key={index}
             type="button"
             onClick={() => loginGoogle()}
-            className="w-full px-[12px] py-[8px] bg-white shadow-md rounded-md font-semibold text-white"
+            className="w-full px-[12px] py-[8px] border border-gray-300 bg-white shadow-md rounded-md font-semibold"
           >
             <div className="flex items-center justify-center gap-[10px]">
               <Image

@@ -124,11 +124,11 @@ function RegisterModal({ onClose, onSwitchLogin }: Props) {
                   </Label>
                   <Input
                     type="text"
-                    name="email"
-                    value={data.email}
+                    name="fullname"
+                    value={data.fullname}
                     onChange={handleChange}
                     className="text-[0.9rem] block w-full px-3 py-2 border border-gray-200"
-                    placeholder="Nhập email"
+                    placeholder="Nhập họ tên"
                     required
                   />
                 </div>
@@ -177,9 +177,9 @@ function RegisterModal({ onClose, onSwitchLogin }: Props) {
                     Đăng nhập
                   </Button>
                 </p>
-              </form>
 
-              <SocialAuth title="đăng ký" />
+                <SocialAuth title="đăng ký" />
+              </form>
             </div>
           </div>
         </div>
