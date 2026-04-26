@@ -71,7 +71,7 @@ function DesignPanel({
     >
       <div className="space-y-[15px]">
         <div className="space-y-[5px] w-full">
-          <Label className="text-[0.9rem] font-medium">Tên thiệp</Label>
+          <Label>Tên thiệp</Label>
           <Input
             value={design.name}
             onChange={(e) => onNameChange(e.target.value)}
@@ -82,7 +82,7 @@ function DesignPanel({
         </div>
 
         <div className="space-y-[5px] w-full">
-          <Label className="text-[0.9rem] font-medium">Lời chúc</Label>
+          <Label>Lời chúc</Label>
           <Textarea
             value={design.content}
             onChange={(e) => onContentChange(e.target.value)}
@@ -98,7 +98,7 @@ function DesignPanel({
         </div>
 
         <div className="space-y-[5px] w-full">
-          <Label className="text-[0.9rem] font-medium">Định dạng</Label>
+          <Label>Định dạng</Label>
           <div className="flex gap-2">
             {formatButtons.map((btn, i) => (
               <Button
@@ -116,7 +116,7 @@ function DesignPanel({
         </div>
 
         <div className="space-y-[5px] w-full">
-          <Label className="text-[0.9rem] font-medium">Kiểu chữ</Label>
+          <Label>Kiểu chữ</Label>
           <Select
             value={design.textStyle.fontFamily}
             onChange={(e) => onStyleChange({ fontFamily: e.target.value })}
@@ -131,7 +131,7 @@ function DesignPanel({
         </div>
 
         <div className="space-y-[5px] w-full">
-          <Label className="text-[0.9rem] font-medium">Màu chữ</Label>
+          <Label>Màu chữ</Label>
           <Sketch
             color={design.textStyle.fontColor}
             onChange={(color) => onStyleChange({ fontColor: color.hex })}

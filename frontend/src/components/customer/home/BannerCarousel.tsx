@@ -56,7 +56,7 @@ function BannerCarousel() {
                       <h2 className="leading-tight">{banner.title}</h2>
 
                       <Link
-                        to="/"
+                        to="/cards"
                         className="relative inline-flex items-center justify-center h-[45px] w-[120px] text-[0.9rem] font-semibold border border-black text-black overflow-hidden transition-colors duration-500 hover:text-white mx-auto md:mx-0 group"
                       >
                         <span className="relative z-10 flex items-center justify-center h-full">

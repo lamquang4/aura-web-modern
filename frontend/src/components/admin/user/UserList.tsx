@@ -6,7 +6,10 @@ import InputSearch from "../ui/InputSearch";
 import ListHeader from "../ui/list/ListHeader";
 import ListBody from "../ui/list/ListBody";
 import Button from "../../ui/Button";
-import { USER_STATUS_OPTIONS } from "../../../constants/filterOptions";
+import {
+  USER_ROLE_OPTIONS,
+  USER_STATUS_OPTIONS,
+} from "../../../constants/filterOptions";
 import { mockUsers } from "../../../mocks/mockUsers";
 import { LockKeyhole, LockKeyholeOpen, SquarePen, Trash2 } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -63,6 +66,14 @@ function UserList() {
 
               <th className="p-[1rem]">
                 <FilterDropDownMenu
+                  title="Chức vụ"
+                  array={USER_ROLE_OPTIONS}
+                  paramName="role"
+                />
+              </th>
+
+              <th className="p-[1rem]">
+                <FilterDropDownMenu
                   title="Tình trạng"
                   array={USER_STATUS_OPTIONS}
                   paramName="status"
@@ -85,6 +96,11 @@ function UserList() {
                     {user.fullname}
                   </td>
                   <td className="p-[1rem]  ">{user.email}</td>
+
+                  <td className="p-[1rem]">
+                    {user.role === "ADMIN" && "Quản trị viên"}
+                    {user.role === "CUSTOMER" && "Khách hàng"}
+                  </td>
 
                   <td className="p-[1rem]">
                     {user.status === "ACTIVE" && "Bình thường"}

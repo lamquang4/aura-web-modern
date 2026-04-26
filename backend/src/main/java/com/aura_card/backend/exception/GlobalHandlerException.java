@@ -66,6 +66,7 @@ public class GlobalHandlerException {
     // Helper: tạo ErrorResponse từ ErrorCode
     private ErrorResponse buildErrorResponse(ErrorCode errorCode, WebRequest request) {
         return ErrorResponse.builder()
+                .status(errorCode.getStatusCode().value())
                 .timestamp(LocalDateTime.now())
                 .message(errorCode.getMessage())
                 .path(request.getDescription(false).replace("uri=", ""))

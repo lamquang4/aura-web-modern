@@ -123,6 +123,18 @@
     <groupId>io.zipkin.reporter2</groupId>
     <artifactId>zipkin-reporter-brave</artifactId>
 </dependency>
+
+    <!-- Cloudinary -->
+    <dependency>
+        <groupId>com.cloudinary</groupId>
+        <artifactId>cloudinary-http44</artifactId>
+        <version>1.30.0</version>
+    </dependency>
+
+    <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-oauth2-client</artifactId>
+</dependency>
 	</dependencies>
 
 		<dependencyManagement>

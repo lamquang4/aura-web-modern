@@ -17,7 +17,7 @@ function LayoutRoute() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
-      <Route path="/cards/:slug" element={<CardListPage />} />
+      <Route path="/cards" element={<CardListPage />} />
       <Route path="/card/:id" element={<DesignPage />} />
       <Route path="/send/:id" element={<SendCardPage />} />
       <Route path="/account/profile" element={<AccountPage />} />

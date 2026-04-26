@@ -99,7 +99,7 @@ function MenuSide({ menuOpen, onToggleMenu }: Props) {
             <Image
               source={"/assets/logo.png"}
               alt=""
-              className="w-[100px]"
+              className="w-[90px]"
               loading="eager"
             />
           </Link>

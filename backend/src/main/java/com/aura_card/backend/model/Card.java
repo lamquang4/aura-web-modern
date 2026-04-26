@@ -40,7 +40,7 @@ public class Card {
 
     @NotNull(message = "Tình trạng không để trống")
     @Indexed
-    private Integer status; // ACTIVE | INACTIVE
+    private String status; // ACTIVE | INACTIVE
 
     @CreatedDate
     private LocalDateTime createdAt;

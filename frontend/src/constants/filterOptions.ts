@@ -9,6 +9,12 @@ export const USER_STATUS_OPTIONS = [
   { name: "Bị khóa", value: "LOCKED" },
 ];
 
+export const USER_ROLE_OPTIONS = [
+  COMMON_ALL_OPTION,
+  { name: "Quản trị viên", value: "ADMIN" },
+  { name: "Khách hàng", value: "CUSTOMER" },
+];
+
 export const CARD_STATUS_OPTIONS = [
   COMMON_ALL_OPTION,
   {

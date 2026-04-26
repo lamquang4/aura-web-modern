@@ -36,7 +36,7 @@ function Footer() {
 
               <li>
                 <Link
-                  to={"/cards/all"}
+                  to={"/cards"}
                   className="font-medium text-[0.9rem] hover:text-black"
                 >
                   Tất cả thiệp
@@ -61,7 +61,7 @@ function Footer() {
 
               <li>
                 <Link
-                  to={"/cards/all"}
+                  to={"/cards"}
                   className="font-medium text-[0.9rem] hover:text-black"
                 >
                   Tất cả thiệp
@@ -86,7 +86,7 @@ function Footer() {
 
               <li>
                 <Link
-                  to={"/cards/all"}
+                  to={"/cards"}
                   className="font-medium text-[0.9rem] hover:text-black"
                 >
                   Tất cả thiệp

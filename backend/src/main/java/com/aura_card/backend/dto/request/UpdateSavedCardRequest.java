@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class SavedCardRequest {
+public class UpdateSavedCardRequest {
     @NotBlank(message = "Tên thiệp không để trống")
     private String customName;
 

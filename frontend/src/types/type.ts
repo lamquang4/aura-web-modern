@@ -47,7 +47,17 @@ export interface UpdateCardRequest {
   status: "ACTIVE" | "INACTIVE";
 }
 
-export interface SavedCardRequest {
+export interface CreateSavedCardRequest {
+  customName: string;
+  customContent: string;
+  fontFamily: string;
+  fontWeight: string;
+  fontStyle: string;
+  fontColor: string;
+  cardId: string;
+}
+
+export interface UpdateSavedCardRequest {
   customName: string;
   customContent: string;
   fontFamily: string;
