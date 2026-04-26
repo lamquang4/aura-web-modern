@@ -1,15 +1,31 @@
 import { useState, useEffect } from "react";
 import CardFlip from "./CardFlip";
-import { mockSavedCardDetail } from "../../../mocks/mockSavedCardDetail";
 import Envelope from "./Envelope";
 import SendCardHeader from "./SendCardHeader";
+import { useGetSavedCardById } from "../../../hooks/queries/useSavedCards";
+import { useNavigate, useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function SendCardContainer() {
-  const card = mockSavedCardDetail;
+  const { id } = useParams();
+  const navigate = useNavigate();
 
   const [isOpened, setIsOpened] = useState(false);
   const [isFlipped, setIsFlipped] = useState(false);
   const [showButtons, setShowButtons] = useState(false);
+
+  const { data: savedCardData, isLoading } = useGetSavedCardById(id ?? "");
+  const savedCard = savedCardData?.data;
+
+  useEffect(() => {
+    if (isLoading) return;
+
+    if (!savedCard) {
+      toast.error("Thiệp không tìm thấy");
+      navigate("/cards");
+      return;
+    }
+  }, [isLoading, savedCard, navigate]);
 
   useEffect(() => {
     if (!isOpened) {
@@ -45,7 +61,7 @@ function SendCardContainer() {
           <Envelope isOpened={isOpened} onOpen={handleOpenEnvelop} />
         )}
 
-        {isOpened && <CardFlip card={card} isFlipped={isFlipped} />}
+        {isOpened && <CardFlip card={savedCard!} isFlipped={isFlipped} />}
       </main>
     </>
   );

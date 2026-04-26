@@ -6,10 +6,10 @@ import { useEffect, useState } from "react";
 import { EllipsisVertical } from "lucide-react";
 
 interface SavedCardItemProps {
-  savedcard: SavedCardListItemResponse;
+  savedCard: SavedCardListItemResponse;
 }
 
-function SavedCardItem({ savedcard }: SavedCardItemProps) {
+function SavedCardItem({ savedCard }: SavedCardItemProps) {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ function SavedCardItem({ savedcard }: SavedCardItemProps) {
   const handleToggleDropdown = (e: React.MouseEvent) => {
     e.stopPropagation();
     setOpenDropdown(
-      openDropdown === savedcard.savedCardId ? null : savedcard.savedCardId,
+      openDropdown === savedCard.savedCardId ? null : savedCard.savedCardId,
     );
   };
 
@@ -34,11 +34,11 @@ function SavedCardItem({ savedcard }: SavedCardItemProps) {
     <div className="flex flex-col gap-[10px] relative card-save">
       <div className="relative w-full aspect-[4/3] bg-[#e1e4e7] rounded-sm overflow-hidden">
         <Link
-          to={`/card/${savedcard.savedCardId}`}
+          to={`/card/${savedCard.savedCardId}`}
           className="absolute inset-0 flex items-center justify-center p-[15px]"
         >
           <Image
-            source={savedcard.card.frontImage}
+            source={savedCard.card.frontImage}
             alt={""}
             className={"w-full h-full object-contain"}
             loading="lazy"
@@ -52,9 +52,9 @@ function SavedCardItem({ savedcard }: SavedCardItemProps) {
           <EllipsisVertical size={20} />
         </button>
 
-        {openDropdown === savedcard.savedCardId && (
+        {openDropdown === savedCard.savedCardId && (
           <CardActionMenu
-            cardId={savedcard.savedCardId}
+            cardId={savedCard.savedCardId}
             onClose={() => setOpenDropdown(null)}
           />
         )}
@@ -62,10 +62,10 @@ function SavedCardItem({ savedcard }: SavedCardItemProps) {
 
       <div className="space-y-1">
         <h5 className="font-medium text-[0.95rem] truncate">
-          {savedcard.customName}
+          {savedCard.customName}
         </h5>
         <p className="text-[0.85rem] text-gray-500">
-          {new Date(savedcard.createdAt).toLocaleString("en-GB")}
+          {new Date(savedCard.createdAt).toLocaleString("en-GB")}
         </p>
       </div>
     </div>

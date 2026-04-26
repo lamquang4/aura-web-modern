@@ -5,7 +5,6 @@ import type {
   LoginResponse,
   RegisterRequest,
   OAuth2LoginRequest,
-  UserResponse,
 } from "../types/type";
 
 const BASE = "/api/auth";

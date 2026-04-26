@@ -10,38 +10,81 @@ import {
   USER_ROLE_OPTIONS,
   USER_STATUS_OPTIONS,
 } from "../../../constants/filterOptions";
-import { mockUsers } from "../../../mocks/mockUsers";
 import { LockKeyhole, LockKeyholeOpen, SquarePen, Trash2 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
+import {
+  useDeleteUser,
+  useGetAllUsers,
+  useGetMe,
+} from "../../../hooks/queries/useUsers";
+import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 
 function UserList() {
-  const totalItems = 12;
-  const totalPages = 1;
-  const limit = 12;
-  const currentPage = 1;
-  const isLoading = false;
-  const isLoadingUpdate = false;
-  const isLoadingDelete = false;
+  const [searchParams] = useSearchParams();
 
-  const users = mockUsers;
+  const page = Number(searchParams.get("page")) || 1;
+  const limit = Number(searchParams.get("limit")) || 12;
+  const q = searchParams.get("q") || undefined;
+  const role = searchParams.get("role") || undefined;
+  const status = searchParams.get("status") || undefined;
 
-  const handleDelete = async (id: string) => {
-    if (!id) {
-      return;
-    }
+  const { data: accountData } = useGetMe();
+  const account = accountData?.data;
 
-    /*
-    if (id === account?.id) {
+  const { data, isLoading } = useGetAllUsers({ page, limit, q, role, status });
+  const { mutate: toggleStatus, isPending: isLoadingUpdate } =
+    useUpdateUserStatus();
+  const { mutate: deleteUser, isPending: isLoadingDelete } = useDeleteUser();
+
+  const users = data?.data ?? [];
+  const totalItems = data?.total ?? 0;
+  const totalPages = data?.totalPages ?? 1;
+
+  const handleDelete = async (userId: string) => {
+    if (userId === account?.userId) {
       toast.error("Bạn không thể xóa chính tài khoản của mình");
       return;
     }
-      */
+
+    const result = await Swal.fire({
+      title: "Xác nhận xóa tài khoản",
+      text: "Bạn có chắc chắn muốn xóa tài khoản này không?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Đồng ý",
+      cancelButtonText: "Hủy",
+    });
+
+    if (!result.isConfirmed) return;
+
+    deleteUser(userId);
   };
 
-  const handleUpdateStatus = async (id: string, status: string) => {
-    if (!id && !status) {
+  const handleUpdateStatus = async (userId: string, status: string) => {
+    if (userId === account?.userId) {
+      toast.error("Bạn không thể tự khóa chính tài khoản của mình");
       return;
     }
+
+    const result = await Swal.fire({
+      title:
+        status === "LOCKED"
+          ? "Xác nhận khóa tài khoản"
+          : "Xác nhận mở khóa tài khoản",
+      text:
+        status === "LOCKED"
+          ? "Tài khoản này sẽ bị khóa và không thể đăng nhập."
+          : "Tài khoản này sẽ được mở khóa và có thể đăng nhập lại.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Đồng ý",
+      cancelButtonText: "Hủy",
+    });
+
+    if (!result.isConfirmed) return;
+
+    toggleStatus(userId);
   };
 
   return (
@@ -174,7 +217,7 @@ function UserList() {
 
       <Pagination
         totalPages={totalPages}
-        currentPage={currentPage}
+        currentPage={page}
         limit={limit}
         totalItems={totalItems}
       />
@@ -183,3 +226,6 @@ function UserList() {
 }
 
 export default UserList;
+function useUpdateUserStatus(): { mutate: any; isPending: any } {
+  throw new Error("Function not implemented.");
+}

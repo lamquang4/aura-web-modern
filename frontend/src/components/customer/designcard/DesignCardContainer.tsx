@@ -1,16 +1,24 @@
 import toast from "react-hot-toast";
-import { mockCardDetail } from "../../../mocks/mockCardDetail";
 import CardPreview from "./CardPreview";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { DesignStyle } from "../../../types/type";
 import DesignPanel from "./DesignPanel";
 import DesignCardHeader from "./DesignCardHeader";
+import { useGetCardById } from "../../../hooks/queries/useCards";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  useCreateSavedCard,
+  useGetSavedCardById,
+  useUpdateSavedCard,
+} from "../../../hooks/queries/useSavedCards";
 
 function DesignCardContainer() {
-  const card = mockCardDetail;
+  const navigate = useNavigate();
+  const { id } = useParams();
+
   const [design, setDesign] = useState<DesignStyle>({
-    content: card.content,
-    name: card.name,
+    content: "",
+    name: "",
     textStyle: {
       fontFamily: "Quicksand",
       fontColor: "#000000",
@@ -19,18 +27,79 @@ function DesignCardContainer() {
     },
   });
 
+  const { data: cardData, isLoading: isLoadingCard } = useGetCardById(id ?? "");
+  const card = cardData?.data;
+
+  const { data: savedCardData, isLoading: isLoadingSavedCard } =
+    useGetSavedCardById(id ?? "");
+  const savedCard = savedCardData?.data;
+
+  const { mutate: createSavedCard, isPending: isLoadingCreate } =
+    useCreateSavedCard();
+  const { mutate: updateSavedCard, isPending: isLoadingUpdate } =
+    useUpdateSavedCard();
+
+  const isLoading = isLoadingCard || isLoadingSavedCard;
+  const isLoadingSave = isLoadingCreate || isLoadingUpdate;
+
+  useEffect(() => {
+    if (isLoading) return;
+
+    if (!card && !savedCard) {
+      toast.error("Thiệp không tìm thấy");
+      navigate("/cards");
+      return;
+    }
+
+    if (savedCard) {
+      setDesign({
+        name: savedCard.customName || "",
+        content: savedCard.customContent || "",
+        textStyle: {
+          fontFamily: savedCard.fontFamily || "Quicksand",
+          fontColor: savedCard.fontColor || "#000000",
+          fontWeight: savedCard.fontWeight || "normal",
+          fontStyle: savedCard.fontStyle || "normal",
+        },
+      });
+      return;
+    }
+
+    if (card) {
+      setDesign((prev) => ({
+        ...prev,
+        name: card.name || "",
+        content: card.content || "",
+      }));
+    }
+  }, [isLoading, card, savedCard, navigate]);
+
   const updateDesign = (partial: Partial<DesignStyle>) => {
     setDesign((prev) => ({ ...prev, ...partial }));
   };
 
-  const isLoadingSave = false;
-
-  const handleSave = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (design.content.length > 200) {
       toast.error("Nội dung vượt quá 200 ký tự!");
       return;
+    }
+
+    const payload = {
+      customName: design.name,
+      customContent: design.content,
+      fontFamily: design.textStyle.fontFamily,
+      fontWeight: design.textStyle.fontWeight,
+      fontStyle: design.textStyle.fontStyle,
+      fontColor: design.textStyle.fontColor,
+      cardId: savedCard?.card.cardId ?? id ?? "",
+    };
+
+    if (savedCard) {
+      updateSavedCard({ savedCardId: id ?? "", data: payload });
+    } else {
+      createSavedCard(payload);
     }
   };
 
@@ -44,12 +113,12 @@ function DesignCardContainer() {
       >
         <form
           id="form-design"
-          onSubmit={handleSave}
+          onSubmit={handleSubmit}
           className="w-full justify-center flex gap-10 flex-wrap"
         >
           <CardPreview
-            frontImage={card.frontImage}
-            backImage={card.backImage}
+            frontImage={card?.frontImage ?? ""}
+            backImage={card?.backImage}
             content={design.content}
             textStyle={design.textStyle}
             onContentChange={(content) => updateDesign({ content })}

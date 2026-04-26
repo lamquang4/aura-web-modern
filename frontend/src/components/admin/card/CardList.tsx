@@ -1,4 +1,3 @@
-import { mockCardList } from "../../../mocks/mockCardLists";
 import Pagination from "../ui/Pagination";
 import ListBody from "../ui/list/ListBody";
 import InputSearch from "../ui/InputSearch";
@@ -9,29 +8,61 @@ import Loading from "../../ui/Loading";
 import Image from "../../ui/Image";
 import Button from "../../ui/Button";
 import { Eye, EyeOff, SquarePen, Trash2 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
+import {
+  useDeleteCard,
+  useGetAllCards,
+  useUpdateCardStatus,
+} from "../../../hooks/queries/useCards";
+import Swal from "sweetalert2";
 
 function CardList() {
-  const totalItems = 12;
-  const totalPages = 1;
-  const limit = 12;
-  const currentPage = 1;
-  const isLoading = false;
-  const isLoadingUpdate = false;
-  const isLoadingDelete = false;
+  const [searchParams] = useSearchParams();
 
-  const cards = mockCardList;
+  const page = Number(searchParams.get("page")) || 1;
+  const limit = Number(searchParams.get("limit")) || 12;
+  const q = searchParams.get("q") || undefined;
+  const status = searchParams.get("status") || undefined;
 
-  const handleDelete = async (id: string) => {
-    if (!id) {
-      return;
-    }
+  const { data, isLoading } = useGetAllCards({ page, limit, q, status });
+  const { mutate: updateStatus, isPending: isLoadingUpdate } =
+    useUpdateCardStatus();
+  const { mutate: deleteCard, isPending: isLoadingDelete } = useDeleteCard();
+
+  const cards = data?.data ?? [];
+  const totalItems = data?.total ?? 0;
+  const totalPages = data?.totalPages ?? 1;
+
+  const handleDelete = async (cardId: string) => {
+    const result = await Swal.fire({
+      title: "Xác nhận xóa thiệp",
+      text: "Bạn có chắc chắn muốn xóa thiệp này không?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Đồng ý",
+      cancelButtonText: "Hủy",
+    });
+
+    if (!result.isConfirmed) return;
+
+    deleteCard(cardId);
   };
 
-  const handleUpdateStatus = async (id: string, status: string) => {
-    if (!id && !status) {
-      return;
-    }
+  const handleUpdateStatus = async (cardId: string, status: string) => {
+    const result = await Swal.fire({
+      title:
+        status === "INACTIVE" ? "Xác nhận ẩn thiệp" : "Xác nhận hiện thiệp",
+      text:
+        status === "INACTIVE" ? "Thiệp này sẽ bị ẩn" : "Thiệp này sẽ được hiện",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Đồng ý",
+      cancelButtonText: "Hủy",
+    });
+
+    if (!result.isConfirmed) return;
+
+    updateStatus(cardId);
   };
 
   return (
@@ -114,8 +145,8 @@ function CardList() {
                         disabled={isLoadingUpdate}
                         onClick={() =>
                           handleUpdateStatus(
-                            card.cardId || "",
-                            card.status === "ACTIVE" ? "LOCKED" : "ACTIVE",
+                            card.cardId,
+                            card.status === "ACTIVE" ? "INACTIVE" : "ACTIVE",
                           )
                         }
                       >
@@ -176,7 +207,7 @@ function CardList() {
 
       <Pagination
         totalPages={totalPages}
-        currentPage={currentPage}
+        currentPage={page}
         limit={limit}
         totalItems={totalItems}
       />

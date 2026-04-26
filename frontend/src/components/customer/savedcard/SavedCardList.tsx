@@ -1,15 +1,18 @@
-import { mockSavedCardList } from "../../../mocks/mockSavedCardList";
-import Image from "../../ui/Image";
-import Loading from "../../ui/Loading";
+import { useSearchParams } from "react-router-dom";
 import Pagination from "../ui/Pagination";
 import SavedCardItem from "./SavedCardItem";
+import { useGetSavedCards } from "../../../hooks/queries/useSavedCards";
+import SavedCardSkeletonList from "../skeleton/SavedCardListSkeleton";
 
 function SavedCardList() {
-  const savedcards = mockSavedCardList;
-  const isLoading = false;
-  const totalPages = 1;
-  const currentPage = 1;
-  const totalItems = 12;
+  const [searchParams] = useSearchParams();
+
+  const page = Number(searchParams.get("page")) || 1;
+
+  const { data, isLoading } = useGetSavedCards({ page, limit: 6 });
+  const savedCards = data?.data ?? [];
+  const totalItems = data?.total ?? 0;
+  const totalPages = data?.totalPages ?? 1;
   return (
     <div className="w-full flex-1 px-[15px] bg-white">
       <div className="space-y-[20px]">
@@ -17,22 +20,18 @@ function SavedCardList() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           {isLoading ? (
-            <Loading height={60} size={50} color="black" thickness={2} />
-          ) : savedcards.length > 0 ? (
-            savedcards.map((savedcard) => (
-              <SavedCardItem savedcard={savedcard} />
+            <SavedCardSkeletonList />
+          ) : savedCards.length > 0 ? (
+            savedCards.map((savedCard) => (
+              <SavedCardItem savedCard={savedCard} />
             ))
           ) : (
             <div className="flex justify-center items-center h-[60vh]">
               <div className="flex flex-col justify-center items-center gap-[15px]">
-                <Image
-                  source={"/assets/empty1.png"}
-                  alt={""}
-                  className={"w-[120px]"}
-                  loading="eager"
-                />
-
-                <h4>Không có đơn hàng nào</h4>
+                <h4>
+                  Hãy chọn thiệp và viết những lời chúc <br /> cho người thân,
+                  bạn bè của bạn
+                </h4>
               </div>
             </div>
           )}
@@ -40,7 +39,7 @@ function SavedCardList() {
 
         <Pagination
           totalPages={totalPages}
-          currentPage={currentPage}
+          currentPage={page}
           totalItems={totalItems}
         />
       </div>

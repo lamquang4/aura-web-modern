@@ -6,6 +6,7 @@ import Input from "../../../ui/Input";
 import Label from "../../../ui/Label";
 import { Eye, EyeOff } from "lucide-react";
 import SocialAuth from "./SocialAuth";
+import { useLogin } from "../../../../hooks/queries/useAuth";
 
 type Props = {
   onClose: () => void;
@@ -16,7 +17,7 @@ function LoginModal({ onClose, onSwitchRegister }: Props) {
   const [data, setData] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const isLoading = false;
+  const { mutate: login, isPending: isLoading } = useLogin();
 
   const toggleShowPassword = () => {
     setShowPassword((prev) => !prev);
@@ -32,10 +33,20 @@ function LoginModal({ onClose, onSwitchRegister }: Props) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    setData({
-      email: "",
-      password: "",
-    });
+    login(
+      {
+        email: data.email.trim(),
+        password: data.password.trim(),
+      },
+      {
+        onSuccess: () => {
+          setData({
+            email: "",
+            password: "",
+          });
+        },
+      },
+    );
 
     onClose();
   };
@@ -74,7 +85,7 @@ function LoginModal({ onClose, onSwitchRegister }: Props) {
 
               <form className="space-y-[15px]" onSubmit={handleSubmit}>
                 <div className="space-y-[5px]">
-                  <Label htmlFor="" className="block text-[0.9rem] font-medium">
+                  <Label htmlFor="" required>
                     Email
                   </Label>
                   <Input
@@ -89,7 +100,7 @@ function LoginModal({ onClose, onSwitchRegister }: Props) {
                 </div>
 
                 <div className="space-y-[5px]">
-                  <Label htmlFor="" className="block text-[0.9rem] font-medium">
+                  <Label htmlFor="" required>
                     Mật khẩu
                   </Label>
 

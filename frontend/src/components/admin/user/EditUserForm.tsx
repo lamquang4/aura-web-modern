@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { validateEmail } from "../../../utils/validateEmail";
 import Input from "../../ui/Input";
 import Select from "../../ui/Select";
 import Button from "../../ui/Button";
 import Label from "../../ui/Label";
-import { mockUsers } from "../../../mocks/mockUsers";
+import {
+  useGetMe,
+  useGetUserById,
+  useUpdateUser,
+} from "../../../hooks/queries/useUsers";
 
 function EditUserForm() {
   const navigate = useNavigate();
@@ -18,9 +21,13 @@ function EditUserForm() {
     role: "",
   });
 
-  const isLoading = false;
-  const isLoadingUpdate = false;
-  const user = mockUsers[0];
+  const { data: userData, isLoading } = useGetUserById(id ?? "");
+  const { mutate: updateUser, isPending: isLoadingUpdate } = useUpdateUser();
+
+  const user = userData?.data;
+
+  const { data: accountData } = useGetMe();
+  const account = accountData?.data;
 
   useEffect(() => {
     if (isLoading) return;
@@ -57,10 +64,29 @@ function EditUserForm() {
       return;
     }
 
-    setData((prev) => ({
-      ...prev,
-      password: "",
-    }));
+    if (data.status === "LOCKED" && id === account?.userId) {
+      toast.error("Bạn không thể tự khóa chính tài khoản của mình");
+      return;
+    }
+
+    updateUser(
+      {
+        userId: id ?? "",
+        data: {
+          ...data,
+          role: data.role as "ADMIN" | "CUSTOMER",
+          status: data.status as "ACTIVE" | "LOCKED",
+        },
+      },
+      {
+        onSuccess: () => {
+          setData((prev) => ({
+            ...prev,
+            password: "",
+          }));
+        },
+      },
+    );
   };
 
   return (
@@ -93,7 +119,7 @@ function EditUserForm() {
               <Input
                 type="email"
                 name="email"
-                value={user.email}
+                value={user?.email}
                 onChange={handleChange}
                 required
                 readOnly

@@ -97,7 +97,7 @@ export const useUpdateCard = () => {
   const queryClient = useQueryClient();
 
   return useMutation<
-    ApiResponse<CardDetailResponse>,
+    ApiResponse<null>,
     AxiosError<ErrorResponse>,
     { cardId: string; data: FormData }
   >({

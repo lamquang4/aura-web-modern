@@ -41,7 +41,7 @@ export const useGetMe = () => {
 export const useGetAllUsers = (params?: GetUsersParams) => {
   return useQuery<ApiResponse<UserResponse[]>, AxiosError<ErrorResponse>>({
     queryKey: userKeys.listParams(params),
-    queryFn: () => userApi.getAll(params),
+    queryFn: () => userApi.getAllUsers(params),
     placeholderData: (prev) => prev,
   });
 };
@@ -49,7 +49,7 @@ export const useGetAllUsers = (params?: GetUsersParams) => {
 export const useGetUserById = (userId: string) => {
   return useQuery<ApiResponse<UserResponse>, AxiosError<ErrorResponse>>({
     queryKey: userKeys.detail(userId),
-    queryFn: () => userApi.getById(userId),
+    queryFn: () => userApi.getUserById(userId),
     enabled: !!userId,
   });
 };
@@ -62,7 +62,7 @@ export const useCreateUser = () => {
     AxiosError<ErrorResponse>,
     CreateUserRequest
   >({
-    mutationFn: userApi.create,
+    mutationFn: userApi.createUser,
 
     onSuccess: (res) => {
       queryClient.invalidateQueries({ queryKey: userKeys.lists() });
@@ -83,7 +83,7 @@ export const useUpdateUser = () => {
     AxiosError<ErrorResponse>,
     { userId: string; data: UpdateUserRequest }
   >({
-    mutationFn: ({ userId, data }) => userApi.update(userId, data),
+    mutationFn: ({ userId, data }) => userApi.updateUser(userId, data),
 
     onSuccess: (res, variables) => {
       queryClient.invalidateQueries({ queryKey: userKeys.lists() });
@@ -106,7 +106,7 @@ export const useToggleUserStatus = () => {
   const queryClient = useQueryClient();
 
   return useMutation<ApiResponse<null>, AxiosError<ErrorResponse>, string>({
-    mutationFn: userApi.updateStatus,
+    mutationFn: userApi.updateUserStatus,
 
     onSuccess: (res, userId) => {
       queryClient.invalidateQueries({ queryKey: userKeys.lists() });
@@ -127,7 +127,7 @@ export const useDeleteUser = () => {
   const queryClient = useQueryClient();
 
   return useMutation<ApiResponse<null>, AxiosError<ErrorResponse>, string>({
-    mutationFn: userApi.delete,
+    mutationFn: userApi.deleteUser,
 
     onSuccess: (res) => {
       queryClient.invalidateQueries({ queryKey: userKeys.lists() });

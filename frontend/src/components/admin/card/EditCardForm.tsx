@@ -6,9 +6,9 @@ import Input from "../../ui/Input";
 import Select from "../../ui/Select";
 import Button from "../../ui/Button";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { mockCardDetail } from "../../../mocks/mockCardDetail";
 import toast from "react-hot-toast";
 import Image from "../../ui/Image";
+import { useGetCardById, useUpdateCard } from "../../../hooks/queries/useCards";
 
 function EditCardForm() {
   const navigate = useNavigate();
@@ -19,11 +19,17 @@ function EditCardForm() {
     status: "",
   });
 
+  const { data: cardData, isLoading } = useGetCardById(id ?? "");
+  const { mutate: updateCard, isPending: isLoadingUpdate } = useUpdateCard();
+
+  const card = cardData?.data;
+
   const {
     previewImages: previewFrontImage,
     handlePreviewImage: handlePreviewFrontImage,
     handleRemovePreviewImage: handleRemoveFrontImage,
     handleReorder: handleReorderFront,
+    getOrderedFiles: getFrontFiles,
     clearImages: clearFrontImages,
   } = useInputImage(1);
 
@@ -32,18 +38,15 @@ function EditCardForm() {
     handlePreviewImage: handlePreviewBackImage,
     handleRemovePreviewImage: handleRemoveBackImage,
     handleReorder: handleReorderBack,
+    getOrderedFiles: getBackFiles,
     clearImages: clearBackImages,
   } = useInputImage(1);
-
-  const isLoading = false;
-  const isLoadingUpdate = false;
-  const card = mockCardDetail;
 
   useEffect(() => {
     if (isLoading) return;
 
     if (!card) {
-      toast.error("Quản trị viên không tìm thấy");
+      toast.error("Thiệp không tìm thấy");
       navigate("/admin/cards");
       return;
     }
@@ -68,10 +71,32 @@ function EditCardForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    clearFrontImages();
-    clearBackImages();
-  };
+    const formData = new FormData();
+    formData.append(
+      "data",
+      new Blob([JSON.stringify(data)], { type: "application/json" }),
+    );
 
+    const frontFiles = getFrontFiles();
+    if (frontFiles.length) {
+      formData.append("frontImage", frontFiles[0]);
+    }
+
+    const backFiles = getBackFiles();
+    if (backFiles.length) {
+      formData.append("backImage", backFiles[0]);
+    }
+
+    updateCard(
+      { cardId: id ?? "", data: formData },
+      {
+        onSuccess: () => {
+          clearFrontImages();
+          clearBackImages();
+        },
+      },
+    );
+  };
   return (
     <>
       <div className="py-[30px] sm:px-[25px] px-[15px] h-auto">

@@ -76,6 +76,7 @@ function DesignPanel({
             value={design.name}
             onChange={(e) => onNameChange(e.target.value)}
             type="text"
+            name="customName"
             required
             className="w-full border border-gray-300 rounded-sm p-[6px_10px] text-[0.9rem] outline-none focus:border-gray-400"
           />
@@ -85,6 +86,7 @@ function DesignPanel({
           <Label>Lời chúc</Label>
           <Textarea
             value={design.content}
+            name="customContent"
             onChange={(e) => onContentChange(e.target.value)}
             className={`w-full h-[150px] rounded-sm p-[6px_10px] border border-gray-300 focus:border-gray-400`}
             error={isOver}
@@ -118,6 +120,7 @@ function DesignPanel({
         <div className="space-y-[5px] w-full">
           <Label>Kiểu chữ</Label>
           <Select
+            name="fontFamily"
             value={design.textStyle.fontFamily}
             onChange={(e) => onStyleChange({ fontFamily: e.target.value })}
             className="w-full border border-gray-300 rounded-sm p-[6px_10px] text-[0.9rem] outline-none focus:border-gray-400"

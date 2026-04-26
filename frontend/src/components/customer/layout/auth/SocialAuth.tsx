@@ -2,17 +2,18 @@ import { memo } from "react";
 import Button from "../../../ui/Button";
 import Image from "../../../ui/Image";
 
+const providers = [
+  {
+    label: "Google",
+    img: "/assets/google.png",
+  },
+];
+
 type Props = {
   title: string;
 };
 
 function SocialAuth({ title }: Props) {
-  const providers = [
-    {
-      label: "Google",
-      img: "/assets/google.png",
-    },
-  ];
   return (
     <>
       <div className="flex items-center">

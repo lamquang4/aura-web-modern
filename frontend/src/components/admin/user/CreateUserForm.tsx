@@ -6,6 +6,7 @@ import Input from "../../ui/Input";
 import Button from "../../ui/Button";
 import Label from "../../ui/Label";
 import Select from "../../ui/Select";
+import { useCreateUser } from "../../../hooks/queries/useUsers";
 
 function CreateUserForm() {
   const [data, setData] = useState({
@@ -16,7 +17,7 @@ function CreateUserForm() {
     role: "",
   });
 
-  const isLoading = false;
+  const { mutate: createUser, isPending: isLoading } = useCreateUser();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -40,13 +41,26 @@ function CreateUserForm() {
       return;
     }
 
-    setData({
-      email: "",
-      password: "",
-      fullname: "",
-      status: "",
-      role: "",
-    });
+    createUser(
+      {
+        email: data.email.trim(),
+        fullname: data.fullname.trim(),
+        password: data.password.trim(),
+        role: data.role as "CUSTOMER" | "ADMIN",
+        status: data.status as "ACTIVE" | "LOCKED",
+      },
+      {
+        onSuccess: () => {
+          setData({
+            email: "",
+            fullname: "",
+            password: "",
+            status: "",
+            role: "",
+          });
+        },
+      },
+    );
   };
 
   return (

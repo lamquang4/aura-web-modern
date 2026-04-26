@@ -3,15 +3,17 @@ import { Link } from "react-router-dom";
 import { openAuthModal } from "../../../../redux/slices/AuthModalSlice";
 import { useDispatch } from "react-redux";
 import Button from "../../../ui/Button";
-import { mockUsers } from "../../../../mocks/mockUsers";
+import { useGetMe } from "../../../../hooks/queries/useUsers";
+import { useLogout } from "../../../../hooks/queries/useAuth";
 type Props = {
   profileMenuOpen: boolean;
 };
 
 function ProfileMenu({ profileMenuOpen }: Props) {
-  //  const { account, isLoading } = useGetAccount("CUSTOMER");
-  const isLoading = false;
-  const account = mockUsers[0];
+  const { data: accountData, isLoading } = useGetMe();
+  const account = accountData?.data;
+
+  const { logout } = useLogout();
 
   const dispatch = useDispatch();
 
@@ -38,7 +40,10 @@ function ProfileMenu({ profileMenuOpen }: Props) {
             Thiệp của tôi
           </Link>
 
-          <Button className="hover:bg-gray-100 w-full block p-2.5 text-left">
+          <Button
+            onClick={logout}
+            className="hover:bg-gray-100 w-full block p-2.5 text-left"
+          >
             Đăng xuất
           </Button>
         </>

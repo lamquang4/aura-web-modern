@@ -34,7 +34,7 @@ function DesignCardHeader({ isLoadingSave }: Props) {
 
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}>
               <Link
-                to="/cards/all"
+                to="/cards"
                 className="p-[6px_10px] bg-danger text-white text-[0.9rem] rounded-md"
               >
                 Trở về

@@ -8,6 +8,7 @@ import Input from "../../../ui/Input";
 import Label from "../../../ui/Label";
 import { Eye, EyeOff } from "lucide-react";
 import SocialAuth from "./SocialAuth";
+import { useRegister } from "../../../../hooks/queries/useAuth";
 
 type Props = {
   onClose: () => void;
@@ -22,7 +23,7 @@ function RegisterModal({ onClose, onSwitchLogin }: Props) {
   });
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const isLoading = false;
+  const { mutate: register, isPending: isLoading } = useRegister();
 
   const toggleShowPassword = () => {
     setShowPassword((prev) => !prev);
@@ -51,11 +52,22 @@ function RegisterModal({ onClose, onSwitchLogin }: Props) {
       return;
     }
 
-    setData({
-      fullname: "",
-      email: "",
-      password: "",
-    });
+    register(
+      {
+        fullname: data.fullname.trim(),
+        email: data.email.trim(),
+        password: data.password.trim(),
+      },
+      {
+        onSuccess: () => {
+          setData({
+            fullname: "",
+            email: "",
+            password: "",
+          });
+        },
+      },
+    );
   };
 
   return (
@@ -92,7 +104,7 @@ function RegisterModal({ onClose, onSwitchLogin }: Props) {
 
               <form className="space-y-[15px]" onSubmit={handleSubmit}>
                 <div className="space-y-[5px]">
-                  <Label htmlFor="" className="block text-[0.9rem] font-medium">
+                  <Label htmlFor="" required>
                     Email
                   </Label>
                   <Input
@@ -107,7 +119,7 @@ function RegisterModal({ onClose, onSwitchLogin }: Props) {
                 </div>
 
                 <div className="space-y-[5px]">
-                  <Label htmlFor="" className="block text-[0.9rem] font-medium">
+                  <Label htmlFor="" required>
                     Họ tên
                   </Label>
                   <Input
@@ -122,7 +134,7 @@ function RegisterModal({ onClose, onSwitchLogin }: Props) {
                 </div>
 
                 <div className="space-y-[5px]">
-                  <Label htmlFor="" className="block text-[0.9rem] font-medium">
+                  <Label htmlFor="" required>
                     Mật khẩu
                   </Label>
 

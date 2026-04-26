@@ -6,12 +6,13 @@ import Input from "../ui/Input";
 import Button from "../ui/Button";
 import Label from "../ui/Label";
 import { Eye, EyeOff } from "lucide-react";
+import { useLogin } from "../../hooks/queries/useAuth";
 
 function LoginForm() {
   const [data, setData] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const isLoading = false;
+  const { mutate: login, isPending: isLoading } = useLogin();
 
   const toggleShowPassword = () => {
     setShowPassword((prev) => !prev);
@@ -27,10 +28,20 @@ function LoginForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    setData({
-      email: "",
-      password: "",
-    });
+    login(
+      {
+        email: data.email.trim(),
+        password: data.password.trim(),
+      },
+      {
+        onSuccess: () => {
+          setData({
+            email: "",
+            password: "",
+          });
+        },
+      },
+    );
   };
 
   return (

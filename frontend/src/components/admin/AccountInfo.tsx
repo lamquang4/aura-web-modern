@@ -1,9 +1,10 @@
-import { mockUsers } from "../../mocks/mockUsers";
+import { useGetMe } from "../../hooks/queries/useUsers";
 import Input from "../ui/Input";
 import Label from "../ui/Label";
 
 function AccountInfo() {
-  const account = mockUsers[0];
+  const { data: accountData } = useGetMe();
+  const account = accountData?.data;
   return (
     <div className="py-[30px] sm:px-[25px] px-[15px] bg-[#F1F4F9] h-full">
       <form className="flex flex-col gap-7 w-full">

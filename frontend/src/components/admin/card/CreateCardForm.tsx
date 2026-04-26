@@ -6,6 +6,8 @@ import Input from "../../ui/Input";
 import Select from "../../ui/Select";
 import Button from "../../ui/Button";
 import { Link } from "react-router-dom";
+import { useCreateCard } from "../../../hooks/queries/useCards";
+import toast from "react-hot-toast";
 
 function CreateCardForm() {
   const [data, setData] = useState({
@@ -14,11 +16,14 @@ function CreateCardForm() {
     status: "",
   });
 
+  const { mutate: createCard, isPending: isLoading } = useCreateCard();
+
   const {
     previewImages: previewFrontImage,
     handlePreviewImage: handlePreviewFrontImage,
     handleRemovePreviewImage: handleRemoveFrontImage,
     handleReorder: handleReorderFront,
+    getOrderedFiles: getFrontFiles,
     clearImages: clearFrontImages,
   } = useInputImage(1);
 
@@ -27,10 +32,9 @@ function CreateCardForm() {
     handlePreviewImage: handlePreviewBackImage,
     handleRemovePreviewImage: handleRemoveBackImage,
     handleReorder: handleReorderBack,
+    getOrderedFiles: getBackFiles,
     clearImages: clearBackImages,
   } = useInputImage(1);
-
-  const isLoading = false;
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -45,13 +49,31 @@ function CreateCardForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    setData({
-      name: "",
-      content: "",
-      status: "",
+    const frontFiles = getFrontFiles();
+    if (!frontFiles.length) {
+      toast.error("Vui lòng chọn hình mặt trước");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append(
+      "data",
+      new Blob([JSON.stringify(data)], { type: "application/json" }),
+    );
+    formData.append("frontImage", frontFiles[0]);
+
+    const backFiles = getBackFiles();
+    if (backFiles.length) {
+      formData.append("backImage", backFiles[0]);
+    }
+
+    createCard(formData, {
+      onSuccess: () => {
+        setData({ name: "", content: "", status: "" });
+        clearFrontImages();
+        clearBackImages();
+      },
     });
-    clearFrontImages();
-    clearBackImages();
   };
   return (
     <>

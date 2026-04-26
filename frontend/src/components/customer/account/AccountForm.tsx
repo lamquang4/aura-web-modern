@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Input from "../../ui/Input";
 import Button from "../../ui/Button";
 import Label from "../../ui/Label";
-import { mockUsers } from "../../../mocks/mockUsers";
+import { useGetMe, useUpdateUser } from "../../../hooks/queries/useUsers";
 
 function AccountForm() {
   const [data, setData] = useState({
@@ -11,8 +11,10 @@ function AccountForm() {
     password: "",
   });
 
-  const account = mockUsers[0];
-  const isLoading = false;
+  const { data: accountData } = useGetMe();
+  const account = accountData?.data;
+
+  const { mutate: updateUser, isPending: isLoadingUpdate } = useUpdateUser();
 
   useEffect(() => {
     if (account) {
@@ -38,10 +40,24 @@ function AccountForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    setData((prev) => ({
-      ...prev,
-      password: "",
-    }));
+    updateUser(
+      {
+        userId: account?.userId ?? "",
+        data: {
+          ...data,
+          role: "CUSTOMER",
+          status: "ACTIVE",
+        },
+      },
+      {
+        onSuccess: () => {
+          setData((prev) => ({
+            ...prev,
+            password: "",
+          }));
+        },
+      },
+    );
   };
 
   return (
@@ -99,7 +115,7 @@ function AccountForm() {
 
           <div className="flex justify-center">
             <Button
-              disabled={isLoading}
+              disabled={isLoadingUpdate}
               type="submit"
               className="p-[6px_10px] bg-primary text-white text-[0.9rem] font-medium text-center rounded-sm"
             >

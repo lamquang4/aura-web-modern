@@ -153,10 +153,10 @@ export interface DesignStyle {
 }
 
 export interface TextStyle {
-  fontFamily?: string;
-  fontWeight?: string;
-  fontStyle?: string;
-  fontColor?: string;
+  fontFamily: string;
+  fontWeight: string;
+  fontStyle: string;
+  fontColor: string;
 }
 
 export interface JwtPayload {

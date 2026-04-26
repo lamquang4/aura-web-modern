@@ -12,7 +12,6 @@ import type {
   LoginResponse,
   RegisterRequest,
   OAuth2LoginRequest,
-  UserResponse,
 } from "../../types/type";
 
 // Đăng nhập thủ công
@@ -26,12 +25,13 @@ export const useLogin = () => {
   >({
     mutationFn: (data) => authApi.login(data),
     onSuccess: (res) => {
-      setCookie("token", res.data.token, 1);
-      toast.success("Đăng nhập thành công");
+      toast.success(res.message);
 
       if (res.data.role === "ADMIN") {
-        navigate("/admin");
+        setCookie("token-admin", res.data.token, 1);
+        navigate("/admin/account/profile");
       } else {
+        setCookie("token-customer", res.data.token, 1);
         navigate("/");
       }
     },
@@ -49,8 +49,8 @@ export const useRegister = (onSuccess?: () => void) => {
     RegisterRequest
   >({
     mutationFn: (data) => authApi.register(data),
-    onSuccess: () => {
-      toast.success("Đăng ký thành công");
+    onSuccess: (res) => {
+      toast.success(res.message);
       onSuccess?.();
     },
     onError: (error) => {
@@ -70,12 +70,13 @@ export const useLoginOAuth2 = () => {
   >({
     mutationFn: (data) => authApi.loginOAuth2(data),
     onSuccess: (res) => {
-      setCookie("token", res.data.token, 1);
-      toast.success("Đăng nhập thành công");
+      toast.success(res.message);
 
       if (res.data.role === "ADMIN") {
-        navigate("/admin");
+        setCookie("token-admin", res.data.token, 1);
+        navigate("/admin/account/profile");
       } else {
+        setCookie("token-customer", res.data.token, 1);
         navigate("/");
       }
     },
@@ -86,18 +87,21 @@ export const useLoginOAuth2 = () => {
 };
 
 // Đăng xuất
-export const useLogout = (role: "ADMIN" | "CUSTOMER") => {
+export const useLogout = () => {
   const navigate = useNavigate();
 
   const logout = () => {
-    removeCookie("token");
-    toast.success("Đăng xuất thành công");
+    const isAdmin = window.location.pathname.startsWith("/admin");
 
-    if (role === "ADMIN") {
+    if (isAdmin) {
+      removeCookie("token-admin");
       navigate("/admin/login");
     } else {
+      removeCookie("token-customer");
       navigate("/login");
     }
+
+    toast.success("Đăng xuất thành công");
   };
 
   return { logout };

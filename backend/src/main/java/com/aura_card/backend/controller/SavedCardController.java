@@ -30,7 +30,7 @@ public class SavedCardController {
     public ResponseEntity<ApiResponse<List<SavedCardListItemResponse>>> getSavedCards(
             @AuthenticationPrincipal String userId,
             @RequestParam(defaultValue = "1") int page,
-            @RequestParam(defaultValue = "12") int limit) {
+            @RequestParam(defaultValue = "6") int limit) {
 
         Page<SavedCardListItemResponse> data = savedCardService.getSavedCards(userId, page, limit);
 

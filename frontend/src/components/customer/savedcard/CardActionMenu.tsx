@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Copy, Eye, Mail, MessageCircleMore, Trash2 } from "lucide-react";
+import { useDeleteSavedCard } from "../../../hooks/queries/useSavedCards";
 
 interface CardActionMenuProps {
   cardId: string;
@@ -7,12 +8,17 @@ interface CardActionMenuProps {
 }
 
 function CardActionMenu({ cardId, onClose }: CardActionMenuProps) {
+  const { mutate: deleteSavedCard, isPending: isLoadingDelete } =
+    useDeleteSavedCard();
+
   const handleCopyLink = () => {
     navigator.clipboard.writeText(`${window.location.origin}/send/${cardId}`);
     onClose();
   };
 
   const handleDeleteSavedCard = () => {
+    deleteSavedCard(cardId);
+
     onClose();
   };
 
@@ -63,6 +69,7 @@ function CardActionMenu({ cardId, onClose }: CardActionMenuProps) {
       <button
         className="p-[16px_14px] hover:bg-gray-100 text-danger w-full"
         onClick={handleDeleteSavedCard}
+        disabled={isLoadingDelete}
       >
         <div className="flex items-center gap-2 font-medium">
           <Trash2 size={18} /> <span> Xóa thiệp lưu</span>

@@ -23,30 +23,30 @@ export const userApi = {
       .get<ApiResponse<AccountResponse>>(`${BASE}/me`)
       .then((r) => r.data),
 
-  getAll: (params?: GetUsersParams) =>
+  getAllUsers: (params?: GetUsersParams) =>
     axiosInstance
       .get<ApiResponse<UserResponse[]>>(BASE, { params })
       .then((r) => r.data),
 
-  getById: (userId: string) =>
+  getUserById: (userId: string) =>
     axiosInstance
       .get<ApiResponse<UserResponse>>(`${BASE}/${userId}`)
       .then((r) => r.data),
 
-  create: (data: CreateUserRequest) =>
+  createUser: (data: CreateUserRequest) =>
     axiosInstance.post<ApiResponse<null>>(BASE, data).then((r) => r.data),
 
-  update: (userId: string, data: UpdateUserRequest) =>
+  updateUser: (userId: string, data: UpdateUserRequest) =>
     axiosInstance
       .put<ApiResponse<null>>(`${BASE}/${userId}`, data)
       .then((r) => r.data),
 
-  updateStatus: (userId: string) =>
+  updateUserStatus: (userId: string) =>
     axiosInstance
       .patch<ApiResponse<null>>(`${BASE}/${userId}/toggle-status`)
       .then((r) => r.data),
 
-  delete: (userId: string) =>
+  deleteUser: (userId: string) =>
     axiosInstance
       .delete<ApiResponse<null>>(`${BASE}/${userId}`)
       .then((r) => r.data),
