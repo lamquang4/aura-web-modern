@@ -1,6 +1,8 @@
 import { memo } from "react";
 import Button from "../../../ui/Button";
 import Image from "../../../ui/Image";
+import { useLoginOAuth2 } from "../../../../hooks/queries/useAuth";
+import { useGoogleLogin } from "@react-oauth/google";
 
 const providers = [
   {
@@ -14,6 +16,17 @@ type Props = {
 };
 
 function SocialAuth({ title }: Props) {
+  const { mutate: loginOAuth2 } = useLoginOAuth2();
+
+  const loginGoogle = useGoogleLogin({
+    onSuccess: (response) => {
+      loginOAuth2({
+        provider: "GOOGLE",
+        accessToken: response.access_token,
+      });
+    },
+  });
+
   return (
     <>
       <div className="flex items-center">
@@ -29,7 +42,8 @@ function SocialAuth({ title }: Props) {
           <Button
             key={index}
             type="button"
-            className="w-full px-[12px] py-[8px] bg-[#DF4A32] rounded-md font-semibold text-white"
+            onClick={() => loginGoogle()}
+            className="w-full px-[12px] py-[8px] bg-white shadow-md rounded-md font-semibold text-white"
           >
             <div className="flex items-center justify-center gap-[10px]">
               <Image
