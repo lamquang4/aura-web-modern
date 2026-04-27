@@ -1,6 +1,6 @@
 // hooks/auth/useAuth.ts
 import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import type { AxiosError } from "axios";
 import { authApi } from "../../apis/authApi";
@@ -42,7 +42,7 @@ export const useLogin = () => {
 };
 
 // Đăng ký
-export const useRegister = (onSuccess?: () => void) => {
+export const useRegister = () => {
   return useMutation<
     ApiResponse<null>,
     AxiosError<ErrorResponse>,
@@ -51,7 +51,6 @@ export const useRegister = (onSuccess?: () => void) => {
     mutationFn: (data) => authApi.register(data),
     onSuccess: (res) => {
       toast.success(res.message);
-      onSuccess?.();
     },
     onError: (error) => {
       toast.error(error.response?.data?.message ?? "Đăng ký thất bại");
@@ -89,19 +88,13 @@ export const useLoginOAuth2 = () => {
 // Đăng xuất
 export const useLogout = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const logout = () => {
-    const isAdmin = window.location.pathname.startsWith("/admin");
+    const isAdmin = location.pathname.startsWith("/admin");
 
-    if (isAdmin) {
-      removeCookie("token-admin");
-      navigate("/admin/login");
-    } else {
-      removeCookie("token-customer");
-      navigate("/login");
-    }
-
-    toast.success("Đăng xuất thành công");
+    removeCookie(isAdmin ? "token-admin" : "token-customer");
+    navigate(isAdmin ? "/admin/login" : "/");
   };
 
   return { logout };

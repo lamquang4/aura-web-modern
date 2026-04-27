@@ -10,6 +10,8 @@ import type {
   UserResponse,
 } from "../../types/type";
 import type { AxiosError } from "axios";
+import { getCookie } from "../../utils/cookieUtil";
+import { useLocation } from "react-router-dom";
 
 export const userKeys = {
   all: ["users"] as const,
@@ -32,9 +34,19 @@ export const userKeys = {
 };
 
 export const useGetMe = () => {
+  const location = useLocation();
+
+  const isAdminRoute = location.pathname.startsWith("/admin");
+
+  const tokenCustomer = getCookie("token-customer");
+  const tokenAdmin = getCookie("token-admin");
+
+  const hasToken = isAdminRoute ? !!tokenAdmin : !!tokenCustomer;
+
   return useQuery<ApiResponse<AccountResponse>, AxiosError<ErrorResponse>>({
     queryKey: userKeys.me(),
     queryFn: userApi.getMe,
+    enabled: hasToken,
   });
 };
 
