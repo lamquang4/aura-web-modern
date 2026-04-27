@@ -13,8 +13,6 @@ public class CardMapper {
     public Card toCard(CreateCardRequest request) {
         return Card.builder()
                 .name(request.getName())
-                .frontImage(request.getFrontImage())
-                .backImage(request.getBackImage())
                 .content(request.getContent())
                 .status(request.getStatus())
                 .build();
@@ -22,8 +20,6 @@ public class CardMapper {
 
     public void updateCard(Card card, UpdateCardRequest request) {
         card.setName(request.getName());
-        card.setFrontImage(request.getFrontImage());
-        card.setBackImage(request.getBackImage());
         card.setContent(request.getContent());
         card.setStatus(request.getStatus());
     }

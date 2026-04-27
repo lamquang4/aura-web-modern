@@ -59,9 +59,6 @@ function CreateCardForm() {
       return;
     }
 
-    console.log("frontFiles:", frontFiles);
-    console.log("frontFiles[0]:", frontFiles[0]);
-
     const formData = new FormData();
     formData.append(
       "data",

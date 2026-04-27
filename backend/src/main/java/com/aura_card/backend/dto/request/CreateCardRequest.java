@@ -15,11 +15,6 @@ public class CreateCardRequest {
     @NotBlank(message = "Tên thiệp không để trống")
     private String name;
 
-    @NotBlank(message = "Hình mặt trước không để trống")
-    private String frontImage;
-
-    private String backImage;
-
     @NotBlank(message = "Nội dung không để trống")
     private String content;
 

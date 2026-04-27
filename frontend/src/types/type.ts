@@ -33,16 +33,12 @@ export interface UpdateUserRequest {
 
 export interface CreateCardRequest {
   name: string;
-  frontImage: string;
-  backImage?: string;
   content: string;
   status: "ACTIVE" | "INACTIVE";
 }
 
 export interface UpdateCardRequest {
   name: string;
-  frontImage: string;
-  backImage?: string;
   content: string;
   status: "ACTIVE" | "INACTIVE";
 }

@@ -29,7 +29,11 @@ public enum ErrorCode {
     CARD_IMAGE_UPLOAD_FAILED("Upload hình thất bại", HttpStatus.INTERNAL_SERVER_ERROR),
 
     // SavedCard
-    SAVED_CARD_NOT_FOUND("Thiệp lưu không tồn tại", HttpStatus.NOT_FOUND);
+    SAVED_CARD_NOT_FOUND("Thiệp lưu không tồn tại", HttpStatus.NOT_FOUND),
+
+    FRONT_IMAGE_REQUIRED("Hình mặt trước không để trống", HttpStatus.BAD_REQUEST),
+    INVALID_IMAGE_TYPE("Định dạng ảnh không hợp lệ (chỉ jpg, png, webp)", HttpStatus.BAD_REQUEST),
+    FILE_TOO_LARGE("Kích thước ảnh tối đa 2MB", HttpStatus.BAD_REQUEST);
 
     private final String message;
     private final HttpStatus statusCode;

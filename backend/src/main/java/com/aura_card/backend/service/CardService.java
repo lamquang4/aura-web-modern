@@ -40,18 +40,19 @@ public class CardService {
             throw new AppException(ErrorCode.CARD_NAME_ALREADY_EXISTS);
         }
 
-        // Save trước để có cardId
+        validateImage(frontImage, true);
+
         Card card = cardMapper.toCard(request);
-        card.setFrontImage("");
         Card saved = cardRepository.save(card);
         String cardId = saved.getCardId();
 
-        // Upload hình mặt trước (bắt buộc)
-        saved.setFrontImage(cloudinaryService.uploadImage(frontImage, cardId, "front"));
+        saved.setFrontImage(
+                cloudinaryService.uploadImage(frontImage, cardId, "front"));
 
-        // Upload hình mặt sau (không bắt buộc)
         if (backImage != null && !backImage.isEmpty()) {
-            saved.setBackImage(cloudinaryService.uploadImage(backImage, cardId, "back"));
+            validateImage(backImage, false);
+            saved.setBackImage(
+                    cloudinaryService.uploadImage(backImage, cardId, "back"));
         }
 
         return cardMapper.toDetailResponse(cardRepository.save(saved));
@@ -62,22 +63,35 @@ public class CardService {
             UpdateCardRequest request,
             MultipartFile frontImage,
             MultipartFile backImage) {
+
         Card card = cardRepository.findById(cardId)
                 .orElseThrow(() -> new AppException(ErrorCode.CARD_NOT_FOUND));
 
-        if (!request.getName().equals(card.getName()) && cardRepository.existsByName(request.getName())) {
+        if (!request.getName().equals(card.getName()) &&
+                cardRepository.existsByName(request.getName())) {
             throw new AppException(ErrorCode.CARD_NAME_ALREADY_EXISTS);
         }
 
         if (frontImage != null && !frontImage.isEmpty()) {
-            card.setFrontImage(cloudinaryService.uploadImage(frontImage, cardId, "front"));
+            validateImage(frontImage, false);
+
+            cloudinaryService.deleteImage(cardId, "front");
+
+            card.setFrontImage(
+                    cloudinaryService.uploadImage(frontImage, cardId, "front"));
         }
 
         if (backImage != null && !backImage.isEmpty()) {
-            card.setBackImage(cloudinaryService.uploadImage(backImage, cardId, "back"));
+            validateImage(backImage, false);
+
+            cloudinaryService.deleteImage(cardId, "back");
+
+            card.setBackImage(
+                    cloudinaryService.uploadImage(backImage, cardId, "back"));
         }
 
         cardMapper.updateCard(card, request);
+
         return cardMapper.toDetailResponse(cardRepository.save(card));
     }
 
@@ -141,5 +155,26 @@ public class CardService {
         }
         cloudinaryService.deleteFolder(cardId);
         cardRepository.deleteById(cardId);
+    }
+
+    private void validateImage(MultipartFile file, boolean required) {
+        if (required && (file == null || file.isEmpty())) {
+            throw new AppException(ErrorCode.FRONT_IMAGE_REQUIRED);
+        }
+
+        if (file == null || file.isEmpty())
+            return;
+
+        String contentType = file.getContentType();
+        if (contentType == null ||
+                !(contentType.equals("image/jpeg") ||
+                        contentType.equals("image/png") ||
+                        contentType.equals("image/webp"))) {
+            throw new AppException(ErrorCode.INVALID_IMAGE_TYPE);
+        }
+
+        if (file.getSize() > 5 * 1024 * 1024) { // 5MB
+            throw new AppException(ErrorCode.FILE_TOO_LARGE);
+        }
     }
 }
