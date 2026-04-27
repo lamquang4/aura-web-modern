@@ -1,5 +1,5 @@
 // hooks/auth/useAuth.ts
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import type { AxiosError } from "axios";
@@ -13,6 +13,7 @@ import type {
   RegisterRequest,
   OAuth2LoginRequest,
 } from "../../types/type";
+import { userKeys } from "./useUsers";
 
 // Đăng nhập thủ công
 export const useLogin = () => {
@@ -89,11 +90,13 @@ export const useLoginOAuth2 = () => {
 export const useLogout = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const queryClient = useQueryClient();
 
   const logout = () => {
     const isAdmin = location.pathname.startsWith("/admin");
 
     removeCookie(isAdmin ? "token-admin" : "token-customer");
+    queryClient.removeQueries({ queryKey: userKeys.me() });
     navigate(isAdmin ? "/admin/login" : "/");
   };
 
