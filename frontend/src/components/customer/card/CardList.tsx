@@ -16,42 +16,40 @@ function CardList({ title, cards, isLoading = false, total }: Props) {
   const search = searchParams.get("q");
 
   return (
-    <section className="mb-[40px] px-[15px] text-black">
-      <div className="mx-auto max-w-[1200px] w-full">
-        <h2 className="mb-[20px]">
-          {isLoading && "Đang tải..."}
-          {!isLoading && search && `Kết quả cho "${search}"`}
-          {!isLoading && !search && `${title ?? "Không tìm thấy"} (${total})`}
-        </h2>
+    <>
+      <h2 className="mb-[20px]">
+        {isLoading && "Đang tải..."}
+        {!isLoading && search && `Kết quả cho "${search}"`}
+        {!isLoading && !search && `${title ?? "Không tìm thấy"} (${total})`}
+      </h2>
 
-        {isLoading ? (
-          <CardListSkeleton count={12} />
-        ) : cards.length > 0 ? (
-          <div
-            className={`grid grid-cols-2 gap-x-[10px] gap-y-[35px] lg:grid-cols-3 2xl:grid-cols-4 ${
-              cards.length <= 0 ? "h-[50vh]" : ""
-            }`}
-          >
-            {cards.map((card) => {
-              return <CardItem card={card} />;
-            })}
-          </div>
-        ) : (
-          <div className="flex justify-center items-center h-[60vh]">
-            <div className="flex flex-col justify-center items-center gap-[15px]">
-              <Image
-                source={"/assets/notfound1.webp"}
-                className={"w-[135px]"}
-                alt={"not found"}
-                loading="eager"
-              />
+      {isLoading ? (
+        <CardListSkeleton count={12} />
+      ) : cards.length > 0 ? (
+        <div
+          className={`grid grid-cols-2 gap-x-[10px] gap-y-[35px] lg:grid-cols-3 2xl:grid-cols-4 ${
+            cards.length <= 0 ? "h-[50vh]" : ""
+          }`}
+        >
+          {cards.map((card) => {
+            return <CardItem card={card} />;
+          })}
+        </div>
+      ) : (
+        <div className="flex justify-center items-center h-[60vh]">
+          <div className="flex flex-col justify-center items-center gap-[15px]">
+            <Image
+              source={"/assets/notfound1.webp"}
+              className={"w-[135px]"}
+              alt={"not found"}
+              loading="eager"
+            />
 
-              <h4>Không tìm thấy thiệp nào</h4>
-            </div>
+            <h4>Không tìm thấy thiệp nào</h4>
           </div>
-        )}
-      </div>
-    </section>
+        </div>
+      )}
+    </>
   );
 }
 

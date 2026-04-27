@@ -5,12 +5,14 @@ import SendCardHeader from "./SendCardHeader";
 import { useGetSavedCardById } from "../../../hooks/queries/useSavedCards";
 import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
+import { AnimatePresence, motion } from "framer-motion";
 
 function SendCardContainer() {
   const { id } = useParams();
   const navigate = useNavigate();
 
   const [isOpened, setIsOpened] = useState(false);
+  const [showCard, setShowCard] = useState(false);
   const [isFlipped, setIsFlipped] = useState(false);
   const [showButtons, setShowButtons] = useState(false);
 
@@ -19,22 +21,26 @@ function SendCardContainer() {
 
   useEffect(() => {
     if (isLoading) return;
-
     if (!savedCard) {
       toast.error("Thiệp không tìm thấy");
       navigate("/cards");
-      return;
     }
   }, [isLoading, savedCard, navigate]);
 
   useEffect(() => {
     if (!isOpened) {
+      setShowCard(false);
+      setIsFlipped(false);
       setShowButtons(false);
       return;
     }
-    const t1 = setTimeout(() => setIsFlipped(true), 1600);
-    const t2 = setTimeout(() => setShowButtons(true), 3200);
+
+    const t0 = setTimeout(() => setShowCard(true), 700);
+    const t1 = setTimeout(() => setIsFlipped(true), 1500);
+
+    const t2 = setTimeout(() => setShowButtons(true), 2400);
     return () => {
+      clearTimeout(t0);
       clearTimeout(t1);
       clearTimeout(t2);
     };
@@ -42,11 +48,6 @@ function SendCardContainer() {
 
   const handleReset = () => {
     setIsOpened(false);
-    setIsFlipped(false);
-  };
-
-  const handleOpenEnvelop = () => {
-    setIsOpened(true);
   };
 
   return (
@@ -57,11 +58,21 @@ function SendCardContainer() {
         className="relative h-screen overflow-hidden bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: "url('/assets/bg-design.webp')" }}
       >
-        {!isOpened && (
-          <Envelope isOpened={isOpened} onOpen={handleOpenEnvelop} />
-        )}
+        <Envelope isOpened={isOpened} onOpen={() => setIsOpened(true)} />
 
-        {isOpened && <CardFlip card={savedCard!} isFlipped={isFlipped} />}
+        <AnimatePresence>
+          {showCard && savedCard && (
+            <motion.div
+              key="card"
+              className="h-full w-full"
+              initial={{ opacity: 0, scale: 0.92, y: 30 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+            >
+              <CardFlip card={savedCard} isFlipped={isFlipped} />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </main>
     </>
   );

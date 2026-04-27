@@ -10,16 +10,16 @@ interface Props {
 function CardFlip({ card, isFlipped }: Props) {
   return (
     <div className="h-full w-full flex justify-center items-center">
-      <div className="relative inline-flex">
+      <div style={{ perspective: "1000px" }} className="w-full max-w-[400px]">
         <motion.div
           animate={{ rotateY: isFlipped ? 180 : 0 }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
+          transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
           style={{ transformStyle: "preserve-3d" }}
-          className="relative w-full max-w-[400px]"
+          className="relative w-full"
         >
           <div
             style={{ backfaceVisibility: "hidden" }}
-            className={`${isFlipped ? "hidden" : "block"} shadow-xl rounded-sm overflow-hidden`}
+            className="shadow-xl rounded-sm overflow-hidden"
           >
             <Image
               source={card.card.frontImage}
@@ -34,7 +34,7 @@ function CardFlip({ card, isFlipped }: Props) {
               backfaceVisibility: "hidden",
               transform: "rotateY(180deg)",
             }}
-            className={`${isFlipped ? "block" : "hidden"} relative shadow-xl rounded-sm overflow-hidden`}
+            className="absolute inset-0 shadow-xl rounded-sm overflow-hidden"
           >
             <Image
               source={card.card.backImage || "/assets/white.png"}
