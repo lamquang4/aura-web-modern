@@ -154,13 +154,13 @@ function CreateUserForm() {
           <Button
             disabled={isLoading}
             type="submit"
-            className="p-[6px_10px] bg-teal-500 text-white text-[0.9rem] font-medium text-center hover:bg-teal-600 rounded-sm"
+            className="p-[6px_10px] hover-scale bg-success text-white font-medium text-center rounded-sm"
           >
             {isLoading ? "Đang thêm..." : "Thêm"}
           </Button>
           <Link
             to="/admin/users"
-            className="p-[6px_10px] bg-red-500 text-white text-[0.9rem] text-center hover:bg-red-600 rounded-sm"
+            className="p-[6px_10px] hover-scale bg-danger text-white text-[0.9rem] text-center rounded-sm"
           >
             Trở về
           </Link>

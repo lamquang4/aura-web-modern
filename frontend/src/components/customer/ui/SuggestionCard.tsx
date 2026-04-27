@@ -1,23 +1,28 @@
 import Loading from "../../ui/Loading";
 import Image from "../../ui/Image";
-import { memo } from "react";
+import { memo, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { mockCardList } from "../../../mocks/mockCardLists";
+import { useGetActiveCards } from "../../../hooks/queries/useCards";
+import useDebounce from "../../../hooks/useDebounce";
 
 type Props = {
   search: string;
 };
 function Suggestioncard({ search }: Props) {
-  const cards = mockCardList;
-  const isLoading = false;
+  const [keyword, setKeyword] = useState("");
 
-  /*
+  const debouncedKeyword = useDebounce(keyword, 500);
+
+  const { data, isLoading } = useGetActiveCards({
+    page: 1,
+    limit: 12,
+    q: debouncedKeyword,
+  });
+  const cards = data?.data ?? [];
+
   useEffect(() => {
-    if (search) {
-      setKeyword(search.trim());
-    }
-  }, [search, setKeyword]);
-  */
+    setKeyword(search.trim());
+  }, [search]);
 
   return (
     <>

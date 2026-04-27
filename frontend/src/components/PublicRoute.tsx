@@ -6,12 +6,12 @@ import type { JwtPayload } from "../types/type";
 interface PublicRouteProps {
   children: React.ReactNode;
   redirectPath: string;
-  type: "ADMIN" | "CUSTOMER";
+  role: "ADMIN" | "CUSTOMER";
 }
 
-const PublicRoute = ({ children, redirectPath, type }: PublicRouteProps) => {
+const PublicRoute = ({ children, redirectPath, role }: PublicRouteProps) => {
   const token =
-    type === "ADMIN"
+    role === "ADMIN"
       ? Cookies.get("token-admin")
       : Cookies.get("token-customer");
 
@@ -19,25 +19,26 @@ const PublicRoute = ({ children, redirectPath, type }: PublicRouteProps) => {
 
   try {
     const decoded = jwtDecode<JwtPayload>(token);
-    const role = decoded.role;
     const isExpired = decoded.exp * 1000 < Date.now();
+
     if (isExpired) {
-      Cookies.remove("token");
+      if (role === "ADMIN") {
+        Cookies.remove("token-admin");
+      } else {
+        Cookies.remove("token-customer");
+      }
       return <>{children}</>;
     }
 
-    // Nếu đã login redirect theo role
-    if (type === "ADMIN" && role === "ADMIN") {
-      return <Navigate to={redirectPath} replace />;
-    } else if (type === "CUSTOMER" && role === "CUSTOMER") {
-      return <Navigate to="/" replace />;
-    }
+    return <Navigate to={redirectPath} replace />;
   } catch {
-    Cookies.remove("token");
+    if (role === "ADMIN") {
+      Cookies.remove("token-admin");
+    } else {
+      Cookies.remove("token-customer");
+    }
     return <>{children}</>;
   }
-
-  return <>{children}</>;
 };
 
 export default PublicRoute;

@@ -9,6 +9,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import Image from "../../ui/Image";
 import { useGetCardById, useUpdateCard } from "../../../hooks/queries/useCards";
+import Textarea from "../../ui/Textarea";
 
 function EditCardForm() {
   const navigate = useNavigate();
@@ -59,7 +60,9 @@ function EditCardForm() {
   }, [isLoading, card, navigate]);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
   ) => {
     const { name, value } = e.target;
     setData((prev) => ({
@@ -167,6 +170,19 @@ function EditCardForm() {
                   onChange={handleChange}
                   required
                   className="border border-gray-300 p-[6px_10px] text-[0.9rem] w-full outline-none focus:border-gray-400  "
+                />
+              </div>
+
+              <div className="flex flex-col gap-1">
+                <Label htmlFor="" required>
+                  Nội dung
+                </Label>
+                <Textarea
+                  value={data.content}
+                  name="content"
+                  onChange={handleChange}
+                  className={`w-full h-[150px] rounded-sm p-[6px_10px] border border-gray-300 focus:border-gray-400`}
+                  placeholder="Nhập nội dung thiệp..."
                 />
               </div>
 

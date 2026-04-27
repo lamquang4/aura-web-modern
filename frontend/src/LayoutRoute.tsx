@@ -13,26 +13,153 @@ import CardListAdminPage from "./pages/admin/CardListPage";
 import CreateCardPage from "./pages/admin/CreateCardPage";
 import EditCardPage from "./pages/admin/EditCardPage";
 import AccountAdminPage from "./pages/admin/AccountPage";
+import PrivateRoute from "./components/PrivateRoute";
+import PublicRoute from "./components/PublicRoute";
 function LayoutRoute() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/cards" element={<CardListPage />} />
       <Route path="/card/:id" element={<DesignPage />} />
-      <Route path="/send/:id" element={<SendCardPage />} />
-      <Route path="/account/profile" element={<AccountPage />} />
-      <Route path="/saved" element={<SavedCardPage />} />
 
-      <Route path="/admin/login" element={<LoginPage />} />
-      <Route path="/admin/account/profile" element={<AccountAdminPage />} />
+      <Route
+        path="/send/:id"
+        element={
+          <PrivateRoute
+            allowedRoles={["CUSTOMER"]}
+            redirectPath="/"
+            role="CUSTOMER"
+          >
+            <SendCardPage />
+          </PrivateRoute>
+        }
+      />
 
-      <Route path="/admin/users" element={<UserListPage />} />
-      <Route path="/admin/users/create" element={<CreateUserPage />} />
-      <Route path="/admin/users/edit/:id" element={<EditUserPage />} />
+      <Route
+        path="/account/profile"
+        element={
+          <PrivateRoute
+            allowedRoles={["CUSTOMER"]}
+            redirectPath="/"
+            role="CUSTOMER"
+          >
+            <AccountPage />
+          </PrivateRoute>
+        }
+      />
 
-      <Route path="/admin/cards" element={<CardListAdminPage />} />
-      <Route path="/admin/cards/create" element={<CreateCardPage />} />
-      <Route path="/admin/cards/edit/:id" element={<EditCardPage />} />
+      <Route
+        path="/saved"
+        element={
+          <PrivateRoute
+            allowedRoles={["CUSTOMER"]}
+            redirectPath="/"
+            role="CUSTOMER"
+          >
+            <SavedCardPage />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/admin/login"
+        element={
+          <PublicRoute redirectPath="/admin/account/profile" role="ADMIN">
+            <LoginPage />
+          </PublicRoute>
+        }
+      />
+
+      <Route
+        path="/admin/account/profile"
+        element={
+          <PrivateRoute
+            allowedRoles={["ADMIN"]}
+            redirectPath="/admin/login"
+            role="ADMIN"
+          >
+            <AccountAdminPage />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/admin/users"
+        element={
+          <PrivateRoute
+            allowedRoles={["ADMIN"]}
+            redirectPath="/admin/login"
+            role="ADMIN"
+          >
+            <UserListPage />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/admin/users/create"
+        element={
+          <PrivateRoute
+            allowedRoles={["ADMIN"]}
+            redirectPath="/admin/login"
+            role="ADMIN"
+          >
+            <CreateUserPage />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/admin/users/edit/:id"
+        element={
+          <PrivateRoute
+            allowedRoles={["ADMIN"]}
+            redirectPath="/admin/login"
+            role="ADMIN"
+          >
+            <EditUserPage />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/admin/cards"
+        element={
+          <PrivateRoute
+            allowedRoles={["ADMIN"]}
+            redirectPath="/admin/login"
+            role="ADMIN"
+          >
+            <CardListAdminPage />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/admin/cards/create"
+        element={
+          <PrivateRoute
+            allowedRoles={["ADMIN"]}
+            redirectPath="/admin/login"
+            role="ADMIN"
+          >
+            <CreateCardPage />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/admin/cards/edit/:id"
+        element={
+          <PrivateRoute
+            allowedRoles={["ADMIN"]}
+            redirectPath="/admin/login"
+            role="ADMIN"
+          >
+            <EditCardPage />
+          </PrivateRoute>
+        }
+      />
     </Routes>
   );
 }

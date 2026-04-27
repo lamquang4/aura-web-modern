@@ -45,7 +45,7 @@ export const cardApi = {
 
   updateCardStatus: (cardId: string) =>
     axiosInstance
-      .patch<ApiResponse<null>>(`${BASE}/${cardId}/toggle-status`)
+      .patch<ApiResponse<null>>(`${BASE}/status/${cardId}`)
       .then((r) => r.data),
 
   deleteCard: (cardId: string) =>

@@ -16,6 +16,7 @@ import {
   useDeleteUser,
   useGetAllUsers,
   useGetMe,
+  useUpdateUserStatus,
 } from "../../../hooks/queries/useUsers";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
@@ -33,7 +34,7 @@ function UserList() {
   const account = accountData?.data;
 
   const { data, isLoading } = useGetAllUsers({ page, limit, q, role, status });
-  const { mutate: toggleStatus, isPending: isLoadingUpdate } =
+  const { mutate: updateUserStatus, isPending: isLoadingUpdate } =
     useUpdateUserStatus();
   const { mutate: deleteUser, isPending: isLoadingDelete } = useDeleteUser();
 
@@ -84,7 +85,7 @@ function UserList() {
 
     if (!result.isConfirmed) return;
 
-    toggleStatus(userId);
+    updateUserStatus(userId);
   };
 
   return (
@@ -226,6 +227,3 @@ function UserList() {
 }
 
 export default UserList;
-function useUpdateUserStatus(): { mutate: any; isPending: any } {
-  throw new Error("Function not implemented.");
-}

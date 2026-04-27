@@ -1,12 +1,15 @@
 import { Link, useLocation } from "react-router-dom";
 import Button from "../../ui/Button";
 import { DoorOpen, IdCardLanyard, User, UserStar } from "lucide-react";
-import { mockUsers } from "../../../mocks/mockUsers";
+import { useGetMe } from "../../../hooks/queries/useUsers";
 
 function SideBar() {
   const location = useLocation();
   const pathname = location.pathname;
-  const account = mockUsers[0];
+
+  const { data: accountData } = useGetMe();
+  const account = accountData?.data;
+
   return (
     <div className="w-full max-w-full lg:max-w-[300px] self-start lg:sticky lg:top-[5rem] bg-white ">
       <div className="text-[0.9rem] font-medium">

@@ -177,9 +177,9 @@ function RegisterModal({ onClose, onSwitchLogin }: Props) {
                     Đăng nhập
                   </Button>
                 </p>
-
-                <SocialAuth title="đăng ký" />
               </form>
+
+              <SocialAuth title="đăng ký" />
             </div>
           </div>
         </div>

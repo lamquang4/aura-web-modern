@@ -43,7 +43,7 @@ export const userApi = {
 
   updateUserStatus: (userId: string) =>
     axiosInstance
-      .patch<ApiResponse<null>>(`${BASE}/${userId}/toggle-status`)
+      .patch<ApiResponse<null>>(`${BASE}/status/${userId}`)
       .then((r) => r.data),
 
   deleteUser: (userId: string) =>

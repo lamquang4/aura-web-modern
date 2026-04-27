@@ -8,6 +8,7 @@ import Button from "../../ui/Button";
 import { Link } from "react-router-dom";
 import { useCreateCard } from "../../../hooks/queries/useCards";
 import toast from "react-hot-toast";
+import Textarea from "../../ui/Textarea";
 
 function CreateCardForm() {
   const [data, setData] = useState({
@@ -37,7 +38,9 @@ function CreateCardForm() {
   } = useInputImage(1);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
   ) => {
     const { name, value } = e.target;
     setData((prev) => ({
@@ -50,6 +53,7 @@ function CreateCardForm() {
     e.preventDefault();
 
     const frontFiles = getFrontFiles();
+
     if (!frontFiles.length) {
       toast.error("Vui lòng chọn hình mặt trước");
       return;
@@ -126,6 +130,19 @@ function CreateCardForm() {
               </div>
 
               <div className="flex flex-col gap-1">
+                <Label htmlFor="" required>
+                  Nội dung
+                </Label>
+                <Textarea
+                  value={data.content}
+                  name="content"
+                  onChange={handleChange}
+                  className={`w-full h-[150px] rounded-sm p-[6px_10px] border border-gray-300 focus:border-gray-400`}
+                  placeholder="Nhập nội dung thiệp..."
+                />
+              </div>
+
+              <div className="flex flex-col gap-1">
                 <Label htmlFor="" className="text-[0.9rem] font-medium">
                   Tình trạng
                 </Label>
@@ -148,7 +165,7 @@ function CreateCardForm() {
             <Button
               disabled={isLoading}
               type="submit"
-              className="p-[6px_10px] bg-success text-white text-[0.9rem] font-medium text-center rounded-sm"
+              className="p-[6px_10px] hover-scale bg-success text-white font-medium text-center rounded-sm"
             >
               {isLoading ? "Đang thêm..." : "Thêm"}
             </Button>

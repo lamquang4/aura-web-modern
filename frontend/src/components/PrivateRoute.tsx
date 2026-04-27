@@ -7,17 +7,17 @@ interface PrivateRouteProps {
   children: React.ReactNode;
   allowedRoles: string[];
   redirectPath: string;
-  type: "ADMIN" | "CUSTOMER";
+  role: "ADMIN" | "CUSTOMER";
 }
 
 const PrivateRoute = ({
   children,
   allowedRoles,
   redirectPath = "/login",
-  type,
+  role,
 }: PrivateRouteProps) => {
   const token =
-    type === "ADMIN"
+    role === "ADMIN"
       ? Cookies.get("token-admin")
       : Cookies.get("token-customer");
 
@@ -30,7 +30,7 @@ const PrivateRoute = ({
     // kiểm tra token hết hạn
     const isExpired = decoded.exp * 1000 < Date.now();
     if (isExpired) {
-      if (type === "ADMIN") {
+      if (role === "ADMIN") {
         Cookies.remove("token-admin");
       } else {
         Cookies.remove("token-customer");
@@ -45,7 +45,7 @@ const PrivateRoute = ({
 
     return <>{children}</>;
   } catch {
-    if (type === "ADMIN") {
+    if (role === "ADMIN") {
       Cookies.remove("token-admin");
     } else {
       Cookies.remove("token-customer");

@@ -102,7 +102,7 @@ export const useUpdateUser = () => {
   });
 };
 
-export const useToggleUserStatus = () => {
+export const useUpdateUserStatus = () => {
   const queryClient = useQueryClient();
 
   return useMutation<ApiResponse<null>, AxiosError<ErrorResponse>, string>({

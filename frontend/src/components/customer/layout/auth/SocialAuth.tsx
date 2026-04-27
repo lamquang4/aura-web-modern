@@ -37,22 +37,22 @@ function SocialAuth({ title }: Props) {
         <div className="flex-grow border-t border-gray-300" />
       </div>
 
-      <div className="grid grid-cols-auto gap-[10px]">
+      <div className="flex justify-center">
         {providers.map((provider, index) => (
           <Button
             key={index}
             type="button"
             onClick={() => loginGoogle()}
-            className="w-auto px-[12px] py-[8px] border border-gray-300 bg-white shadow-md rounded-md font-semibold"
+            className="px-[12px] py-[8px] border border-gray-300 bg-white shadow-md rounded-md font-semibold"
           >
             <div className="flex items-center justify-center gap-[10px]">
               <Image
                 source={provider.img}
                 alt=""
-                className="w-[80px]"
+                className="w-[30px]"
                 loading="eager"
               />
-              <span>{provider.label}</span>
+              <h5>{provider.label}</h5>
             </div>
           </Button>
         ))}
