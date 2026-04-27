@@ -1,5 +1,5 @@
 import { memo, useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Input from "../../../ui/Input";
 import Button from "../../../ui/Button";
 import SuggestionCard from "../../ui/SuggestionCard";
@@ -11,7 +11,7 @@ type Props = {
 
 function SearchMobile({ onToggleSearch, searchOpen }: Props) {
   const navigate = useNavigate();
-  const location = useLocation();
+
   const [search, setSearch] = useState<string>("");
   const [focused, setFocused] = useState<boolean>(false);
 
@@ -21,11 +21,7 @@ function SearchMobile({ onToggleSearch, searchOpen }: Props) {
     const query = search.trim();
     if (!query) return;
 
-    const isProductsPage = location.pathname.startsWith("/products");
-
-    const target = isProductsPage
-      ? `${location.pathname}?q=${encodeURIComponent(query)}`
-      : `/products/all?q=${encodeURIComponent(query)}`;
+    const target = `/cards?q=${encodeURIComponent(query)}`;
 
     navigate(target);
     setSearch("");

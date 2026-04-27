@@ -185,7 +185,7 @@ function EditCardForm() {
               </div>
 
               <div className="flex flex-col gap-1">
-                <Label htmlFor="" className="text-[0.9rem] font-medium">
+                <Label htmlFor="" required>
                   Tình trạng
                 </Label>
                 <Select

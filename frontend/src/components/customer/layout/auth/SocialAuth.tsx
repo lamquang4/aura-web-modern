@@ -43,7 +43,7 @@ function SocialAuth({ title }: Props) {
             key={index}
             type="button"
             onClick={() => loginGoogle()}
-            className="px-[12px] py-[8px] border border-gray-300 bg-white shadow-md rounded-md font-semibold"
+            className="px-[12px] py-[8px] border border-gray-300 bg-white shadow-md rounded-md"
           >
             <div className="flex items-center justify-center gap-[10px]">
               <Image
@@ -52,7 +52,7 @@ function SocialAuth({ title }: Props) {
                 className="w-[30px]"
                 loading="eager"
               />
-              <h5>{provider.label}</h5>
+              <h5 className="font-medium">{provider.label}</h5>
             </div>
           </Button>
         ))}

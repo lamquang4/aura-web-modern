@@ -73,7 +73,7 @@ function CreateUserForm() {
             <h5 className="font-bold text-neutral">Thông tin tài khoản</h5>
 
             <div className="flex flex-col gap-1">
-              <Label htmlFor="" className="text-[0.9rem] font-medium">
+              <Label htmlFor="" required>
                 Họ tên
               </Label>
               <Input
@@ -87,7 +87,7 @@ function CreateUserForm() {
             </div>
 
             <div className="flex flex-col gap-1">
-              <Label htmlFor="" className="text-[0.9rem] font-medium">
+              <Label htmlFor="" required>
                 Email
               </Label>
               <Input
@@ -135,7 +135,7 @@ function CreateUserForm() {
             </div>
 
             <div className="flex flex-col gap-1">
-              <Label htmlFor="" className="text-[0.9rem] font-medium">
+              <Label htmlFor="" required>
                 Mật khẩu
               </Label>
               <Input

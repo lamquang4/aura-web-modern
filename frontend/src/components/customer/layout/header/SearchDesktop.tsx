@@ -1,12 +1,12 @@
 import { memo, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Input from "../../../ui/Input";
 import Button from "../../../ui/Button";
 import SuggestionCard from "../../ui/SuggestionCard";
 
 function SearchDesktop() {
   const navigate = useNavigate();
-  const location = useLocation();
+
   const [search, setSearch] = useState<string>("");
   const [focused, setFocused] = useState<boolean>(false);
 
@@ -16,11 +16,7 @@ function SearchDesktop() {
     const query = search.trim();
     if (!query) return;
 
-    const isProductsPage = location.pathname.startsWith("/products");
-
-    const target = isProductsPage
-      ? `${location.pathname}?q=${encodeURIComponent(query)}`
-      : `/products/all?q=${encodeURIComponent(query)}`;
+    const target = `/cards?q=${encodeURIComponent(query)}`;
 
     navigate(target);
     setSearch("");

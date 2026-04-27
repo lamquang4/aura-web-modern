@@ -29,7 +29,7 @@ function FeatureSection() {
       <div className="mx-auto max-w-[1200px] w-full">
         <h2 className="mb-[20px]">Chức năng</h2>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-[15px] mx-auto w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[15px] mx-auto w-full">
           {features.map((item, index) => {
             return (
               <FeatureItem

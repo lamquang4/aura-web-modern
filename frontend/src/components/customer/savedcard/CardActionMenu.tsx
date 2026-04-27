@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Copy, Eye, Mail, MessageCircleMore, Trash2 } from "lucide-react";
 import { useDeleteSavedCard } from "../../../hooks/queries/useSavedCards";
+import toast from "react-hot-toast";
 
 interface CardActionMenuProps {
   cardId: string;
@@ -13,6 +14,7 @@ function CardActionMenu({ cardId, onClose }: CardActionMenuProps) {
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(`${window.location.origin}/send/${cardId}`);
+    toast.success("Sao chép link thành công");
     onClose();
   };
 
