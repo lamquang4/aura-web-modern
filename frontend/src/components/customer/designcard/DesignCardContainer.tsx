@@ -117,8 +117,8 @@ function DesignCardContainer() {
           className="w-full justify-center flex gap-10 flex-wrap"
         >
           <CardPreview
-            frontImage={card?.frontImage ?? ""}
-            backImage={card?.backImage}
+            frontImage={card?.frontImage ?? savedCard?.card.frontImage ?? ""}
+            backImage={card?.backImage ?? savedCard?.card.backImage ?? ""}
             content={design.content}
             textStyle={design.textStyle}
             onContentChange={(content) => updateDesign({ content })}

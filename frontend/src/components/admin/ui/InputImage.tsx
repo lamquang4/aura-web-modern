@@ -127,7 +127,7 @@ function InputImage({
                 <div className="absolute top-[6px] right-[6px]">
                   <Button
                     type="button"
-                    className="bg-white flex justify-center items-center"
+                    className="bg-white flex justify-center items-center rounded-full"
                     onClick={(e) => {
                       e.stopPropagation();
                       e.preventDefault();

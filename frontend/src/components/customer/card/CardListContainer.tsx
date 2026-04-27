@@ -8,7 +8,7 @@ function CardListContainer() {
   const [searchParams] = useSearchParams();
 
   const page = Number(searchParams.get("page")) || 1;
-  const limit = Number(searchParams.get("limit")) || 10;
+  const limit = Number(searchParams.get("limit")) || 12;
   const q = searchParams.get("q") || undefined;
 
   const { data, isLoading } = useGetActiveCards({ page, limit, q });

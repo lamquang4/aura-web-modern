@@ -55,7 +55,7 @@ public class UserController {
                 .build());
     }
 
-    // ADMIN - Lấy user theo id
+    // Lấy user theo id
     @GetMapping("/{userId}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ApiResponse<UserResponse>> getUserById(@PathVariable String userId) {

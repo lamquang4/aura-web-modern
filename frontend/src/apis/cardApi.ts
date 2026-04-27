@@ -11,7 +11,7 @@ const BASE = "/api/cards";
 export const cardApi = {
   getActiveCards: (params: { page?: number; limit?: number; q?: string }) =>
     axiosInstance
-      .get<ApiResponse<CardListItemResponse[]>>(BASE, { params })
+      .get<ApiResponse<CardListItemResponse[]>>(`${BASE}/active`, { params })
       .then((r) => r.data),
 
   getCardById: (cardId: string) =>
@@ -26,7 +26,7 @@ export const cardApi = {
     status?: string;
   }) =>
     axiosInstance
-      .get<ApiResponse<CardListItemResponse[]>>(`${BASE}/admin`, { params })
+      .get<ApiResponse<CardListItemResponse[]>>(`${BASE}`, { params })
       .then((r) => r.data),
 
   createCard: (data: FormData) =>
