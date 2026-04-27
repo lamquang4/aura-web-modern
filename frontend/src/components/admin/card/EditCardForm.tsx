@@ -116,7 +116,6 @@ function EditCardForm() {
                 onPreviewImage={handlePreviewFrontImage}
                 onRemovePreviewImage={handleRemoveFrontImage}
                 onReorderImages={handleReorderFront}
-                blockIndex={0}
               />
 
               <div className="flex gap-3 flex-wrap justify-center">
@@ -140,7 +139,6 @@ function EditCardForm() {
                 onPreviewImage={handlePreviewBackImage}
                 onRemovePreviewImage={handleRemoveBackImage}
                 onReorderImages={handleReorderBack}
-                blockIndex={0}
               />
               <div className="flex gap-3 flex-wrap justify-center">
                 {card?.backImage && (

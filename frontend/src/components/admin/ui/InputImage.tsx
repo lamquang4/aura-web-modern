@@ -14,25 +14,20 @@ type SortableImage = {
 type Props = {
   InputId: string;
   previewImages: string[];
-  onPreviewImage: (
-    e: React.ChangeEvent<HTMLInputElement>,
-    blockIndex: number,
-  ) => void;
-  onRemovePreviewImage: (index: number, blockIndex: number) => void;
+  onPreviewImage: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onRemovePreviewImage: (index: number) => void;
   onReorderImages: (orderedUrls: string[]) => void;
-  blockIndex: number;
 };
+
 function InputImage({
   InputId,
   previewImages,
   onPreviewImage,
   onRemovePreviewImage,
   onReorderImages,
-  blockIndex,
 }: Props) {
-  const [openViewer, setOpenViewer] = useState<boolean>(false);
-  const [viewerImage, setViewerImage] = useState<string>("");
-
+  const [openViewer, setOpenViewer] = useState(false);
+  const [viewerImage, setViewerImage] = useState("");
   const [sortableItems, setSortableItems] = useState<SortableImage[]>([]);
 
   useEffect(() => {
@@ -58,7 +53,7 @@ function InputImage({
       target: { files, value: "" },
     } as unknown as React.ChangeEvent<HTMLInputElement>;
 
-    onPreviewImage(syntheticEvent, blockIndex);
+    onPreviewImage(syntheticEvent);
   };
 
   const handleDragOver = (e: React.DragEvent<HTMLLabelElement>) => {
@@ -136,7 +131,7 @@ function InputImage({
                     onClick={(e) => {
                       e.stopPropagation();
                       e.preventDefault();
-                      onRemovePreviewImage(index, blockIndex);
+                      onRemovePreviewImage(index);
                     }}
                   >
                     <CircleX size={25} />
@@ -154,7 +149,7 @@ function InputImage({
           name="image"
           accept=".png,.jpg,.webp"
           multiple
-          onChange={(e) => onPreviewImage(e, blockIndex)}
+          onChange={(e) => onPreviewImage(e)}
         />
       </Label>
 

@@ -59,6 +59,9 @@ function CreateCardForm() {
       return;
     }
 
+    console.log("frontFiles:", frontFiles);
+    console.log("frontFiles[0]:", frontFiles[0]);
+
     const formData = new FormData();
     formData.append(
       "data",
@@ -95,7 +98,6 @@ function CreateCardForm() {
                 onPreviewImage={handlePreviewFrontImage}
                 onRemovePreviewImage={handleRemoveFrontImage}
                 onReorderImages={handleReorderFront}
-                blockIndex={0}
               />
             </div>
 
@@ -108,7 +110,6 @@ function CreateCardForm() {
                 onPreviewImage={handlePreviewBackImage}
                 onRemovePreviewImage={handleRemoveBackImage}
                 onReorderImages={handleReorderBack}
-                blockIndex={0}
               />
             </div>
 
