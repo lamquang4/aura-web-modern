@@ -23,7 +23,10 @@ function SavedCardList() {
         ) : savedCards.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {savedCards.map((savedCard) => (
-              <SavedCardItem savedCard={savedCard} />
+              <SavedCardItem
+                savedCard={savedCard}
+                key={savedCard.savedCardId}
+              />
             ))}
           </div>
         ) : (
@@ -37,9 +40,8 @@ function SavedCardList() {
               />
 
               <h4>
-                Hãy chọn thiệp và viết những lời chúc
-                <br />
-                cho người thân, bạn bè của bạn
+                Hãy chọn thiệp và viết những lời chúc cho người thân, bạn bè của
+                bạn
               </h4>
             </div>
           </div>

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import type { SavedCardListItemResponse } from "../../../types/type";
 import CardActionMenu from "./CardActionMenu";
 import Image from "../../ui/Image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { EllipsisVertical } from "lucide-react";
 
 interface SavedCardItemProps {
@@ -10,29 +10,32 @@ interface SavedCardItemProps {
 }
 
 function SavedCardItem({ savedCard }: SavedCardItemProps) {
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!openDropdown) return;
+    if (!isOpen) return;
     const handler = (e: MouseEvent) => {
-      if (!(e.target as HTMLElement).closest(".menu-dropdown")) {
-        setOpenDropdown(null);
+      if (!containerRef.current?.contains(e.target as Node)) {
+        setIsOpen(false);
       }
     };
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
-  }, [openDropdown]);
+  }, [isOpen]);
 
   const handleToggleDropdown = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setOpenDropdown(
-      openDropdown === savedCard.savedCardId ? null : savedCard.savedCardId,
-    );
+    e.preventDefault();
+    setIsOpen((prev) => !prev);
   };
 
   return (
     <div className="flex flex-col gap-[10px] relative card-save">
-      <div className="relative w-full aspect-[4/3] bg-[#e1e4e7] rounded-sm overflow-hidden">
+      <div
+        className="relative w-full aspect-[4/3] rounded-sm"
+        ref={containerRef}
+      >
         <Link
           to={`/card/${savedCard.savedCardId}`}
           className="absolute inset-0 flex items-center justify-center p-[15px]"
@@ -52,10 +55,10 @@ function SavedCardItem({ savedCard }: SavedCardItemProps) {
           <EllipsisVertical size={20} />
         </button>
 
-        {openDropdown === savedCard.savedCardId && (
+        {isOpen && (
           <CardActionMenu
             cardId={savedCard.savedCardId}
-            onClose={() => setOpenDropdown(null)}
+            onClose={() => setIsOpen(false)}
           />
         )}
       </div>
