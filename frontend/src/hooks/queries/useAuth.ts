@@ -18,6 +18,7 @@ import { userKeys } from "./useUsers";
 // Đăng nhập thủ công
 export const useLogin = () => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   return useMutation<
     ApiResponse<LoginResponse>,
@@ -30,11 +31,13 @@ export const useLogin = () => {
 
       if (res.data.role === "ADMIN") {
         setCookie("token-admin", res.data.token, 1);
-        navigate("/admin/account/profile");
       } else {
         setCookie("token-customer", res.data.token, 1);
-        navigate("/");
       }
+
+      queryClient.invalidateQueries({ queryKey: userKeys.me() });
+
+      navigate(res.data.role === "ADMIN" ? "/admin/account/profile" : "/");
     },
     onError: (error) => {
       toast.error(error.response?.data?.message ?? "Đăng nhập thất bại");
@@ -62,6 +65,7 @@ export const useRegister = () => {
 // Đăng nhập Google
 export const useLoginOAuth2 = () => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   return useMutation<
     ApiResponse<LoginResponse>,
@@ -74,11 +78,13 @@ export const useLoginOAuth2 = () => {
 
       if (res.data.role === "ADMIN") {
         setCookie("token-admin", res.data.token, 1);
-        navigate("/admin/account/profile");
       } else {
         setCookie("token-customer", res.data.token, 1);
-        navigate("/");
       }
+
+      queryClient.invalidateQueries({ queryKey: userKeys.me() });
+
+      navigate(res.data.role === "ADMIN" ? "/admin/account/profile" : "/");
     },
     onError: (error) => {
       toast.error(error.response?.data?.message ?? "Đăng nhập thất bại");

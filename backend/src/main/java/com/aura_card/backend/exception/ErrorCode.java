@@ -12,7 +12,7 @@ public enum ErrorCode {
     // Auth
     EMAIL_ALREADY_EXISTS("Email đã tồn tại", HttpStatus.CONFLICT),
     INVALID_CREDENTIALS("Email hoặc mật khẩu không đúng", HttpStatus.UNAUTHORIZED),
-    INVALID_PROVIDER("Tài khoản này đăng nhập bằng phương thức khác", HttpStatus.BAD_REQUEST),
+    INVALID_PROVIDER("Email này đã có tài khoản", HttpStatus.BAD_REQUEST),
     INVALID_OAUTH2_PROVIDER("Provider không hợp lệ", HttpStatus.BAD_REQUEST),
     ACCOUNT_LOCKED("Tài khoản đã bị khóa", HttpStatus.FORBIDDEN),
     UNAUTHORIZED("Chưa đăng nhập", HttpStatus.UNAUTHORIZED),

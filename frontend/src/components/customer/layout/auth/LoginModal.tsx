@@ -44,6 +44,7 @@ function LoginModal({ onClose, onSwitchRegister }: Props) {
             email: "",
             password: "",
           });
+          onClose();
         },
       },
     );
