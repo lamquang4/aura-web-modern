@@ -35,7 +35,7 @@ export const useLogin = () => {
         setCookie("token-customer", res.data.token, 1);
       }
 
-      queryClient.invalidateQueries({ queryKey: userKeys.me() });
+      queryClient.refetchQueries({ queryKey: userKeys.me() });
 
       navigate(res.data.role === "ADMIN" ? "/admin/account/profile" : "/");
     },
@@ -82,7 +82,7 @@ export const useLoginOAuth2 = () => {
         setCookie("token-customer", res.data.token, 1);
       }
 
-      queryClient.invalidateQueries({ queryKey: userKeys.me() });
+      queryClient.refetchQueries({ queryKey: userKeys.me() });
 
       navigate(res.data.role === "ADMIN" ? "/admin/account/profile" : "/");
     },
