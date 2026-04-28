@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import Button from "../../ui/Button";
 import { DoorOpen, IdCardLanyard, User, UserStar } from "lucide-react";
 import { useGetMe } from "../../../hooks/queries/useUsers";
+import { useLogout } from "../../../hooks/queries/useAuth";
 
 function SideBar() {
   const location = useLocation();
@@ -9,6 +10,8 @@ function SideBar() {
 
   const { data: accountData } = useGetMe();
   const account = accountData?.data;
+
+  const { logout } = useLogout();
 
   return (
     <div className="w-full max-w-full lg:max-w-[300px] self-start lg:sticky lg:top-[5rem] bg-white ">
@@ -52,7 +55,8 @@ function SideBar() {
 
         <Button
           type="button"
-          className="border-l-4 border-transparent py-3 px-3.5 text-left text-accent font-medium hover:bg-gray-100 w-full"
+          onClick={logout}
+          className="border-l-4 border-transparent py-3 px-3.5 text-left text-danger font-medium hover:bg-gray-100 w-full"
         >
           <div className="flex items-center gap-5">
             <DoorOpen size={20} />

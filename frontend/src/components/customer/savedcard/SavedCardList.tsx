@@ -39,10 +39,7 @@ function SavedCardList() {
                 loading="eager"
               />
 
-              <h4>
-                Hãy chọn thiệp và viết những lời chúc cho người thân, bạn bè của
-                bạn
-              </h4>
+              <h4>Hãy viết những lời chúc cho người thân và bạn bè</h4>
             </div>
           </div>
         )}
