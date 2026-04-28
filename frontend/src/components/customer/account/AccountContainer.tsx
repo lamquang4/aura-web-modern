@@ -1,5 +1,6 @@
 import SideBar from "../ui/SideBar";
-import AccountForm from "./AccountForm";
+import AccountInfo from "./AccountInfo";
+
 function AccountContainer() {
   return (
     <>
@@ -8,7 +9,7 @@ function AccountContainer() {
           <div className="flex justify-center flex-wrap gap-5">
             <SideBar />
 
-            <AccountForm />
+            <AccountInfo />
           </div>
         </div>
       </section>
