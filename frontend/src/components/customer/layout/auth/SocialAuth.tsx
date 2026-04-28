@@ -13,9 +13,10 @@ const providers = [
 
 type Props = {
   title: string;
+  onClose: () => void;
 };
 
-function SocialAuth({ title }: Props) {
+function SocialAuth({ title, onClose }: Props) {
   const { mutate: loginOAuth2 } = useLoginOAuth2();
 
   const loginGoogle = useGoogleLogin({
@@ -24,6 +25,7 @@ function SocialAuth({ title }: Props) {
         provider: "GOOGLE",
         accessToken: response.access_token,
       });
+      onClose();
     },
   });
 

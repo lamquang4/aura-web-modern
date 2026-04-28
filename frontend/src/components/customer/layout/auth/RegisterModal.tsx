@@ -179,7 +179,7 @@ function RegisterModal({ onClose, onSwitchLogin }: Props) {
                 </p>
               </form>
 
-              <SocialAuth title="đăng ký" />
+              <SocialAuth title="đăng ký" onClose={onClose} />
             </div>
           </div>
         </div>
