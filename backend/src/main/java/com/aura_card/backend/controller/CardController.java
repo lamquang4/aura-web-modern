@@ -42,15 +42,6 @@ public class CardController {
                                 .build());
         }
 
-        // Lấy thiệp theo id
-        @GetMapping("/{cardId}")
-        public ResponseEntity<ApiResponse<CardDetailResponse>> getCardById(@PathVariable String cardId) {
-                return ResponseEntity.ok(ApiResponse.<CardDetailResponse>builder()
-                                .message("Lấy thiệp thành công")
-                                .data(cardService.getCardById(cardId))
-                                .build());
-        }
-
         // Lấy tất cả thiệp
         @GetMapping
         @PreAuthorize("hasRole('ADMIN')")
@@ -67,6 +58,15 @@ public class CardController {
                                 .data(data.getContent())
                                 .total(data.getTotalElements())
                                 .totalPages(data.getTotalPages())
+                                .build());
+        }
+
+        // Lấy thiệp theo id
+        @GetMapping("/{cardId}")
+        public ResponseEntity<ApiResponse<CardDetailResponse>> getCardById(@PathVariable String cardId) {
+                return ResponseEntity.ok(ApiResponse.<CardDetailResponse>builder()
+                                .message("Lấy thiệp thành công")
+                                .data(cardService.getCardById(cardId))
                                 .build());
         }
 
