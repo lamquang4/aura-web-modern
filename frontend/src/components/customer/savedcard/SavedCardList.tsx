@@ -18,7 +18,11 @@ function SavedCardList() {
       <div className="space-y-[20px]">
         <h2>Thiệp của tôi</h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div
+          className={`grid grid-cols-1 sm:grid-cols-2 gap-5 ${
+            savedCards.length <= 0 ? "h-[50vh]" : ""
+          }`}
+        >
           {isLoading ? (
             <SavedCardSkeletonList />
           ) : savedCards.length > 0 ? (
