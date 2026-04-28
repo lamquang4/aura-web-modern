@@ -11,9 +11,13 @@ import {
   useGetSavedCardById,
   useUpdateSavedCard,
 } from "../../../hooks/queries/useSavedCards";
+import { useGetMe } from "../../../hooks/queries/useUsers";
+import { useDispatch } from "react-redux";
+import { openAuthModal } from "../../../redux/slices/AuthModalSlice";
 
 function DesignCardContainer() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { id } = useParams();
 
   const [design, setDesign] = useState<DesignStyle>({
@@ -29,6 +33,9 @@ function DesignCardContainer() {
 
   const { data: cardData, isLoading: isLoadingCard } = useGetCardById(id ?? "");
   const card = cardData?.data;
+
+  const { data: accountData } = useGetMe();
+  const account = accountData?.data;
 
   const { data: savedCardData, isLoading: isLoadingSavedCard } =
     useGetSavedCardById(id ?? "");
@@ -81,8 +88,14 @@ function DesignCardContainer() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (!account?.userId) {
+      dispatch(openAuthModal("login"));
+      toast.error("Bạn phải đăng nhập để lưu thiệp");
+      return;
+    }
+
     if (design.content.length > 200) {
-      toast.error("Nội dung vượt quá 200 ký tự!");
+      toast.error("Nội dung không vượt quá 200 ký tự");
       return;
     }
 
