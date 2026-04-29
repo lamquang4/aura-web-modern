@@ -1,5 +1,12 @@
 import { Link } from "react-router-dom";
-import { Copy, Eye, Mail, MessageCircleMore, Trash2 } from "lucide-react";
+import {
+  Copy,
+  Eye,
+  Mail,
+  MessageCircleMore,
+  Pencil,
+  Trash2,
+} from "lucide-react";
 import { useDeleteSavedCard } from "../../../hooks/queries/useSavedCards";
 import toast from "react-hot-toast";
 
@@ -26,6 +33,17 @@ function CardActionMenu({ cardId, onClose }: CardActionMenuProps) {
 
   return (
     <div className="absolute top-[40px] right-[8px] bg-white shadow-md rounded-sm z-20 p-0 w-[200px]">
+      <Link
+        className="p-[16px_14px] hover:bg-gray-100 w-full"
+        to={`/design/${cardId}`}
+        onClick={onClose}
+      >
+        <div className="flex items-center gap-2 font-medium text-info">
+          <Pencil size={18} />
+          <span>Chỉnh sửa thiệp lưu</span>
+        </div>
+      </Link>
+
       <Link
         className="p-[16px_14px] hover:bg-gray-100 w-full"
         to={`/send/${cardId}`}

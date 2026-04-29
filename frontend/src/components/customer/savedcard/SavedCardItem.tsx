@@ -31,9 +31,9 @@ function SavedCardItem({ savedCard }: SavedCardItemProps) {
   };
 
   return (
-    <div className="flex flex-col gap-[10px] relative card-save">
+    <div className="flex flex-col gap-[10px] relative">
       <div
-        className="relative w-full aspect-[4/3] rounded-sm"
+        className="relative w-full aspect-[4/3] rounded-sm bg-neutral"
         ref={containerRef}
       >
         <Link
