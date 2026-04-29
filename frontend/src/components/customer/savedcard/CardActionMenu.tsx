@@ -34,15 +34,25 @@ function CardActionMenu({ cardId, onClose }: CardActionMenuProps) {
   return (
     <div className="absolute top-[40px] right-[8px] bg-white shadow-md rounded-sm z-20 p-0 w-[200px]">
       <Link
-        className="p-[16px_14px] hover:bg-gray-100 w-full"
+        className="p-[16px_14px] hover:bg-gray-100 w-full text-info"
         to={`/design/${cardId}`}
         onClick={onClose}
       >
-        <div className="flex items-center gap-2 font-medium text-info">
+        <div className="flex items-center gap-2 font-medium ">
           <Pencil size={18} />
           <span>Chỉnh sửa thiệp lưu</span>
         </div>
       </Link>
+
+      <button
+        className="p-[16px_14px] hover:bg-gray-100 text-danger w-full"
+        onClick={handleDeleteSavedCard}
+        disabled={isLoadingDelete}
+      >
+        <div className="flex items-center gap-2 font-medium">
+          <Trash2 size={18} /> <span> Xóa thiệp lưu</span>
+        </div>
+      </button>
 
       <Link
         className="p-[16px_14px] hover:bg-gray-100 w-full"
@@ -76,7 +86,7 @@ function CardActionMenu({ cardId, onClose }: CardActionMenuProps) {
       </Link>
 
       <Link
-        className="p-[16px_14px] hover:bg-gray-100"
+        className="p-[16px_14px] hover:bg-gray-100 w-full"
         to={`https://mail.google.com/mail/u/0/?view=cm&fs=1&su=Gửi thiệp`}
         target="_blank"
         onClick={onClose}
@@ -85,16 +95,6 @@ function CardActionMenu({ cardId, onClose }: CardActionMenuProps) {
           <Mail size={18} /> <span>Chia sẻ Gmail</span>
         </div>
       </Link>
-
-      <button
-        className="p-[16px_14px] hover:bg-gray-100 text-danger w-full"
-        onClick={handleDeleteSavedCard}
-        disabled={isLoadingDelete}
-      >
-        <div className="flex items-center gap-2 font-medium">
-          <Trash2 size={18} /> <span> Xóa thiệp lưu</span>
-        </div>
-      </button>
     </div>
   );
 }
