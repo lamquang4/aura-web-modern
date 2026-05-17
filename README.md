@@ -1,8 +1,16 @@
-# WEBSITE THỜI TRANG
+# WEBSITE THIỆP CHÚC ĐIỆN TỬ
+
+Website cho phép người dùng viết lời chúc trên các mẫu thiệp có sẵn theo từng dịp lễ và gửi đến bạn bè, người thân hoặc người yêu.
 
 ![](docs/images/ui1.png)
 
 ![](docs/images/ui2.png)
+
+## Demo
+
+Website: [aura-web-modern.onrender.com](https://aura-web-modern.onrender.com)
+
+Admin: [aura-web-modern.onrender.com/admin/login](https://aura-web-modern.onrender.com/admin/login)
 
 ## Cài đặt môi trường
 
