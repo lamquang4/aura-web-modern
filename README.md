@@ -8,9 +8,9 @@ Website cho phép người dùng viết lời chúc trên các mẫu thiệp có
 
 ## Demo
 
-Website: [aura-web-modern.onrender.com](https://aura-web-modern.onrender.com)
+Website: [![Live Demo](https://img.shields.io/badge/Live_Demo-000000?style=flat-square&logo=render&logoColor=white)](https://aura-web-modern.onrender.com)
 
-Admin: [aura-web-modern.onrender.com/admin/login](https://aura-web-modern.onrender.com/admin/login)
+Admin: [![Live Demo](https://img.shields.io/badge/Live_Demo-000000?style=flat-square&logo=render&logoColor=white)](https://aura-web-modern.onrender.com/admin/login)
 
 ## Cài đặt môi trường
 
