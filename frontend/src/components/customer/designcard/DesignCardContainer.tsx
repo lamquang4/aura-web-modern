@@ -12,12 +12,12 @@ import {
   useUpdateSavedCard,
 } from "../../../hooks/queries/useSavedCards";
 import { useGetMe } from "../../../hooks/queries/useUsers";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../../redux/Store";
 import { openAuthModal } from "../../../redux/slices/AuthModalSlice";
 
 function DesignCardContainer() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { id } = useParams();
 
   const [design, setDesign] = useState<DesignStyle>({
@@ -91,6 +91,7 @@ function DesignCardContainer() {
     if (!account?.userId) {
       dispatch(openAuthModal("login"));
       toast.error("Bạn phải đăng nhập để lưu thiệp");
+      navigate("/");
       return;
     }
 
