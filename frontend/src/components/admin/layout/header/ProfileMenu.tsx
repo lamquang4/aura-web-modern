@@ -24,7 +24,7 @@ function ProfileMenu({ menuOpen, onToggleMenu }: Props) {
           onMouseEnter={onToggleMenu}
           onMouseLeave={onToggleMenu}
         >
-          <div className="flex cursor-pointer items-center gap-[6px]">
+          <div className="flex cursor-pointer items-center gap-2">
             <div className="w-[34px] h-[34px] p-1 rounded-full border border-gray-300 overflow-hidden">
               <Image
                 source="/assets/user.png"
