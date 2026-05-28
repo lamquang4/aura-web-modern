@@ -12,8 +12,8 @@ import {
   useUpdateSavedCard,
 } from "../../../hooks/queries/useSavedCards";
 import { useGetMe } from "../../../hooks/queries/useUsers";
-import { useAppDispatch } from "../../../redux/Store";
-import { openAuthModal } from "../../../redux/slices/AuthModalSlice";
+import { useAppDispatch } from "../../../redux/store";
+import { openAuthModal } from "../../../redux/slices/authModalSlice";
 
 function DesignCardContainer() {
   const navigate = useNavigate();
