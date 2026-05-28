@@ -2,11 +2,11 @@ import { memo } from "react";
 import Overplay from "../../ui/Overplay";
 import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
-import { useAppDispatch, useAppSelector } from "../../../../redux/store2";
+import { useAppDispatch, useAppSelector } from "../../../../redux/store";
 import {
   closeAuthModal,
   switchAuthModal,
-} from "../../../../redux/slices/authModalSlice2";
+} from "../../../../redux/slices/authModalSlice";
 
 function AuthModal() {
   const dispatch = useAppDispatch();

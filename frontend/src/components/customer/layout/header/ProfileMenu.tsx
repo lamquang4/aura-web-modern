@@ -1,10 +1,10 @@
 import { memo } from "react";
 import { Link } from "react-router-dom";
-import { openAuthModal } from "../../../../redux/slices/authModalSlice2";
+import { openAuthModal } from "../../../../redux/slices/authModalSlice";
 import Button from "../../../ui/Button";
 import { useGetMe } from "../../../../hooks/queries/useUsers";
 import { useLogout } from "../../../../hooks/queries/useAuth";
-import { useAppDispatch } from "../../../../redux/store2";
+import { useAppDispatch } from "../../../../redux/store";
 type Props = {
   profileMenuOpen: boolean;
 };
