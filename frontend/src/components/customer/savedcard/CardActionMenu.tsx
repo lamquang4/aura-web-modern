@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { useDeleteSavedCard } from "../../../hooks/queries/useSavedCards";
 import toast from "react-hot-toast";
+import Button from "../../ui/Button";
 
 interface CardActionMenuProps {
   cardId: string;
@@ -44,7 +45,7 @@ function CardActionMenu({ cardId, onClose }: CardActionMenuProps) {
         </div>
       </Link>
 
-      <button
+      <Button
         className="p-[16px_14px] hover:bg-gray-100 text-danger w-full"
         onClick={handleDeleteSavedCard}
         disabled={isLoadingDelete}
@@ -52,7 +53,7 @@ function CardActionMenu({ cardId, onClose }: CardActionMenuProps) {
         <div className="flex items-center gap-2 font-medium">
           <Trash2 size={18} /> <span> Xóa thiệp lưu</span>
         </div>
-      </button>
+      </Button>
 
       <Link
         className="p-[16px_14px] hover:bg-gray-100 w-full"
@@ -64,7 +65,7 @@ function CardActionMenu({ cardId, onClose }: CardActionMenuProps) {
         </div>
       </Link>
 
-      <button
+      <Button
         className="p-[16px_14px] hover:bg-gray-100 w-full"
         onClick={handleCopyLink}
       >
@@ -72,7 +73,7 @@ function CardActionMenu({ cardId, onClose }: CardActionMenuProps) {
           <Copy size={18} />
           <span>Sao chép link gửi</span>
         </div>
-      </button>
+      </Button>
 
       <Link
         className="p-[16px_14px] hover:bg-gray-100 w-full"
