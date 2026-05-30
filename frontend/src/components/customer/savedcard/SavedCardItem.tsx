@@ -4,6 +4,7 @@ import CardActionMenu from "./CardActionMenu";
 import Image from "../../ui/Image";
 import { useEffect, useRef, useState } from "react";
 import { EllipsisVertical } from "lucide-react";
+import Button from "../../ui/Button";
 
 interface SavedCardItemProps {
   savedCard: SavedCardListItemResponse;
@@ -48,12 +49,12 @@ function SavedCardItem({ savedCard }: SavedCardItemProps) {
           />
         </Link>
 
-        <button
+        <Button
           className="absolute top-[8px] right-[8px] w-[30px] h-[30px] p-1 bg-white flex justify-center items-center rounded-sm"
           onClick={handleToggleDropdown}
         >
           <EllipsisVertical size={20} />
-        </button>
+        </Button>
 
         {isOpen && (
           <CardActionMenu
