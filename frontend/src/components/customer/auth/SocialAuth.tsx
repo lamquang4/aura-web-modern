@@ -1,7 +1,7 @@
 import { memo } from "react";
-import Button from "../../../ui/Button";
-import Image from "../../../ui/Image";
-import { useLoginOAuth2 } from "../../../../hooks/queries/useAuth";
+import Button from "../../ui/Button";
+import Image from "../../ui/Image";
+import { useLoginOAuth2 } from "../../../hooks/queries/useAuth";
 import { useGoogleLogin } from "@react-oauth/google";
 
 const providers = [
@@ -49,7 +49,7 @@ function SocialAuth({ title, onClose }: Props) {
           >
             <div className="flex items-center justify-center gap-[10px]">
               <Image
-                source={provider.img}
+                src={provider.img}
                 alt=""
                 className="w-[30px]"
                 loading="eager"

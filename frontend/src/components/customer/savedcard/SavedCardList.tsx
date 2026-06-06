@@ -33,7 +33,7 @@ function SavedCardList() {
           <div className="flex justify-center items-center h-[60vh]">
             <div className="flex flex-col justify-center items-center gap-[15px]">
               <Image
-                source={"/assets/empty.png"}
+                src={"/assets/empty.png"}
                 className={"w-[120px]"}
                 alt={"empty"}
                 loading="eager"

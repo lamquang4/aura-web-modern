@@ -4,7 +4,7 @@ import SearchDesktop from "./SearchDesktop";
 import ProfileMenu from "./ProfileMenu";
 import { useCallback, useEffect, useState } from "react";
 import SearchMobile from "./SearchMobile";
-import AuthModal from "../auth/AuthModal";
+import AuthModal from "../../auth/AuthModal";
 import Button from "../../../ui/Button";
 import { Search, UserRound } from "lucide-react";
 import Overplay from "../../../ui/Overplay";
@@ -40,7 +40,7 @@ function Header() {
           <div className="w-full max-w-[1200px] mx-auto flex justify-between items-center">
             <Link to={"/"}>
               <Image
-                source={"/assets/logo.png"}
+                src={"/assets/logo.png"}
                 alt={"logo"}
                 className={"w-[80px]"}
                 loading="eager"
@@ -60,7 +60,7 @@ function Header() {
                 <div
                   className={`flex items-center gap-1 hover:text-white hover:bg-primary px-2 py-1.5 rounded-md group-hover:bg-primary group-hover:text-white`}
                 >
-                  <UserRound size={24} />
+                  <UserRound size={24} strokeWidth={1.5} />
                   <span className="font-medium">Tài khoản</span>
                 </div>
 
@@ -71,7 +71,7 @@ function Header() {
             {/* Mobile */}
             <div className="flex lg:hidden items-center gap-4 relative">
               <Button onClick={toggleSearch}>
-                <Search size={24} />
+                <Search size={24} strokeWidth={1.5} />
               </Button>
 
               <div
@@ -79,7 +79,7 @@ function Header() {
                 onMouseEnter={toggleProfileMenu}
                 onMouseLeave={toggleProfileMenu}
               >
-                <UserRound strokeWidth={1.5} size={24} />
+                <UserRound size={24} strokeWidth={1.5} />
                 <ProfileMenu profileMenuOpen={profileMenuOpen} />
               </div>
             </div>

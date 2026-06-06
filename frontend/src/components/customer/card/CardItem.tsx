@@ -16,7 +16,7 @@ function CardItem({ card }: Props) {
             }`}
           >
             <Image
-              source={card.frontImage}
+              src={card.frontImage}
               alt={card.name}
               className={`absolute object-contain inset-0 w-full h-full transition-opacity duration-300 ${
                 card.backImage ? "group-hover:opacity-0" : ""
@@ -26,7 +26,7 @@ function CardItem({ card }: Props) {
 
             {card.backImage && (
               <Image
-                source={card.backImage}
+                src={card.backImage}
                 alt={card.name}
                 className="absolute inset-0 object-contain w-full h-full opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                 loading="lazy"

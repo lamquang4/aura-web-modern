@@ -80,7 +80,7 @@ function BannerCarousel() {
                       className="cursor-grab active:cursor-grabbing flex justify-center md:justify-end"
                     >
                       <Image
-                        source={banner.image}
+                        src={banner.image}
                         alt="banner"
                         className="w-full sm:max-w-[330px] max-w-[280px]"
                         loading="eager"

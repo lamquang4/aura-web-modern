@@ -75,7 +75,7 @@ function CardPreview({
             >
               {frontImage && (
                 <Image
-                  source={frontImage}
+                  src={frontImage}
                   alt="Mặt trước thiệp"
                   className="w-full object-cover"
                   loading="eager"
@@ -91,7 +91,7 @@ function CardPreview({
               className="absolute inset-0 shadow-xl rounded-sm overflow-hidden bg-white"
             >
               <Image
-                source={backImage || "/assets/white.png"}
+                src={backImage || "/assets/white.png"}
                 alt="Mặt sau thiệp"
                 className="w-full object-cover"
                 loading="eager"

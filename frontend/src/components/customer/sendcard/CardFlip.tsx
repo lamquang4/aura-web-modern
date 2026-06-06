@@ -22,7 +22,7 @@ function CardFlip({ card, isFlipped }: Props) {
             className="shadow-xl rounded-sm overflow-hidden"
           >
             <Image
-              source={card.card.frontImage}
+              src={card.card.frontImage}
               alt="Mặt trước thiệp"
               className="w-full h-full block"
               loading="eager"
@@ -37,7 +37,7 @@ function CardFlip({ card, isFlipped }: Props) {
             className="absolute inset-0 shadow-xl rounded-sm overflow-hidden"
           >
             <Image
-              source={card.card.backImage || "/assets/white.png"}
+              src={card.card.backImage || "/assets/white.png"}
               alt="Mặt sau thiệp"
               className="w-full h-full block"
               loading="eager"

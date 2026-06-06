@@ -42,8 +42,8 @@ function SavedCardItem({ savedCard }: SavedCardItemProps) {
           className="absolute inset-0 flex items-center justify-center p-[15px]"
         >
           <Image
-            source={savedCard.card.frontImage}
-            alt={""}
+            src={savedCard.card.frontImage}
+            alt={savedCard.customName}
             className={"w-full h-full object-contain"}
             loading="lazy"
           />

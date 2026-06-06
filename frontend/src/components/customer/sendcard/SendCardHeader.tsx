@@ -14,7 +14,7 @@ function SendCardHeader({ showButtons, onReset }: Props) {
         <div className="w-full max-w-[1200px] mx-auto flex justify-between items-center">
           <Link to="/">
             <Image
-              source="/assets/logo.png"
+              src="/assets/logo.png"
               alt="logo"
               className="w-[80px]"
               loading="eager"

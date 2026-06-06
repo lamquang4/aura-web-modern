@@ -127,7 +127,7 @@ function EditCardForm() {
                   <div className="flex gap-3 flex-wrap justify-center">
                     {card?.frontImage && (
                       <Image
-                        source={card.frontImage}
+                        src={card.frontImage}
                         alt={card.name}
                         className="w-full max-w-[140px] shadow-lg"
                         loading="eager"
@@ -151,7 +151,7 @@ function EditCardForm() {
                   <div className="flex gap-3 flex-wrap justify-center">
                     {card?.backImage && (
                       <Image
-                        source={
+                        src={
                           card.backImage ? card.backImage : "/assets/white.png"
                         }
                         alt={card.name}

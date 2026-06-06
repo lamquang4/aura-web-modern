@@ -1,7 +1,7 @@
 import BannerCarousel from "./BannerCarousel";
-import FeatureSection from "./feature/FeatureSection";
+import FeatureSection from "./FeatureSection";
 import CardSlider from "../card/CardSlider";
-import CollectionSection from "./collection/CollectionSection";
+import CollectionSection from "./CollectionSection";
 import ScrollReveal from "../ui/ScrollReveal";
 import { useGetActiveCards } from "../../../hooks/queries/useCards";
 

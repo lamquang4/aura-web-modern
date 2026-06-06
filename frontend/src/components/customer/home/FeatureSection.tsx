@@ -1,4 +1,4 @@
-import FeatureItem from "./FeatureItem";
+import Image from "../../ui/Image";
 
 const features = [
   {
@@ -32,12 +32,23 @@ function FeatureSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[15px] mx-auto w-full">
           {features.map((item, index) => {
             return (
-              <FeatureItem
+              <div
+                className="w-full p-[15px] bg-white border border-gray-300"
                 key={index}
-                image={item.image}
-                desc={item.desc}
-                title={item.title}
-              />
+              >
+                <div className="mb-[30px]">
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    className="w-[45px]"
+                    loading="lazy"
+                  />
+                </div>
+                <div>
+                  <h4>{item.title}</h4>
+                  <p className="leading-[1.5rem]">{item.desc}</p>
+                </div>
+              </div>
             );
           })}
         </div>
