@@ -9,7 +9,7 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #74c69d;
+  --color-primary: #60a5fa;
   --color-success: #74c69d;
   --color-info: #076ffe;
   --color-danger: #d9534f;
@@ -72,6 +72,16 @@
     -webkit-appearance: none;
     margin: 0;
   }
+
+  table thead tr {
+    @apply bg-[#f1f4f9];
+  }
+  table thead tr th {
+    font-weight: 650;
+  }
+  table td:first-child {
+    font-weight: 600;
+  }
 }
 
 @layer components {
@@ -81,7 +91,7 @@
 }
 
 .swiper-pagination-bullet {
-  background-color: var(--color-text-primary) !important;
+  background-color: #444 !important;
   opacity: 1 !important;
 }
 .swiper-pagination-bullet-active {
