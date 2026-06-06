@@ -28,13 +28,13 @@ function Suggestioncard({ search }: Props) {
     <>
       <div className="p-2.5">
         <p className="font-medium text-balance">
-          Kết quả tìm kiếm cho <span className="text-[#FF424E]">{search}</span>
+          Kết quả tìm kiếm cho <span className="text-danger">{search}</span>
         </p>
       </div>
 
       <div className="overflow-y-auto max-h-96 flex flex-col">
         {isLoading ? (
-          <Loading height={25} size={35} color={"#FF424E"} thickness={3} />
+          <Loading height={25} size={35} color={"#d9534f"} thickness={3} />
         ) : cards.length > 0 ? (
           cards.map((card) => (
             <div className="flex w-full" key={card.cardId}>
