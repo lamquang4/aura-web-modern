@@ -1,5 +1,4 @@
 import { memo, useState, type ReactNode } from "react";
-import Overplay from "../ui/Overplay";
 import Image from "../../ui/Image";
 import { Link, useLocation } from "react-router-dom";
 import Button from "../../ui/Button";
@@ -9,6 +8,7 @@ import {
   IdCardLanyard,
   UsersRound,
 } from "lucide-react";
+import Overplay from "../../ui/Overplay";
 type Props = {
   menuOpen: boolean;
   onToggleMenu: () => void;
@@ -183,7 +183,7 @@ function MenuSide({ menuOpen, onToggleMenu }: Props) {
         </ul>
       </nav>
 
-      {menuOpen && <Overplay onClose={onToggleMenu} />}
+      {menuOpen && <Overplay className="xl:hidden" onClose={onToggleMenu} />}
     </>
   );
 }

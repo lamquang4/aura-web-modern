@@ -108,49 +108,59 @@ function EditCardForm() {
 
           <div className="flex gap-[25px] w-full flex-col">
             <div className="md:p-[25px] p-[15px] bg-white rounded-md flex flex-col gap-[15px] w-full">
-              <h5 className="font-bold text-neutral">Hình mặt trước</h5>
+              <h5 className="font-bold text-neutral">Hình thiệp</h5>
 
-              <InputImage
-                InputId="frontImage"
-                previewImages={previewFrontImage}
-                onPreviewImage={handlePreviewFrontImage}
-                onRemovePreviewImage={handleRemoveFrontImage}
-                onReorderImages={handleReorderFront}
-              />
+              <div className="flex gap-3 flex-col lg:flex-row items-start">
+                <div className=" flex flex-col gap-[15px] flex-1">
+                  <Label htmlFor="" required>
+                    Hình mặt trước
+                  </Label>
 
-              <div className="flex gap-3 flex-wrap justify-center">
-                {card?.frontImage && (
-                  <Image
-                    source={card.frontImage}
-                    alt={card.name}
-                    className="w-full max-w-[140px] shadow-lg"
-                    loading="eager"
+                  <InputImage
+                    InputId="frontImage"
+                    previewImages={previewFrontImage}
+                    onPreviewImage={handlePreviewFrontImage}
+                    onRemovePreviewImage={handleRemoveFrontImage}
+                    onReorderImages={handleReorderFront}
                   />
-                )}
-              </div>
-            </div>
 
-            <div className="md:p-[25px] p-[15px] bg-white rounded-md flex flex-col gap-[15px] w-full">
-              <h5 className="font-bold text-neutral">Hình mặt sau</h5>
+                  <div className="flex gap-3 flex-wrap justify-center">
+                    {card?.frontImage && (
+                      <Image
+                        source={card.frontImage}
+                        alt={card.name}
+                        className="w-full max-w-[140px] shadow-lg"
+                        loading="eager"
+                      />
+                    )}
+                  </div>
+                </div>
 
-              <InputImage
-                InputId="backImage"
-                previewImages={previewBackImage}
-                onPreviewImage={handlePreviewBackImage}
-                onRemovePreviewImage={handleRemoveBackImage}
-                onReorderImages={handleReorderBack}
-              />
-              <div className="flex gap-3 flex-wrap justify-center">
-                {card?.backImage && (
-                  <Image
-                    source={
-                      card.backImage ? card.backImage : "/assets/white.png"
-                    }
-                    alt={card.name}
-                    className="w-full max-w-[140px] shadow-lg"
-                    loading="eager"
+                <div className="flex flex-col gap-[15px] flex-1">
+                  <Label htmlFor="" required>
+                    Hình mặt sau
+                  </Label>
+
+                  <InputImage
+                    InputId="backImage"
+                    previewImages={previewBackImage}
+                    onPreviewImage={handlePreviewBackImage}
+                    onRemovePreviewImage={handleRemoveBackImage}
+                    onReorderImages={handleReorderBack}
                   />
-                )}
+                  <div className="flex gap-3 flex-wrap justify-center">
+                    {card?.backImage && (
+                      <Image
+                        source={
+                          card.backImage ? card.backImage : "/assets/white.png"
+                        }
+                        alt={card.name}
+                        className="w-full max-w-[140px] shadow-lg"
+                        loading="eager"
+                      />
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
 

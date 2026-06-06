@@ -1,12 +1,12 @@
 import Image from "../ui/Image";
 import { useState } from "react";
 import Loading from "../ui/Loading";
-import Overplay from "./ui/Overplay";
 import Input from "../ui/Input";
 import Button from "../ui/Button";
 import Label from "../ui/Label";
 import { Eye, EyeOff } from "lucide-react";
 import { useLogin } from "../../hooks/queries/useAuth";
+import Overplay from "../ui/Overplay";
 
 function LoginForm() {
   const [data, setData] = useState({ email: "", password: "" });
@@ -125,7 +125,7 @@ function LoginForm() {
       </section>
 
       {isLoading && (
-        <Overplay>
+        <Overplay className="xl:hidden">
           <Loading height={0} size={55} color="white" thickness={8} />
           <h4 className="text-white">Vui lòng chờ trong giây lát ...</h4>
         </Overplay>

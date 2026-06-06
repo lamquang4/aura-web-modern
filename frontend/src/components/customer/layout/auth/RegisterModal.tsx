@@ -1,7 +1,6 @@
 import { memo, useState } from "react";
 import toast from "react-hot-toast";
 import { validateEmail } from "../../../../utils/validateEmail";
-import Overplay from "../../ui/Overplay";
 import Loading from "../../../ui/Loading";
 import Button from "../../../ui/Button";
 import Input from "../../../ui/Input";
@@ -9,6 +8,7 @@ import Label from "../../../ui/Label";
 import { Eye, EyeOff } from "lucide-react";
 import SocialAuth from "./SocialAuth";
 import { useRegister } from "../../../../hooks/queries/useAuth";
+import Overplay from "../../../ui/Overplay";
 
 type Props = {
   onClose: () => void;
@@ -186,7 +186,7 @@ function RegisterModal({ onClose, onSwitchLogin }: Props) {
       </div>
 
       {isLoading && (
-        <Overplay IndexForZ={99}>
+        <Overplay className="z-99">
           <Loading height={0} size={55} color="white" thickness={8} />
           <h4 className="text-white">Vui lòng chờ trong giây lát...</h4>
         </Overplay>

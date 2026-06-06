@@ -1,5 +1,4 @@
 import { memo } from "react";
-import Overplay from "../../ui/Overplay";
 import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
 import { useAppDispatch, useAppSelector } from "../../../../redux/store";
@@ -7,6 +6,7 @@ import {
   closeAuthModal,
   switchAuthModal,
 } from "../../../../redux/slices/authModalSlice";
+import Overplay from "../../../ui/Overplay";
 
 function AuthModal() {
   const dispatch = useAppDispatch();
@@ -28,7 +28,7 @@ function AuthModal() {
           onSwitchLogin={() => dispatch(switchAuthModal("login"))}
         />
       )}
-      <Overplay onClose={() => dispatch(closeAuthModal())} IndexForZ={97} />
+      <Overplay onClose={() => dispatch(closeAuthModal())} className="z-97" />
     </>
   );
 }

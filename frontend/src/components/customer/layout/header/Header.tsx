@@ -4,10 +4,10 @@ import SearchDesktop from "./SearchDesktop";
 import ProfileMenu from "./ProfileMenu";
 import { useCallback, useEffect, useState } from "react";
 import SearchMobile from "./SearchMobile";
-import Overplay from "../../ui/Overplay";
 import AuthModal from "../auth/AuthModal";
 import Button from "../../../ui/Button";
 import { Search, UserRound } from "lucide-react";
+import Overplay from "../../../ui/Overplay";
 
 function Header() {
   const [searchOpen, setSearchOpen] = useState<boolean>(false);
@@ -91,7 +91,7 @@ function Header() {
 
       <AuthModal />
 
-      {searchOpen && <Overplay onClose={toggleSearch} IndexForZ={14} />}
+      {searchOpen && <Overplay onClose={toggleSearch} className="z-14" />}
     </>
   );
 }

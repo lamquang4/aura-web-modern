@@ -85,29 +85,39 @@ function CreateCardForm() {
         <form className="flex flex-col gap-7 w-full" onSubmit={handleSubmit}>
           <h2 className="text-neutral">Thêm thiệp</h2>
 
-          <div className="flex gap-[25px] w-full flex-col">
+          <div className="flex flex-col gap-[25px] w-full">
             <div className="md:p-[25px] p-[15px] bg-white rounded-md flex flex-col gap-[15px] w-full">
-              <h5 className="font-bold text-neutral">Hình mặt trước</h5>
+              <h5 className="font-bold text-neutral">Hình thiệp</h5>
 
-              <InputImage
-                InputId="frontImage"
-                previewImages={previewFrontImage}
-                onPreviewImage={handlePreviewFrontImage}
-                onRemovePreviewImage={handleRemoveFrontImage}
-                onReorderImages={handleReorderFront}
-              />
-            </div>
+              <div className="flex gap-3 flex-col lg:flex-row items-start">
+                <div className=" flex flex-col gap-[15px] flex-1">
+                  <Label htmlFor="" required>
+                    Hình mặt trước
+                  </Label>
 
-            <div className="md:p-[25px] p-[15px] bg-white rounded-md flex flex-col gap-[15px] w-full">
-              <h5 className="font-bold text-neutral">Hình mặt sau</h5>
+                  <InputImage
+                    InputId="frontImage"
+                    previewImages={previewFrontImage}
+                    onPreviewImage={handlePreviewFrontImage}
+                    onRemovePreviewImage={handleRemoveFrontImage}
+                    onReorderImages={handleReorderFront}
+                  />
+                </div>
 
-              <InputImage
-                InputId="backImage"
-                previewImages={previewBackImage}
-                onPreviewImage={handlePreviewBackImage}
-                onRemovePreviewImage={handleRemoveBackImage}
-                onReorderImages={handleReorderBack}
-              />
+                <div className="flex flex-col gap-[15px] flex-1">
+                  <Label htmlFor="" required>
+                    Hình mặt sau
+                  </Label>
+
+                  <InputImage
+                    InputId="backImage"
+                    previewImages={previewBackImage}
+                    onPreviewImage={handlePreviewBackImage}
+                    onRemovePreviewImage={handleRemoveBackImage}
+                    onReorderImages={handleReorderBack}
+                  />
+                </div>
+              </div>
             </div>
 
             <div className="md:p-[25px] p-[15px] bg-white rounded-md flex flex-col gap-[15px] w-full">
