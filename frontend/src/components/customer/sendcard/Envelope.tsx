@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
+import Button from "../../ui/Button";
 
 interface Props {
   isOpened: boolean;
@@ -49,9 +50,9 @@ function Envelope({ isOpened, onOpen }: Props) {
             </svg>
           </div>
 
-          <button
+          <Button
             onClick={onOpen}
-            className="bg-yellow-400 flex items-center justify-center z-[15] w-[25px] h-[25px] rounded-full border-none font-bold text-center cursor-pointer absolute top-[calc(207px-25px)] left-[calc(163px-25px)]"
+            className="bg-yellow-400 w-[25px] h-[25px] rounded-full absolute top-[calc(207px-25px)] left-[calc(163px-25px)]"
           />
         </motion.div>
       )}

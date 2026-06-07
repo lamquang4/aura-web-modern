@@ -65,7 +65,7 @@ function LoginModal({ onClose, onSwitchRegister }: Props) {
                 type="button"
                 className="bg-transparent ms-auto"
               >
-                <X size={28} strokeWidth={2} />
+                <X size={24} strokeWidth={2} />
               </Button>
             </div>
 

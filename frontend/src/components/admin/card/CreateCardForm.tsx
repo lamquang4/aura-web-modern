@@ -89,8 +89,8 @@ function CreateCardForm() {
             <div className="md:p-[25px] p-[15px] bg-white rounded-md flex flex-col gap-[15px] w-full">
               <h5 className="font-bold text-neutral">Hình thiệp</h5>
 
-              <div className="flex gap-3 flex-col lg:flex-row items-start">
-                <div className=" flex flex-col gap-[15px] flex-1">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 items-start">
+                <div className="flex flex-col gap-[15px]">
                   <Label htmlFor="" required>
                     Hình mặt trước
                   </Label>
@@ -104,7 +104,7 @@ function CreateCardForm() {
                   />
                 </div>
 
-                <div className="flex flex-col gap-[15px] flex-1">
+                <div className="flex flex-col gap-[15px]">
                   <Label htmlFor="" required>
                     Hình mặt sau
                   </Label>
