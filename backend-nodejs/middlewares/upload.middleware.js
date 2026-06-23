@@ -1,6 +1,7 @@
 const multer = require("multer");
 const AppError = require("../utils/app.error");
 const ErrorCode = require("../utils/error.code");
+const config = require("../config/app.config");
 
 const storage = multer.memoryStorage();
 
@@ -10,18 +11,18 @@ const fileFilter = (req, file, cb) => {
     return cb(null, true);
   }
 
-  const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+  const allowedTypes = config.upload.allowedImageTypes;
   if (allowedTypes.includes(file.mimetype)) {
-    cb(null, true);
-  } else {
-    cb(new AppError(ErrorCode.INVALID_IMAGE_TYPE), false);
+    return cb(null, true);
   }
+
+  return cb(new AppError(ErrorCode.INVALID_IMAGE_TYPE), false);
 };
 
 const upload = multer({
   storage,
   fileFilter,
-  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
+  limits: { fileSize: config.upload.maxFileSize },
 });
 
 const uploadCardImages = upload.fields([
@@ -58,23 +59,8 @@ const parseJsonFormData = (req, res, next) => {
   return next();
 };
 
-const handleUploadError = (err, req, res, next) => {
-  if (err instanceof multer.MulterError) {
-    console.log("MULTER ERROR CODE:", err.code, err.field);
-    if (err.code === "LIMIT_FILE_SIZE") {
-      return next(new AppError(ErrorCode.FILE_TOO_LARGE));
-    }
-    if (err.code === "LIMIT_UNEXPECTED_FILE") {
-      return next(new AppError(ErrorCode.INVALID_IMAGE_TYPE));
-    }
-    return next(new AppError(ErrorCode.CARD_IMAGE_UPLOAD_FAILED));
-  }
-  next(err);
-};
-
 module.exports = {
   uploadSingle,
   uploadCardImages,
   parseJsonFormData,
-  handleUploadError,
 };

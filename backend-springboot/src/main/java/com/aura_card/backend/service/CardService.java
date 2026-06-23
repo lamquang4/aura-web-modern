@@ -173,7 +173,7 @@ public class CardService {
             throw new AppException(ErrorCode.INVALID_IMAGE_TYPE);
         }
 
-        if (file.getSize() > 5 * 1024 * 1024) { // 5MB
+        if (file.getSize() > 2 * 1024 * 1024) { // 2MB
             throw new AppException(ErrorCode.FILE_TOO_LARGE);
         }
     }

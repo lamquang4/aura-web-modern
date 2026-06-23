@@ -13,7 +13,6 @@ const {
 const {
   uploadCardImages,
   parseJsonFormData,
-  handleUploadError,
 } = require("../middlewares/upload.middleware");
 
 router.get("/active", cardController.getActiveCards);
@@ -34,7 +33,6 @@ router.post(
   roleMiddleware("ADMIN"),
   uploadCardImages,
   parseJsonFormData,
-  handleUploadError,
   validateCreateCard,
   cardController.createCard,
 );
@@ -46,7 +44,6 @@ router.put(
   roleMiddleware("ADMIN"),
   uploadCardImages,
   parseJsonFormData,
-  handleUploadError,
   validateUpdateCard,
   cardController.updateCard,
 );

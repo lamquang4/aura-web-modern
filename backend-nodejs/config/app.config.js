@@ -36,4 +36,9 @@ module.exports = {
       "https://aura-web-modern.onrender.com",
     ],
   },
+
+  upload: {
+    maxFileSize: 2 * 1024 * 1024, // 2MB
+    allowedImageTypes: ["image/jpeg", "image/png", "image/webp"],
+  },
 };
