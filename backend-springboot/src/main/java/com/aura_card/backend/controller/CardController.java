@@ -106,7 +106,7 @@ public class CardController {
         public ResponseEntity<ApiResponse<CardDetailResponse>> toggleStatus(@PathVariable String cardId) {
                 return ResponseEntity.ok(ApiResponse.<CardDetailResponse>builder()
                                 .message("Cập nhật tình trạng thành công")
-                                .data(cardService.updateUserStatus(cardId))
+                                .data(cardService.updateCardStatus(cardId))
                                 .build());
         }
 

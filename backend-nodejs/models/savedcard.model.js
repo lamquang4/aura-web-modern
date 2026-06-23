@@ -31,6 +31,24 @@ const savedCardSchema = new Schema(
   {
     timestamps: true,
     collection: "saved_cards",
+    toJSON: {
+      virtuals: true,
+      transform: (doc, ret) => {
+        ret.savedCardId = ret._id.toString();
+        delete ret._id;
+        delete ret.__v;
+        return ret;
+      },
+    },
+    toObject: {
+      virtuals: true,
+      transform: (doc, ret) => {
+        ret.savedCardId = ret._id.toString();
+        delete ret._id;
+        delete ret.__v;
+        return ret;
+      },
+    },
   },
 );
 

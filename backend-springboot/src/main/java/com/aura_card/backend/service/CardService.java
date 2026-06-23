@@ -135,7 +135,7 @@ public class CardService {
     }
 
     // Cập nhật status ACTIVE <-> INACTIVE
-    public CardDetailResponse updateUserStatus(String cardId) {
+    public CardDetailResponse updateCardStatus(String cardId) {
         Card card = cardRepository.findById(cardId)
                 .orElseThrow(() -> new AppException(ErrorCode.CARD_NOT_FOUND));
 

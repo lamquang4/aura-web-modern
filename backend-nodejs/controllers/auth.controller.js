@@ -1,48 +1,34 @@
-const productService = require("../services/auth.service");
+const authService = require("../services/auth.service");
+const response = require("../utils/response.util");
 
-const getAll = async (req, res) => {
+// Đăng ký
+const register = async (req, res, next) => {
   try {
-    const products = await productService.getAll();
-    res.status(200).json({ data: products });
+    const data = await authService.register(req.body);
+    response.success(res, { message: "Đăng ký thành công", data, status: 201 });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    next(error);
   }
 };
 
-const getById = async (req, res) => {
+// Đăng nhập thủ công
+const login = async (req, res, next) => {
   try {
-    const product = await productService.getById(req.params.id);
-    res.status(200).json({ data: product });
+    const data = await authService.login(req.body);
+    response.success(res, { message: "Đăng nhập thành công", data });
   } catch (error) {
-    res.status(404).json({ message: error.message });
+    next(error);
   }
 };
 
-const create = async (req, res) => {
+// Đăng nhập Google
+const loginOAuth2 = async (req, res, next) => {
   try {
-    const product = await productService.create(req.body);
-    res.status(201).json({ message: "Tạo thành công", data: product });
+    const data = await authService.loginOAuth2(req.body);
+    response.success(res, { message: "Đăng nhập thành công", data });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    next(error);
   }
 };
 
-const update = async (req, res) => {
-  try {
-    const product = await productService.update(req.params.id, req.body);
-    res.status(200).json({ message: "Cập nhật thành công", data: product });
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
-};
-
-const remove = async (req, res) => {
-  try {
-    await productService.remove(req.params.id);
-    res.status(200).json({ message: "Xóa thành công" });
-  } catch (error) {
-    res.status(404).json({ message: error.message });
-  }
-};
-
-module.exports = { getAll, getById, create, update, remove };
+module.exports = { register, login, loginOAuth2 };
