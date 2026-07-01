@@ -1,63 +1,49 @@
-import { useState } from "react";
-import toast from "react-hot-toast";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "react-router-dom";
-import { validateEmail } from "../../../utils/validateEmail";
 import Input from "../../ui/Input";
 import Button from "../../ui/Button";
 import Label from "../../ui/Label";
 import Select from "../../ui/Select";
 import { useCreateUser } from "../../../hooks/queries/useUsers";
+import {
+  createUserSchema,
+  type CreateUserData,
+} from "../../../schemas/userSchema";
+import FieldError from "../../ui/FieldError";
 
 function CreateUserForm() {
-  const [data, setData] = useState({
-    email: "",
-    fullname: "",
-    password: "",
-    status: "",
-    role: "",
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<CreateUserData>({
+    resolver: zodResolver(createUserSchema),
+    mode: "onBlur",
+    defaultValues: {
+      email: "",
+      fullname: "",
+      password: "",
+      status: "",
+      role: "",
+    },
   });
 
   const { mutate: createUser, isPending: isLoading } = useCreateUser();
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  ) => {
-    const { name, value } = e.target;
-    setData((prev) => ({
-      ...prev,
-      [name]: name === "email" ? value.toLowerCase() : value,
-    }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!validateEmail(data.email)) {
-      toast.error("Email không hợp lệ");
-      return;
-    }
-
-    if (data.password.trim().length < 6) {
-      toast.error("Mật khẩu phải có ít nhất 6 ký tự");
-      return;
-    }
-
+  const onSubmit = (data: CreateUserData) => {
     createUser(
       {
-        email: data.email.trim(),
-        fullname: data.fullname.trim(),
-        password: data.password.trim(),
+        email: data.email,
+        fullname: data.fullname,
+        password: data.password,
         role: data.role as "CUSTOMER" | "ADMIN",
         status: data.status as "ACTIVE" | "LOCKED",
       },
       {
         onSuccess: () => {
-          setData({
-            email: "",
-            fullname: "",
-            password: "",
-            status: "",
-            role: "",
-          });
+          reset();
         },
       },
     );
@@ -65,7 +51,10 @@ function CreateUserForm() {
 
   return (
     <div className="py-[30px] sm:px-[25px] px-[15px] bg-[#F1F4F9] h-full">
-      <form className="flex flex-col gap-7 w-full" onSubmit={handleSubmit}>
+      <form
+        className="flex flex-col gap-7 w-full"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <h2 className=" text-neutral">Thêm người dùng</h2>
 
         <div className="flex gap-[25px] w-full flex-col">
@@ -73,79 +62,79 @@ function CreateUserForm() {
             <h5 className="font-bold text-neutral">Thông tin tài khoản</h5>
 
             <div className="flex flex-col gap-1">
-              <Label htmlFor="" required>
+              <Label htmlFor="fullname" required>
                 Họ tên
               </Label>
               <Input
                 type="text"
-                name="fullname"
-                value={data.fullname}
-                onChange={handleChange}
-                required
-                className="lowercase border border-gray-300 p-[6px_10px] text-[0.9rem] w-full outline-none focus:border-gray-400  "
+                id="fullname"
+                className="border border-gray-300 p-[6px_10px] text-[0.9rem] w-full outline-none focus:border-gray-400"
+                error={errors.fullname?.message}
+                {...register("fullname")}
               />
+              <FieldError message={errors.fullname?.message} />
             </div>
 
             <div className="flex flex-col gap-1">
-              <Label htmlFor="" required>
+              <Label htmlFor="email" required>
                 Email
               </Label>
               <Input
                 type="email"
-                name="email"
-                value={data.email}
-                onChange={handleChange}
-                required
-                className="lowercase border border-gray-300 p-[6px_10px] text-[0.9rem] w-full outline-none focus:border-gray-400  "
+                id="email"
+                className="lowercase border border-gray-300 p-[6px_10px] text-[0.9rem] w-full outline-none focus:border-gray-400"
+                error={errors.email?.message}
+                {...register("email")}
               />
+              <FieldError message={errors.email?.message} />
             </div>
 
             <div className="flex flex-col gap-1">
-              <Label htmlFor="" required>
+              <Label htmlFor="status" required>
                 Tình trạng
               </Label>
               <Select
-                name="status"
-                value={data.status}
-                onChange={handleChange}
-                required
-                className="border border-gray-300 p-[6px_10px] w-full focus:border-gray-400  "
+                id="status"
+                className="border border-gray-300 p-[6px_10px] w-full focus:border-gray-400"
+                error={errors.status?.message}
+                {...register("status")}
               >
                 <option value="">Chọn tình trạng</option>
                 <option value="ACTIVE">Bình thường</option>
                 <option value="LOCKED">Bị chặn</option>
               </Select>
+              <FieldError message={errors.status?.message} />
             </div>
 
             <div className="flex flex-col gap-1">
-              <Label htmlFor="" required>
+              <Label htmlFor="role" required>
                 Chức vụ
               </Label>
               <Select
-                name="role"
-                value={data.role}
-                onChange={handleChange}
-                required
+                id="role"
                 className="border border-gray-300 p-[6px_10px] w-full focus:border-gray-400"
+                error={errors.role?.message}
+                {...register("role")}
               >
                 <option value="">Chọn chức vụ</option>
                 <option value="ADMIN">Quản trị viên</option>
                 <option value="CUSTOMER">Khách hàng</option>
               </Select>
+              <FieldError message={errors.role?.message} />
             </div>
 
             <div className="flex flex-col gap-1">
-              <Label htmlFor="" required>
+              <Label htmlFor="password" required>
                 Mật khẩu
               </Label>
               <Input
                 type="password"
-                name="password"
-                value={data.password}
-                onChange={handleChange}
-                required
-                className="border border-gray-300 p-[6px_10px] text-[0.9rem] w-full outline-none focus:border-gray-400  "
+                id="password"
+                className="border border-gray-300 p-[6px_10px] text-[0.9rem] w-full outline-none focus:border-gray-400"
+                error={errors.password?.message}
+                {...register("password")}
               />
+              <FieldError message={errors.password?.message} />
             </div>
           </div>
         </div>

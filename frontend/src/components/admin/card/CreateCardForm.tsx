@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import InputImage from "../ui/InputImage";
 import { useInputImage } from "../../../hooks/useInputImage";
 import Label from "../../ui/Label";
@@ -9,12 +10,26 @@ import { Link } from "react-router-dom";
 import { useCreateCard } from "../../../hooks/queries/useCards";
 import toast from "react-hot-toast";
 import Textarea from "../../ui/Textarea";
+import {
+  createCardSchema,
+  type CreateCardData,
+} from "../../../schemas/cardSchema";
+import FieldError from "../../ui/FieldError";
 
 function CreateCardForm() {
-  const [data, setData] = useState({
-    name: "",
-    content: "",
-    status: "",
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<CreateCardData>({
+    resolver: zodResolver(createCardSchema),
+    mode: "onBlur",
+    defaultValues: {
+      name: "",
+      content: "",
+      status: "",
+    },
   });
 
   const { mutate: createCard, isPending: isLoading } = useCreateCard();
@@ -37,21 +52,7 @@ function CreateCardForm() {
     clearImages: clearBackImages,
   } = useInputImage(1);
 
-  const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >,
-  ) => {
-    const { name, value } = e.target;
-    setData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
+  const onSubmit = (data: CreateCardData) => {
     const frontFiles = getFrontFiles();
 
     if (!frontFiles.length) {
@@ -73,7 +74,7 @@ function CreateCardForm() {
 
     createCard(formData, {
       onSuccess: () => {
-        setData({ name: "", content: "", status: "" });
+        reset();
         clearFrontImages();
         clearBackImages();
       },
@@ -82,7 +83,10 @@ function CreateCardForm() {
   return (
     <>
       <div className="py-[30px] sm:px-[25px] px-[15px] h-auto">
-        <form className="flex flex-col gap-7 w-full" onSubmit={handleSubmit}>
+        <form
+          className="flex flex-col gap-7 w-full"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <h2 className="text-neutral">Thêm thiệp</h2>
 
           <div className="flex flex-col gap-[25px] w-full">
@@ -129,12 +133,12 @@ function CreateCardForm() {
                 </Label>
                 <Input
                   type="text"
-                  name="name"
-                  value={data.name}
-                  onChange={handleChange}
-                  required
-                  className="border border-gray-300 p-[6px_10px] text-[0.9rem] w-full outline-none focus:border-gray-400  "
+                  id="name"
+                  className="border border-gray-300 p-[6px_10px] text-[0.9rem] w-full outline-none focus:border-gray-400"
+                  error={errors.name?.message}
+                  {...register("name")}
                 />
+                <FieldError message={errors.name?.message} />
               </div>
 
               <div className="flex flex-col gap-1">
@@ -142,12 +146,13 @@ function CreateCardForm() {
                   Nội dung
                 </Label>
                 <Textarea
-                  value={data.content}
-                  name="content"
-                  onChange={handleChange}
-                  className={`w-full h-[150px] rounded-sm p-[6px_10px] border border-gray-300 focus:border-gray-400`}
+                  id="content"
+                  className="w-full h-[150px] rounded-sm p-[6px_10px] border border-gray-300 focus:border-gray-400"
                   placeholder="Nhập nội dung thiệp..."
+                  error={!!errors.content}
+                  {...register("content")}
                 />
+                <FieldError message={errors.content?.message} />
               </div>
 
               <div className="flex flex-col gap-1">
@@ -155,16 +160,16 @@ function CreateCardForm() {
                   Tình trạng
                 </Label>
                 <Select
-                  name="status"
-                  required
-                  onChange={handleChange}
-                  value={data.status}
-                  className="border border-gray-300 p-[6px_10px] text-[0.9rem] w-full outline-none focus:border-gray-400  "
+                  id="status"
+                  className="border border-gray-300 p-[6px_10px] text-[0.9rem] w-full outline-none focus:border-gray-400"
+                  error={errors.status?.message}
+                  {...register("status")}
                 >
                   <option value="">Chọn tình trạng</option>
                   <option value="ACTIVE">Hiện</option>
                   <option value="INACTIVE">Ẩn</option>
                 </Select>
+                <FieldError message={errors.status?.message} />
               </div>
             </div>
           </div>

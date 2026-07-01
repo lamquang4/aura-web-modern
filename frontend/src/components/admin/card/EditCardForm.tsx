@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import InputImage from "../ui/InputImage";
 import { useInputImage } from "../../../hooks/useInputImage";
 import Label from "../../ui/Label";
@@ -10,14 +12,29 @@ import toast from "react-hot-toast";
 import Image from "../../ui/Image";
 import { useGetCardById, useUpdateCard } from "../../../hooks/queries/useCards";
 import Textarea from "../../ui/Textarea";
+import {
+  updateCardSchema,
+  type UpdateCardData,
+} from "../../../schemas/cardSchema";
+import FieldError from "../../ui/FieldError";
 
 function EditCardForm() {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [data, setData] = useState({
-    name: "",
-    content: "",
-    status: "",
+
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<UpdateCardData>({
+    resolver: zodResolver(updateCardSchema),
+    mode: "onBlur",
+    defaultValues: {
+      name: "",
+      content: "",
+      status: "",
+    },
   });
 
   const { data: cardData, isLoading } = useGetCardById(id ?? "");
@@ -52,28 +69,14 @@ function EditCardForm() {
       return;
     }
 
-    setData({
+    reset({
       name: card.name || "",
       content: card.content || "",
       status: card.status || "",
     });
-  }, [isLoading, card, navigate]);
+  }, [isLoading, card, navigate, reset]);
 
-  const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >,
-  ) => {
-    const { name, value } = e.target;
-    setData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
+  const onSubmit = (data: UpdateCardData) => {
     const formData = new FormData();
     formData.append(
       "data",
@@ -100,10 +103,14 @@ function EditCardForm() {
       },
     );
   };
+
   return (
     <>
       <div className="py-[30px] sm:px-[25px] px-[15px] h-auto">
-        <form className="flex flex-col gap-7 w-full" onSubmit={handleSubmit}>
+        <form
+          className="flex flex-col gap-7 w-full"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <h2 className="text-neutral">Chỉnh sửa thiệp</h2>
 
           <div className="flex gap-[25px] w-full flex-col">
@@ -168,47 +175,66 @@ function EditCardForm() {
               <h5 className="font-bold text-neutral">Thông tin chung</h5>
 
               <div className="flex flex-col gap-1">
-                <Label htmlFor="" required>
+                <Label htmlFor="name" required>
                   Tên thiệp
                 </Label>
-                <Input
-                  type="text"
+                <Controller
                   name="name"
-                  value={data.name}
-                  onChange={handleChange}
-                  required
-                  className="border border-gray-300 p-[6px_10px] text-[0.9rem] w-full outline-none focus:border-gray-400  "
+                  control={control}
+                  render={({ field }) => (
+                    <Input
+                      type="text"
+                      id="name"
+                      className="border border-gray-300 p-[6px_10px] text-[0.9rem] w-full outline-none focus:border-gray-400"
+                      error={errors.name?.message}
+                      {...field}
+                    />
+                  )}
                 />
+                <FieldError message={errors.name?.message} />
               </div>
 
               <div className="flex flex-col gap-1">
-                <Label htmlFor="" required>
+                <Label htmlFor="content" required>
                   Nội dung
                 </Label>
-                <Textarea
-                  value={data.content}
+                <Controller
                   name="content"
-                  onChange={handleChange}
-                  className={`w-full h-[150px] rounded-sm p-[6px_10px] border border-gray-300 focus:border-gray-400`}
-                  placeholder="Nhập nội dung thiệp..."
+                  control={control}
+                  render={({ field }) => (
+                    <Textarea
+                      id="content"
+                      className="w-full h-[150px] rounded-sm p-[6px_10px] border border-gray-300 focus:border-gray-400"
+                      placeholder="Nhập nội dung thiệp..."
+                      error={!!errors.content}
+                      {...field}
+                    />
+                  )}
                 />
+                <FieldError message={errors.content?.message} />
               </div>
 
               <div className="flex flex-col gap-1">
-                <Label htmlFor="" required>
+                <Label htmlFor="status" required>
                   Tình trạng
                 </Label>
-                <Select
+                <Controller
                   name="status"
-                  required
-                  onChange={handleChange}
-                  value={data.status}
-                  className="border border-gray-300 p-[6px_10px] text-[0.9rem] w-full outline-none focus:border-gray-400  "
-                >
-                  <option value="">Chọn tình trạng</option>
-                  <option value="ACTIVE">Hiện</option>
-                  <option value="INACTIVE">Ẩn</option>
-                </Select>
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      id="status"
+                      className="border border-gray-300 p-[6px_10px] text-[0.9rem] w-full outline-none focus:border-gray-400"
+                      error={errors.status?.message}
+                      {...field}
+                    >
+                      <option value="">Chọn tình trạng</option>
+                      <option value="ACTIVE">Hiện</option>
+                      <option value="INACTIVE">Ẩn</option>
+                    </Select>
+                  )}
+                />
+                <FieldError message={errors.status?.message} />
               </div>
             </div>
           </div>

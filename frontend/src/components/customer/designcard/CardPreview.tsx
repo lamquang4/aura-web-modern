@@ -2,7 +2,6 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import ContentEditable from "react-contenteditable";
 import Image from "../../ui/Image";
-import type { TextStyle } from "../../../types/type";
 import ToolTip from "../ui/ToolTip";
 import { RefreshCw } from "lucide-react";
 
@@ -10,7 +9,10 @@ interface Props {
   frontImage: string;
   backImage?: string;
   content: string;
-  textStyle: TextStyle;
+  fontFamily: string;
+  fontColor: string;
+  fontWeight: string;
+  fontStyle: string;
   onContentChange: (val: string) => void;
 }
 
@@ -18,7 +20,10 @@ function CardPreview({
   frontImage,
   backImage,
   content,
-  textStyle,
+  fontFamily,
+  fontColor,
+  fontStyle,
+  fontWeight,
   onContentChange,
 }: Props) {
   const [isFlipped, setIsFlipped] = useState<boolean>(false);
@@ -101,11 +106,11 @@ function CardPreview({
                   html={content}
                   onChange={handleContentChange}
                   style={{
-                    fontFamily: textStyle.fontFamily,
-                    fontWeight: textStyle.fontWeight,
-                    fontStyle: textStyle.fontStyle,
-                    color: textStyle.fontColor,
-                    border: `2px dashed ${textStyle.fontColor || "#8AB6E6"}`,
+                    fontFamily: fontFamily,
+                    fontWeight: fontWeight,
+                    fontStyle: fontStyle,
+                    color: fontColor,
+                    border: `2px dashed ${fontColor || "#8AB6E6"}`,
                   }}
                   className="text-[1.2rem] leading-6 whitespace-pre-line p-2 outline-0 text-center"
                 />

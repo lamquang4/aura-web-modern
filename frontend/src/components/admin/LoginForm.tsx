@@ -1,5 +1,7 @@
 import Image from "../ui/Image";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Loading from "../ui/Loading";
 import Input from "../ui/Input";
 import Button from "../ui/Button";
@@ -7,10 +9,23 @@ import Label from "../ui/Label";
 import { Eye, EyeOff } from "lucide-react";
 import { useLogin } from "../../hooks/queries/useAuth";
 import Overplay from "../ui/Overplay";
-
+import { loginSchema, type LoginData } from "../../schemas/authSchema";
+import FieldError from "../ui/FieldError";
 function LoginForm() {
-  const [data, setData] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<LoginData>({
+    resolver: zodResolver(loginSchema),
+    mode: "onBlur",
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
   const { mutate: login, isPending: isLoading } = useLogin();
 
@@ -18,16 +33,7 @@ function LoginForm() {
     setShowPassword((prev) => !prev);
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  ) => {
-    const { name, value } = e.target;
-    setData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
+  const onSubmit = (data: LoginData) => {
     login(
       {
         email: data.email.trim(),
@@ -35,10 +41,7 @@ function LoginForm() {
       },
       {
         onSuccess: () => {
-          setData({
-            email: "",
-            password: "",
-          });
+          reset();
         },
       },
     );
@@ -55,36 +58,38 @@ function LoginForm() {
                   Đăng nhập
                 </h1>
 
-                <form className="space-y-[15px]" onSubmit={handleSubmit}>
+                <form
+                  className="space-y-[15px]"
+                  onSubmit={handleSubmit(onSubmit)}
+                >
                   <div className="space-y-[5px]">
-                    <Label htmlFor="" required>
+                    <Label htmlFor="email" required>
                       Email
                     </Label>
                     <Input
                       type="text"
-                      name="email"
-                      value={data.email}
-                      onChange={handleChange}
-                      className="block w-full px-3 py-2 border border-gray-300"
+                      id="email"
+                      className="text-[0.9rem] block w-full px-3 py-2 border border-gray-200"
                       placeholder="Nhập email"
-                      required
+                      error={errors.email?.message}
+                      {...register("email")}
                     />
+                    <FieldError message={errors.email?.message} />
                   </div>
 
                   <div className="space-y-[5px]">
-                    <Label htmlFor="" required>
+                    <Label htmlFor="password" required>
                       Mật khẩu
                     </Label>
 
                     <div className="relative">
                       <Input
                         type={!showPassword ? "password" : "text"}
-                        name="password"
-                        value={data.password}
-                        onChange={handleChange}
+                        id="password"
                         placeholder="Nhập mật khẩu"
-                        className="block w-full px-3 pr-12 py-2 border border-gray-300"
-                        required
+                        className="text-[0.9rem] block w-full px-3 pr-12 py-2 border border-gray-200"
+                        error={errors.password?.message}
+                        {...register("password")}
                       />
 
                       <Button
@@ -99,6 +104,8 @@ function LoginForm() {
                         )}
                       </Button>
                     </div>
+
+                    <FieldError message={errors.password?.message} />
                   </div>
 
                   <Button

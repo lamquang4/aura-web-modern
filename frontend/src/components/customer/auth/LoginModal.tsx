@@ -1,4 +1,6 @@
 import { memo, useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Loading from "../../ui/Loading";
 import Button from "../../ui/Button";
 import Input from "../../ui/Input";
@@ -7,15 +9,29 @@ import { Eye, EyeOff, X } from "lucide-react";
 import SocialAuth from "./SocialAuth";
 import { useLogin } from "../../../hooks/queries/useAuth";
 import Overplay from "../../ui/Overplay";
-
+import { loginSchema, type LoginData } from "../../../schemas/authSchema";
+import FieldError from "../../ui/FieldError";
 type Props = {
   onClose: () => void;
   onSwitchRegister: () => void;
 };
 
 function LoginModal({ onClose, onSwitchRegister }: Props) {
-  const [data, setData] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState<boolean>(false);
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<LoginData>({
+    resolver: zodResolver(loginSchema),
+    mode: "onBlur",
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
   const { mutate: login, isPending: isLoading } = useLogin();
 
@@ -23,16 +39,7 @@ function LoginModal({ onClose, onSwitchRegister }: Props) {
     setShowPassword((prev) => !prev);
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  ) => {
-    const { name, value } = e.target;
-    setData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
+  const onSubmit = (data: LoginData) => {
     login(
       {
         email: data.email.trim(),
@@ -40,16 +47,11 @@ function LoginModal({ onClose, onSwitchRegister }: Props) {
       },
       {
         onSuccess: () => {
-          setData({
-            email: "",
-            password: "",
-          });
+          reset();
           onClose();
         },
       },
     );
-
-    onClose();
   };
 
   return (
@@ -71,36 +73,35 @@ function LoginModal({ onClose, onSwitchRegister }: Props) {
 
             <hr className="border-gray-300" />
 
-            <form className="space-y-[15px]" onSubmit={handleSubmit}>
+            <form className="space-y-[15px]" onSubmit={handleSubmit(onSubmit)}>
               <div className="space-y-[5px]">
-                <Label htmlFor="" required>
+                <Label htmlFor="email" required>
                   Email
                 </Label>
                 <Input
                   type="text"
-                  name="email"
-                  value={data.email}
-                  onChange={handleChange}
+                  id="email"
                   className="text-[0.9rem] block w-full px-3 py-2 border border-gray-200"
                   placeholder="Nhập email"
-                  required
+                  error={errors.email?.message}
+                  {...register("email")}
                 />
+                <FieldError message={errors.email?.message} />
               </div>
 
               <div className="space-y-[5px]">
-                <Label htmlFor="" required>
+                <Label htmlFor="password" required>
                   Mật khẩu
                 </Label>
 
                 <div className="relative">
                   <Input
                     type={!showPassword ? "password" : "text"}
-                    name="password"
-                    value={data.password}
-                    onChange={handleChange}
+                    id="password"
                     placeholder="Nhập mật khẩu"
-                    className="text-[0.9rem] block w-full  px-3 pr-12 py-2 border border-gray-200"
-                    required
+                    className="text-[0.9rem] block w-full px-3 pr-12 py-2 border border-gray-200"
+                    error={errors.password?.message}
+                    {...register("password")}
                   />
 
                   <Button
@@ -111,6 +112,8 @@ function LoginModal({ onClose, onSwitchRegister }: Props) {
                     {!showPassword ? <Eye size={22} /> : <EyeOff size={22} />}
                   </Button>
                 </div>
+
+                <FieldError message={errors.password?.message} />
               </div>
 
               <Button

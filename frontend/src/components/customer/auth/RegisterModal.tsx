@@ -1,6 +1,6 @@
 import { memo, useState } from "react";
-import toast from "react-hot-toast";
-import { validateEmail } from "../../../utils/validateEmail";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Loading from "../../ui/Loading";
 import Button from "../../ui/Button";
 import Input from "../../ui/Input";
@@ -9,6 +9,8 @@ import { Eye, EyeOff, X } from "lucide-react";
 import SocialAuth from "./SocialAuth";
 import { useRegister } from "../../../hooks/queries/useAuth";
 import Overplay from "../../ui/Overplay";
+import { registerSchema, type RegisterData } from "../../../schemas/authSchema";
+import FieldError from "../../ui/FieldError";
 
 type Props = {
   onClose: () => void;
@@ -16,43 +18,31 @@ type Props = {
 };
 
 function RegisterModal({ onClose, onSwitchLogin }: Props) {
-  const [data, setData] = useState({
-    fullname: "",
-    email: "",
-    password: "",
-  });
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const { mutate: register, isPending: isLoading } = useRegister();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<RegisterData>({
+    resolver: zodResolver(registerSchema),
+    mode: "onBlur",
+    defaultValues: {
+      fullname: "",
+      email: "",
+      password: "",
+    },
+  });
+
+  const { mutate: registerUser, isPending: isLoading } = useRegister();
 
   const toggleShowPassword = () => {
     setShowPassword((prev) => !prev);
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  ) => {
-    const { name, value } = e.target;
-    setData((prev) => ({
-      ...prev,
-      [name]: name === "email" ? value.toLowerCase() : value,
-    }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!validateEmail(data.email)) {
-      toast.error("Email không hợp lệ");
-      return;
-    }
-
-    if (data.password.length < 6) {
-      toast.error("Mật khẩu phải có ít nhất 6 ký tự");
-      return;
-    }
-
-    register(
+  const onSubmit = (data: RegisterData) => {
+    registerUser(
       {
         fullname: data.fullname.trim(),
         email: data.email.trim(),
@@ -60,11 +50,7 @@ function RegisterModal({ onClose, onSwitchLogin }: Props) {
       },
       {
         onSuccess: () => {
-          setData({
-            fullname: "",
-            email: "",
-            password: "",
-          });
+          reset();
         },
       },
     );
@@ -89,20 +75,24 @@ function RegisterModal({ onClose, onSwitchLogin }: Props) {
 
             <hr className="border-gray-300" />
 
-            <form className="space-y-[15px]" onSubmit={handleSubmit}>
+            <form className="space-y-[15px]" onSubmit={handleSubmit(onSubmit)}>
               <div className="space-y-[5px]">
                 <Label htmlFor="" required>
                   Email
                 </Label>
                 <Input
                   type="text"
-                  name="email"
-                  value={data.email}
-                  onChange={handleChange}
+                  id="email"
                   className="text-[0.9rem] block w-full px-3 py-2 border border-gray-200"
                   placeholder="Nhập email"
-                  required
+                  error={errors.email?.message}
+                  {...register("email", {
+                    onChange: (e) => {
+                      e.target.value = e.target.value.toLowerCase();
+                    },
+                  })}
                 />
+                <FieldError message={errors.email?.message} />
               </div>
 
               <div className="space-y-[5px]">
@@ -111,13 +101,13 @@ function RegisterModal({ onClose, onSwitchLogin }: Props) {
                 </Label>
                 <Input
                   type="text"
-                  name="fullname"
-                  value={data.fullname}
-                  onChange={handleChange}
+                  id="fullname"
                   className="text-[0.9rem] block w-full px-3 py-2 border border-gray-200"
                   placeholder="Nhập họ tên"
-                  required
+                  error={errors.fullname?.message}
+                  {...register("fullname")}
                 />
+                <FieldError message={errors.fullname?.message} />
               </div>
 
               <div className="space-y-[5px]">
@@ -128,12 +118,11 @@ function RegisterModal({ onClose, onSwitchLogin }: Props) {
                 <div className="relative">
                   <Input
                     type={!showPassword ? "password" : "text"}
-                    name="password"
-                    value={data.password}
-                    onChange={handleChange}
+                    id="password"
                     placeholder="Nhập mật khẩu"
-                    className="text-[0.9rem] block w-full  px-3 pr-12 py-2 border border-gray-200"
-                    required
+                    className="text-[0.9rem] block w-full px-3 pr-12 py-2 border border-gray-200"
+                    error={errors.password?.message}
+                    {...register("password")}
                   />
 
                   <Button
@@ -144,6 +133,7 @@ function RegisterModal({ onClose, onSwitchLogin }: Props) {
                     {!showPassword ? <Eye size={22} /> : <EyeOff size={22} />}
                   </Button>
                 </div>
+                <FieldError message={errors.password?.message} />
               </div>
 
               <Button

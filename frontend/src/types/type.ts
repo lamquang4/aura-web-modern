@@ -144,19 +144,6 @@ export interface SavedCardDetailResponse {
   };
 }
 
-export interface DesignStyle {
-  content: string;
-  name: string;
-  textStyle: TextStyle;
-}
-
-export interface TextStyle {
-  fontFamily: string;
-  fontWeight: string;
-  fontStyle: string;
-  fontColor: string;
-}
-
 export interface JwtPayload {
   id: string;
   exp: number;

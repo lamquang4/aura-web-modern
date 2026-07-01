@@ -1,11 +1,13 @@
 import { motion } from "framer-motion";
+import { Controller, type Control, type FieldErrors } from "react-hook-form";
 import Label from "../../ui/Label";
 import Select from "../../ui/Select";
 import Textarea from "../../ui/Textarea";
 import { Sketch } from "@uiw/react-color";
-import type { DesignStyle, TextStyle } from "../../../types/type";
+import type { SavedCardData } from "../../../schemas/savedCardSchema";
 import Button from "../../ui/Button";
 import Input from "../../ui/Input";
+import FieldError from "../../ui/FieldError";
 import { Bold, Italic } from "lucide-react";
 
 const MAX_CHARS = 200;
@@ -27,41 +29,11 @@ const FONTS = [
 ];
 
 interface Props {
-  design: DesignStyle;
-  onContentChange: (val: string) => void;
-  onNameChange: (val: string) => void;
-  onStyleChange: (partial: Partial<TextStyle>) => void;
+  control: Control<SavedCardData>;
+  errors: FieldErrors<SavedCardData>;
 }
 
-function DesignPanel({
-  design,
-  onNameChange,
-  onContentChange,
-  onStyleChange,
-}: Props) {
-  const isOver = design.content.length > MAX_CHARS;
-
-  const formatButtons = [
-    {
-      icon: <Bold size={18} />,
-      active: design.textStyle.fontWeight === "bold",
-      onClick: () =>
-        onStyleChange({
-          fontWeight:
-            design.textStyle.fontWeight === "bold" ? "normal" : "bold",
-        }),
-    },
-    {
-      icon: <Italic size={18} />,
-      active: design.textStyle.fontStyle === "italic",
-      onClick: () =>
-        onStyleChange({
-          fontStyle:
-            design.textStyle.fontStyle === "italic" ? "normal" : "italic",
-        }),
-    },
-  ];
-
+function DesignPanel({ control, errors }: Props) {
   return (
     <motion.div
       initial={{ opacity: 0, x: 30 }}
@@ -71,73 +43,127 @@ function DesignPanel({
     >
       <div className="space-y-[15px]">
         <div className="space-y-[5px] w-full">
-          <Label>Tên thiệp</Label>
-          <Input
-            value={design.name}
-            onChange={(e) => onNameChange(e.target.value)}
-            type="text"
+          <Label htmlFor="customName">Tên thiệp</Label>
+          <Controller
             name="customName"
-            required
-            className="w-full border border-gray-300 rounded-sm p-[6px_10px] text-[0.9rem] outline-none focus:border-gray-400"
+            control={control}
+            render={({ field }) => (
+              <Input
+                id="customName"
+                {...field}
+                type="text"
+                error={errors.customName?.message}
+                className="w-full border border-gray-300 rounded-sm p-[6px_10px] text-[0.9rem] outline-none focus:border-gray-400"
+              />
+            )}
           />
+          <FieldError message={errors.customName?.message} />
         </div>
 
         <div className="space-y-[5px] w-full">
-          <Label>Lời chúc</Label>
-          <Textarea
-            value={design.content}
+          <Label htmlFor="customContent">Lời chúc</Label>
+          <Controller
             name="customContent"
-            onChange={(e) => onContentChange(e.target.value)}
-            className={`w-full h-[150px] rounded-sm p-[6px_10px] border border-gray-300 focus:border-gray-400`}
-            error={isOver}
-            placeholder="Nhập nội dung thiệp..."
+            control={control}
+            render={({ field }) => {
+              const isOver = field.value.length > MAX_CHARS;
+              return (
+                <div>
+                  <Textarea
+                    id="customContent"
+                    {...field}
+                    className="w-full h-[150px] rounded-sm p-[6px_10px] border border-gray-300 focus:border-gray-400"
+                    error={isOver || !!errors.customContent}
+                    placeholder="Nhập nội dung thiệp..."
+                  />
+
+                  <FieldError message={errors.customContent?.message} />
+
+                  <span className={`${isOver ? "text-danger" : ""}`}>
+                    {field.value.length}/{MAX_CHARS} ký tự
+                  </span>
+                </div>
+              );
+            }}
           />
-          <span
-            className={`text-xs ${isOver ? "text-danger font-medium" : ""}`}
-          >
-            {design.content.length}/{MAX_CHARS} ký tự
-          </span>
         </div>
 
         <div className="space-y-[5px] w-full">
           <Label>Định dạng</Label>
           <div className="flex gap-2">
-            {formatButtons.map((btn, i) => (
-              <Button
-                key={i}
-                type="button"
-                onClick={btn.onClick}
-                className={`w-9 h-9 flex items-center justify-center rounded-sm border ${
-                  btn.active ? " border-black" : "border-gray-300"
-                }`}
-              >
-                {btn.icon}
-              </Button>
-            ))}
+            <Controller
+              name="fontWeight"
+              control={control}
+              render={({ field }) => (
+                <Button
+                  type="button"
+                  onClick={() =>
+                    field.onChange(field.value === "bold" ? "normal" : "bold")
+                  }
+                  className={`w-8 h-8 flex items-center justify-center rounded-sm border ${
+                    field.value === "bold" ? "border-black" : "border-gray-300"
+                  }`}
+                >
+                  <Bold size={18} />
+                </Button>
+              )}
+            />
+            <Controller
+              name="fontStyle"
+              control={control}
+              render={({ field }) => (
+                <Button
+                  type="button"
+                  onClick={() =>
+                    field.onChange(
+                      field.value === "italic" ? "normal" : "italic",
+                    )
+                  }
+                  className={`w-8 h-8 flex items-center justify-center rounded-sm border ${
+                    field.value === "italic"
+                      ? "border-black"
+                      : "border-gray-300"
+                  }`}
+                >
+                  <Italic size={18} />
+                </Button>
+              )}
+            />
           </div>
         </div>
 
         <div className="space-y-[5px] w-full">
-          <Label>Kiểu chữ</Label>
-          <Select
+          <Label htmlFor="fontFamily">Kiểu chữ</Label>
+          <Controller
             name="fontFamily"
-            value={design.textStyle.fontFamily}
-            onChange={(e) => onStyleChange({ fontFamily: e.target.value })}
-            className="w-full border border-gray-300 rounded-sm p-[6px_10px] text-[0.9rem] outline-none focus:border-gray-400"
-          >
-            {FONTS.map((f) => (
-              <option key={f} value={f} style={{ fontFamily: f }}>
-                {f}
-              </option>
-            ))}
-          </Select>
+            control={control}
+            render={({ field }) => (
+              <Select
+                id="fontFamily"
+                {...field}
+                className="w-full border border-gray-300 rounded-sm p-[6px_10px] text-[0.9rem] outline-none focus:border-gray-400"
+              >
+                {FONTS.map((f) => (
+                  <option key={f} value={f} style={{ fontFamily: f }}>
+                    {f}
+                  </option>
+                ))}
+              </Select>
+            )}
+          />
         </div>
 
         <div className="space-y-[5px] w-full">
           <Label>Màu chữ</Label>
-          <Sketch
-            color={design.textStyle.fontColor}
-            onChange={(color) => onStyleChange({ fontColor: color.hex })}
+          <Controller
+            name="fontColor"
+            control={control}
+            render={({ field }) => (
+              <Sketch
+                color={field.value}
+                onChange={(color) => field.onChange(color.hex)}
+              />
+            )}
           />
         </div>
       </div>

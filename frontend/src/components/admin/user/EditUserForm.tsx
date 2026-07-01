@@ -1,33 +1,49 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Input from "../../ui/Input";
 import Select from "../../ui/Select";
 import Button from "../../ui/Button";
 import Label from "../../ui/Label";
+import FieldError from "../../ui/FieldError";
 import {
   useGetMe,
   useGetUserById,
   useUpdateUser,
 } from "../../../hooks/queries/useUsers";
+import {
+  updateUserSchema,
+  type UpdateUserData,
+} from "../../../schemas/userSchema";
 
 function EditUserForm() {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [data, setData] = useState({
-    fullname: "",
-    password: "",
-    status: "",
-    role: "",
-  });
 
   const { data: userData, isLoading } = useGetUserById(id ?? "");
   const { mutate: updateUser, isPending: isLoadingUpdate } = useUpdateUser();
-
   const user = userData?.data;
 
   const { data: accountData } = useGetMe();
   const account = accountData?.data;
+
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<UpdateUserData>({
+    resolver: zodResolver(updateUserSchema),
+    mode: "onBlur",
+    defaultValues: {
+      fullname: "",
+      password: "",
+      status: "",
+      role: "",
+    },
+  });
 
   useEffect(() => {
     if (isLoading) return;
@@ -38,38 +54,21 @@ function EditUserForm() {
       return;
     }
 
-    setData({
+    reset({
       fullname: user.fullname || "",
       password: "",
       status: user.status?.toString() || "",
       role: user.role || "",
     });
-  }, [isLoading, user, navigate]);
+  }, [isLoading, user, navigate, reset]);
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  ) => {
-    const { name, value } = e.target;
-    setData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (data.password.trim().length < 6 && data.password) {
-      toast.error("Mật khẩu phải có ít nhất 6 ký tự");
-      return;
-    }
-
+  const onSubmit = (data: UpdateUserData) => {
     if (data.status === "LOCKED" && id === account?.userId) {
       toast.error("Bạn không thể tự khóa chính tài khoản của mình");
       return;
     }
 
-    if (data.password.trim() && user?.provider === "GOOGLE") {
+    if (data.password && user?.provider === "GOOGLE") {
       toast.error("Tài khoản Google không thể đặt mật khẩu");
       return;
     }
@@ -85,10 +84,7 @@ function EditUserForm() {
       },
       {
         onSuccess: () => {
-          setData((prev) => ({
-            ...prev,
-            password: "",
-          }));
+          reset((prev) => ({ ...prev, password: "" }));
         },
       },
     );
@@ -96,7 +92,10 @@ function EditUserForm() {
 
   return (
     <div className="py-[30px] sm:px-[25px] px-[15px] bg-[#F1F4F9] h-full">
-      <form className="flex flex-col gap-7 w-full" onSubmit={handleSubmit}>
+      <form
+        className="flex flex-col gap-7 w-full"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <h2 className="text-neutral">Chỉnh sửa người dùng</h2>
 
         <div className="flex gap-[25px] w-full flex-col">
@@ -104,77 +103,100 @@ function EditUserForm() {
             <h5 className="font-bold text-neutral">Thông tin tài khoản</h5>
 
             <div className="flex flex-col gap-1">
-              <Label htmlFor="" required>
+              <Label htmlFor="fullname" required>
                 Họ tên
               </Label>
-              <Input
-                type="text"
+              <Controller
                 name="fullname"
-                value={data.fullname}
-                onChange={handleChange}
-                required
-                className="border border-gray-300 p-[6px_10px] w-full focus:border-gray-400  "
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    type="text"
+                    id="fullname"
+                    className="border border-gray-300 p-[6px_10px] w-full focus:border-gray-400"
+                    error={errors.fullname?.message}
+                    {...field}
+                  />
+                )}
               />
+              <FieldError message={errors.fullname?.message} />
             </div>
 
             <div className="flex flex-col gap-1">
-              <Label htmlFor="" required>
+              <Label htmlFor="email" required>
                 Email
               </Label>
               <Input
                 type="email"
-                name="email"
-                value={user?.email}
-                onChange={handleChange}
-                required
+                id="email"
+                value={user?.email ?? ""}
                 readOnly
-                className="lowercase border border-gray-300 p-[6px_10px] w-full focus:border-gray-400  "
+                className="lowercase border border-gray-300 p-[6px_10px] w-full focus:border-gray-400 bg-gray-100"
               />
             </div>
 
             <div className="flex flex-col gap-1">
-              <Label htmlFor="" required>
+              <Label htmlFor="status" required>
                 Tình trạng
               </Label>
-              <Select
+              <Controller
                 name="status"
-                value={data.status}
-                onChange={handleChange}
-                required
-                className="border border-gray-300 p-[6px_10px] w-full focus:border-gray-400  "
-              >
-                <option value="">Chọn tình trạng</option>
-                <option value="ACTIVE">Bình thường</option>
-                <option value="LOCKED">Bị chặn</option>
-              </Select>
+                control={control}
+                render={({ field }) => (
+                  <Select
+                    id="status"
+                    className="border border-gray-300 p-[6px_10px] w-full focus:border-gray-400"
+                    error={errors.status?.message}
+                    {...field}
+                  >
+                    <option value="">Chọn tình trạng</option>
+                    <option value="ACTIVE">Bình thường</option>
+                    <option value="LOCKED">Bị chặn</option>
+                  </Select>
+                )}
+              />
+              <FieldError message={errors.status?.message} />
             </div>
 
             <div className="flex flex-col gap-1">
-              <Label htmlFor="" required>
+              <Label htmlFor="role" required>
                 Chức vụ
               </Label>
-              <Select
+              <Controller
                 name="role"
-                value={data.role}
-                onChange={handleChange}
-                required
-                className="border border-gray-300 p-[6px_10px] w-full focus:border-gray-400"
-              >
-                <option value="">Chọn chức vụ</option>
-                <option value="ADMIN">Quản trị viên</option>
-                <option value="CUSTOMER">Khách hàng</option>
-              </Select>
+                control={control}
+                render={({ field }) => (
+                  <Select
+                    id="role"
+                    className="border border-gray-300 p-[6px_10px] w-full focus:border-gray-400"
+                    error={errors.role?.message}
+                    {...field}
+                  >
+                    <option value="">Chọn chức vụ</option>
+                    <option value="ADMIN">Quản trị viên</option>
+                    <option value="CUSTOMER">Khách hàng</option>
+                  </Select>
+                )}
+              />
+              <FieldError message={errors.role?.message} />
             </div>
 
             <div className="flex flex-col gap-1">
-              <Label htmlFor="">Mật khẩu mới</Label>
-              <Input
-                type="password"
+              <Label htmlFor="password">Mật khẩu mới</Label>
+              <Controller
                 name="password"
-                value={data.password}
-                onChange={handleChange}
-                className="border border-gray-300 p-[6px_10px] w-full focus:border-gray-400  "
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    type="password"
+                    id="password"
+                    className="border border-gray-300 p-[6px_10px] w-full focus:border-gray-400"
+                    error={errors.password?.message}
+                    {...field}
+                  />
+                )}
               />
+              <FieldError message={errors.password?.message} />
             </div>
           </div>
         </div>
@@ -191,7 +213,7 @@ function EditUserForm() {
             to="/admin/users"
             className="p-[6px_10px] hover-scale bg-danger text-white text-[0.9rem] text-center rounded-sm"
           >
-            Trờ về
+            Trở về
           </Link>
         </div>
       </form>

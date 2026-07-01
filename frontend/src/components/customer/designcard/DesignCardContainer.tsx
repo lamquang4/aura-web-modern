@@ -1,7 +1,6 @@
 import toast from "react-hot-toast";
 import CardPreview from "./CardPreview";
-import { useEffect, useState } from "react";
-import type { DesignStyle } from "../../../types/type";
+import { useEffect } from "react";
 import DesignPanel from "./DesignPanel";
 import DesignCardHeader from "./DesignCardHeader";
 import { useGetCardById } from "../../../hooks/queries/useCards";
@@ -14,20 +13,36 @@ import {
 import { useGetMe } from "../../../hooks/queries/useUsers";
 import { useAppDispatch } from "../../../redux/store";
 import { openAuthModal } from "../../../redux/slices/authModalSlice";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  savedCardSchema,
+  type SavedCardData,
+} from "../../../schemas/savedCardSchema";
 
 function DesignCardContainer() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { id } = useParams();
 
-  const [design, setDesign] = useState<DesignStyle>({
-    content: "",
-    name: "",
-    textStyle: {
+  const {
+    watch,
+    control,
+    handleSubmit,
+    reset,
+    setValue,
+    formState: { errors },
+  } = useForm<SavedCardData>({
+    resolver: zodResolver(savedCardSchema),
+    mode: "onBlur",
+    defaultValues: {
+      customName: "",
+      customContent: "",
       fontFamily: "Quicksand",
       fontColor: "#000000",
       fontWeight: "normal",
       fontStyle: "normal",
+      cardId: "",
     },
   });
 
@@ -59,35 +74,29 @@ function DesignCardContainer() {
     }
 
     if (savedCard) {
-      setDesign({
-        name: savedCard.customName || "",
-        content: savedCard.customContent || "",
-        textStyle: {
-          fontFamily: savedCard.fontFamily || "Quicksand",
-          fontColor: savedCard.fontColor || "#000000",
-          fontWeight: savedCard.fontWeight || "normal",
-          fontStyle: savedCard.fontStyle || "normal",
-        },
+      reset({
+        customName: savedCard.customName || "",
+        customContent: savedCard.customContent || "",
+        fontFamily: savedCard.fontFamily || "Quicksand",
+        fontColor: savedCard.fontColor || "#000000",
+        fontWeight: savedCard.fontWeight || "normal",
+        fontStyle: savedCard.fontStyle || "normal",
+        cardId: savedCard.card.cardId || "",
       });
       return;
     }
 
     if (card) {
-      setDesign((prev) => ({
+      reset((prev) => ({
         ...prev,
-        name: card.name || "",
-        content: card.content || "",
+        customName: card.name || "",
+        customContent: card.content || "",
+        cardId: card.cardId || "",
       }));
     }
-  }, [isLoading, card, savedCard, navigate]);
+  }, [isLoading, card, savedCard, navigate, reset]);
 
-  const updateDesign = (partial: Partial<DesignStyle>) => {
-    setDesign((prev) => ({ ...prev, ...partial }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
+  const onSubmit = (data: SavedCardData) => {
     if (!account?.userId) {
       dispatch(openAuthModal("login"));
       toast.error("Bạn phải đăng nhập để lưu thiệp");
@@ -95,18 +104,8 @@ function DesignCardContainer() {
       return;
     }
 
-    if (design.content.length > 200) {
-      toast.error("Nội dung không vượt quá 200 ký tự");
-      return;
-    }
-
     const payload = {
-      customName: design.name,
-      customContent: design.content,
-      fontFamily: design.textStyle.fontFamily,
-      fontWeight: design.textStyle.fontWeight,
-      fontStyle: design.textStyle.fontStyle,
-      fontColor: design.textStyle.fontColor,
+      ...data,
       cardId: savedCard?.card.cardId ?? id ?? "",
     };
 
@@ -127,25 +126,21 @@ function DesignCardContainer() {
       >
         <form
           id="form-design"
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmit(onSubmit)}
           className="w-full justify-center flex gap-10 flex-wrap"
         >
           <CardPreview
             frontImage={card?.frontImage ?? savedCard?.card.frontImage ?? ""}
             backImage={card?.backImage ?? savedCard?.card.backImage ?? ""}
-            content={design.content}
-            textStyle={design.textStyle}
-            onContentChange={(content) => updateDesign({ content })}
+            content={watch("customContent")}
+            fontFamily={watch("fontFamily")}
+            fontColor={watch("fontColor")}
+            fontWeight={watch("fontWeight")}
+            fontStyle={watch("fontStyle")}
+            onContentChange={(val) => setValue("customContent", val)}
           />
 
-          <DesignPanel
-            design={design}
-            onContentChange={(content) => updateDesign({ content })}
-            onNameChange={(name) => updateDesign({ name })}
-            onStyleChange={(partial) =>
-              updateDesign({ textStyle: { ...design.textStyle, ...partial } })
-            }
-          />
+          <DesignPanel control={control} errors={errors} />
         </form>
       </main>
     </section>
