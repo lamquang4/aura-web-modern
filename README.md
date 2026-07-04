@@ -14,11 +14,11 @@ Admin: [![Live Demo](https://img.shields.io/badge/Live_Demo-000000?style=flat-sq
 
 **Viết lời chúc vào thiệp**
 
-![](docs/images/ui4.mp4)
+![](https://quanglam.vercel.app/assets/projects/project4/ui4.mp4)
 
 **Gửi và xem lời chúc trong thiệp**
 
-![](docs/images/ui3.mp4)
+![](https://quanglam.vercel.app/assets/projects/project4/ui3.mp4)
 
 ## Cài đặt môi trường
 
@@ -37,11 +37,11 @@ docker compose up --build
 ## Công nghệ sử dụng
 
 | Danh mục   | Tools / Frameworks                                                                                                                                           |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | --- |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Frontend   | Vite + TypeScript + React 19 <br> TailwindCSS <br> @react-oauth/google + jwt-decode + js-cookie <br> Axios + TanStack Query v5 <br> Redux <br> Framer-motion |
 | Backend 1  | Spring Boot + Maven + Java 17 <br> Spring Security + JWT + OAuth2                                                                                            |
 | Backend 2  | Node.js + Express.js <br> JWT + OAuth2                                                                                                                       |
 | Database   | MongoDB                                                                                                                                                      |
 | Storage    | Cloudinary                                                                                                                                                   |
-| Monitoring | Actuator + Prometheus + Zipkin                                                                                                                               |     |
+| Monitoring | Actuator + Prometheus + Zipkin                                                                                                                               |
 | Deployment | Render                                                                                                                                                       |
