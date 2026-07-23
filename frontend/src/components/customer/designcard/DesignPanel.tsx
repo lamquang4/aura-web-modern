@@ -9,24 +9,7 @@ import Button from "../../ui/Button";
 import Input from "../../ui/Input";
 import FieldError from "../../ui/FieldError";
 import { Bold, Italic } from "lucide-react";
-
-const MAX_CHARS = 200;
-
-const FONTS = [
-  "Arial",
-  "Times New Roman",
-  "Calibri",
-  "Verdana",
-  "Quicksand",
-  "Georgia",
-  "Roboto",
-  "Oswald",
-  "Lato",
-  "Open Sans",
-  "Montserrat",
-  "Pacifico",
-  "Dancing Script",
-];
+import { FONTS, MAX_CHARS } from "../../../constants/constants";
 
 interface Props {
   control: Control<SavedCardData>;
