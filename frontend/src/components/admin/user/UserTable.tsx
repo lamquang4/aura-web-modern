@@ -17,10 +17,10 @@ import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import type { UserResponse } from "../../../types/type";
 
-type Props = {
+interface Props {
   users: UserResponse[];
   isLoading: boolean;
-};
+}
 
 function UserTable({ users, isLoading }: Props) {
   const { data: accountData } = useGetMe();

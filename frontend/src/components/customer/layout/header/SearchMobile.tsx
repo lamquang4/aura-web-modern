@@ -5,10 +5,10 @@ import Button from "../../../ui/Button";
 import SuggestionCard from "../../ui/SuggestionCard";
 import { X } from "lucide-react";
 
-type Props = {
+interface Props {
   onToggleSearch: () => void;
   searchOpen: boolean;
-};
+}
 
 function SearchMobile({ onToggleSearch, searchOpen }: Props) {
   const navigate = useNavigate();

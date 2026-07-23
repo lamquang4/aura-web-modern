@@ -3,9 +3,9 @@ import { useCallback, useState } from "react";
 import Button from "../../../ui/Button";
 import { Maximize, Menu } from "lucide-react";
 
-type Props = {
+interface Props {
   onToggleMenu: () => void;
-};
+}
 
 function Header({ onToggleMenu }: Props) {
   const [profileMenuOpen, setProfileMenuOpen] = useState<boolean>(false);

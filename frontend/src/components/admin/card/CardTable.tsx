@@ -12,10 +12,10 @@ import {
 import Swal from "sweetalert2";
 import type { CardListItemResponse } from "../../../types/type";
 
-type Props = {
+interface Props {
   cards: CardListItemResponse[];
   isLoading: boolean;
-};
+}
 
 function CardTable({ cards, isLoading }: Props) {
   const { mutate: updateStatus, isPending: isLoadingUpdate } =

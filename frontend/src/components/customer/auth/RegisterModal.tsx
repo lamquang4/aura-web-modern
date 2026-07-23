@@ -12,10 +12,10 @@ import Overplay from "../../ui/Overplay";
 import { registerSchema, type RegisterData } from "../../../schemas/authSchema";
 import FieldError from "../../ui/FieldError";
 
-type Props = {
+interface Props {
   onClose: () => void;
   onSwitchLogin: () => void;
-};
+}
 
 function RegisterModal({ onClose, onSwitchLogin }: Props) {
   const [showPassword, setShowPassword] = useState<boolean>(false);

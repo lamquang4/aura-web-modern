@@ -20,7 +20,8 @@ function LayoutRoute() {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/cards" element={<CardListPage />} />
-      <Route path="/card/:id" element={<DesignPage />} />
+      <Route path="/design/card/:id" element={<DesignPage />} />
+      <Route path="/design/savedcard/:id" element={<DesignPage />} />
 
       <Route
         path="/send/:id"

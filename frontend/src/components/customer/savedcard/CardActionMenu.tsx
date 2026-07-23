@@ -36,7 +36,7 @@ function CardActionMenu({ cardId, onClose }: CardActionMenuProps) {
     <div className="absolute top-[40px] right-[8px] bg-white shadow-md rounded-sm z-20 p-0 w-[200px]">
       <Link
         className="p-[14px_12px] hover:bg-gray-100 w-full text-info"
-        to={`/card/${cardId}`}
+        to={`/design/savedcard/${cardId}`}
         onClick={onClose}
       >
         <div className="flex items-center gap-2 font-medium ">

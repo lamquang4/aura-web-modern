@@ -3,14 +3,14 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../../ui/Button";
 import { ChevronDown } from "lucide-react";
 
-type Props = {
+interface Props {
   title: string;
   array: {
     name: string;
     value: number | string | null;
   }[];
   paramName: string;
-};
+}
 
 function FilterDropDownMenu({ title, array, paramName }: Props) {
   const navigate = useNavigate();

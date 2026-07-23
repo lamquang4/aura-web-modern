@@ -9,7 +9,7 @@ function CardItem({ card }: Props) {
   return (
     <div className="space-y-[15px]">
       <div className="relative group">
-        <Link to={`/card/${card.cardId}`}>
+        <Link to={`/design/card/${card.cardId}`}>
           <div
             className={`w-full overflow-hidden pt-[120%] relative ${
               card.backImage ? "group" : ""

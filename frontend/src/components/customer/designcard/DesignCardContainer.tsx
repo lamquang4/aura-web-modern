@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import DesignPanel from "./DesignPanel";
 import DesignCardHeader from "./DesignCardHeader";
 import { useGetCardById } from "../../../hooks/queries/useCards";
-import { useNavigate, useParams } from "react-router-dom";
+import { useMatch, useNavigate, useParams } from "react-router-dom";
 import {
   useCreateSavedCard,
   useGetSavedCardById,
@@ -24,6 +24,7 @@ function DesignCardContainer() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { id } = useParams();
+  const isSavedCardRoute = !!useMatch("/design/savedcard/:id");
 
   const {
     watch,
@@ -46,14 +47,16 @@ function DesignCardContainer() {
     },
   });
 
-  const { data: cardData, isLoading: isLoadingCard } = useGetCardById(id ?? "");
+  const { data: cardData, isLoading: isLoadingCard } = useGetCardById(
+    !isSavedCardRoute ? (id ?? "") : "",
+  );
   const card = cardData?.data;
 
   const { data: accountData } = useGetMe();
   const account = accountData?.data;
 
   const { data: savedCardData, isLoading: isLoadingSavedCard } =
-    useGetSavedCardById(id ?? "");
+    useGetSavedCardById(isSavedCardRoute ? (id ?? "") : "");
   const savedCard = savedCardData?.data;
 
   const { mutate: createSavedCard, isPending: isLoadingCreate } =

@@ -11,10 +11,10 @@ const providers = [
   },
 ];
 
-type Props = {
+interface Props {
   title: string;
   onClose: () => void;
-};
+}
 
 function SocialAuth({ title, onClose }: Props) {
   const { mutate: loginOAuth2 } = useLoginOAuth2();

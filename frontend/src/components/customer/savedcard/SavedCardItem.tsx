@@ -38,7 +38,7 @@ function SavedCardItem({ savedCard }: SavedCardItemProps) {
         ref={containerRef}
       >
         <Link
-          to={`/card/${savedCard.savedCardId}`}
+          to={`/design/savedcard/${savedCard.savedCardId}`}
           className="absolute inset-0 flex items-center justify-center p-[15px]"
         >
           <Image

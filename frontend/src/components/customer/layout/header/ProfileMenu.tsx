@@ -5,9 +5,9 @@ import Button from "../../../ui/Button";
 import { useGetMe } from "../../../../hooks/queries/useUsers";
 import { useLogout } from "../../../../hooks/queries/useAuth";
 import { useAppDispatch } from "../../../../redux/store";
-type Props = {
+interface Props {
   profileMenuOpen: boolean;
-};
+}
 
 function ProfileMenu({ profileMenuOpen }: Props) {
   const { data: accountData, isLoading } = useGetMe();

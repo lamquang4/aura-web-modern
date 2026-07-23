@@ -11,13 +11,13 @@ type SortableImage = {
   url: string;
 };
 
-type Props = {
+interface Props {
   InputId: string;
   previewImages: string[];
   onPreviewImage: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onRemovePreviewImage: (index: number) => void;
   onReorderImages: (orderedUrls: string[]) => void;
-};
+}
 
 function InputImage({
   InputId,

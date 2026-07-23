@@ -11,10 +11,10 @@ import { useLogin } from "../../../hooks/queries/useAuth";
 import Overplay from "../../ui/Overplay";
 import { loginSchema, type LoginData } from "../../../schemas/authSchema";
 import FieldError from "../../ui/FieldError";
-type Props = {
+interface Props {
   onClose: () => void;
   onSwitchRegister: () => void;
-};
+}
 
 function LoginModal({ onClose, onSwitchRegister }: Props) {
   const [showPassword, setShowPassword] = useState<boolean>(false);

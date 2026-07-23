@@ -1,8 +1,8 @@
 import { memo } from "react";
 
-type Props = {
+interface Props {
   count: number;
-};
+}
 
 function CardListSkeleton({ count }: Props) {
   return (

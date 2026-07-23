@@ -9,10 +9,10 @@ import {
   UsersRound,
 } from "lucide-react";
 import Overplay from "../../ui/Overplay";
-type Props = {
+interface Props {
   menuOpen: boolean;
   onToggleMenu: () => void;
-};
+}
 
 type MenuChild = {
   label: string;

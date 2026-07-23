@@ -5,10 +5,10 @@ import { Link } from "react-router-dom";
 import { useGetActiveCards } from "../../../hooks/queries/useCards";
 import useDebounce from "../../../hooks/useDebounce";
 
-type Props = {
+interface Props {
   search: string;
-};
-function Suggestioncard({ search }: Props) {
+}
+function SuggestionCard({ search }: Props) {
   const [keyword, setKeyword] = useState("");
 
   const debouncedKeyword = useDebounce(keyword, 500);
@@ -38,7 +38,7 @@ function Suggestioncard({ search }: Props) {
         ) : cards.length > 0 ? (
           cards.map((card) => (
             <div className="flex w-full" key={card.cardId}>
-              <Link to={`/card/${card.cardId}`} className="w-full">
+              <Link to={`/design/card/${card.cardId}`} className="w-full">
                 <div className="hover:bg-[#F7F7F7] p-2.5 w-full flex gap-3.5 border-t border-gray-200">
                   <div className="w-[80px] h-[80px] overflow-hidden">
                     <Image
@@ -64,4 +64,4 @@ function Suggestioncard({ search }: Props) {
   );
 }
 
-export default memo(Suggestioncard);
+export default memo(SuggestionCard);
