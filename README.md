@@ -14,11 +14,11 @@ Admin: [![Live Demo](https://img.shields.io/badge/Live_Demo-000000?style=flat-sq
 
 **Viết lời chúc vào thiệp**
 
-[Xem video demo](https://quanglam.vercel.app/assets/projects/project4/ui4.mp4)
+[Xem video demo](https://quanglam.vercel.app/assets/projects/project4/video2.mp4)
 
-**Gửi thiệp và xem lời chúc trong thiệp**
+**Gửi thiệp chúc cho người thân**
 
-[Xem video demo](https://quanglam.vercel.app/assets/projects/project4/ui3.mp4)
+[Xem video demo](https://quanglam.vercel.app/assets/projects/project4/video1.mp4)
 
 ## Cài đặt môi trường
 
