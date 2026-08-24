@@ -8,7 +8,7 @@ interface Props {
 
 function DesignCardHeader({ isLoadingSave }: Props) {
   return (
-    <header className="w-full bg-white sticky top-0 border-b border-gray-200 z-15">
+    <header className="w-full bg-white sticky top-0 border-b border-neutral-200 z-15">
       <div className="py-4 px-4 relative">
         <div className="w-full max-w-[1200px] mx-auto flex justify-between items-center">
           <Link to="/">

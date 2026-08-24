@@ -35,7 +35,7 @@ function CardActionMenu({ cardId, onClose }: CardActionMenuProps) {
   return (
     <div className="absolute top-[40px] right-[8px] bg-white shadow-md rounded-sm z-20 p-0 w-[200px]">
       <Link
-        className="p-[14px_12px] hover:bg-gray-100 w-full text-info"
+        className="p-[14px_12px] hover:bg-neutral-100 w-full text-info"
         to={`/design/savedcard/${cardId}`}
         onClick={onClose}
       >
@@ -46,7 +46,7 @@ function CardActionMenu({ cardId, onClose }: CardActionMenuProps) {
       </Link>
 
       <Button
-        className="p-[14px_12px] hover:bg-gray-100 text-danger w-full"
+        className="p-[14px_12px] hover:bg-neutral-100 text-danger w-full"
         onClick={handleDeleteSavedCard}
         disabled={isLoadingDelete}
       >
@@ -56,7 +56,7 @@ function CardActionMenu({ cardId, onClose }: CardActionMenuProps) {
       </Button>
 
       <Link
-        className="p-[14px_12px] hover:bg-gray-100 w-full"
+        className="p-[14px_12px] hover:bg-neutral-100 w-full"
         to={`/send/${cardId}`}
         onClick={onClose}
       >
@@ -66,7 +66,7 @@ function CardActionMenu({ cardId, onClose }: CardActionMenuProps) {
       </Link>
 
       <Button
-        className="p-[14px_12px] hover:bg-gray-100 w-full"
+        className="p-[14px_12px] hover:bg-neutral-100 w-full"
         onClick={handleCopyLink}
       >
         <div className="flex items-center gap-2 font-medium">
@@ -76,7 +76,7 @@ function CardActionMenu({ cardId, onClose }: CardActionMenuProps) {
       </Button>
 
       <Link
-        className="p-[14px_12px] hover:bg-gray-100 w-full"
+        className="p-[14px_12px] hover:bg-neutral-100 w-full"
         to="https://m.me/"
         target="_blank"
         onClick={onClose}
@@ -87,7 +87,7 @@ function CardActionMenu({ cardId, onClose }: CardActionMenuProps) {
       </Link>
 
       <Link
-        className="p-[14px_12px] hover:bg-gray-100 w-full"
+        className="p-[14px_12px] hover:bg-neutral-100 w-full"
         to={`https://mail.google.com/mail/u/0/?view=cm&fs=1&su=Gửi thiệp`}
         target="_blank"
         onClick={onClose}

@@ -32,11 +32,11 @@ function SocialAuth({ title, onClose }: Props) {
   return (
     <>
       <div className="flex items-center">
-        <div className="flex-grow border-t border-gray-300" />
+        <div className="flex-grow border-t border-neutral-200" />
         <span className="px-[0.6rem] text-[0.9rem] text-black whitespace-nowrap">
           Hoặc {title} bằng
         </span>
-        <div className="flex-grow border-t border-gray-300" />
+        <div className="flex-grow border-t border-neutral-200" />
       </div>
 
       <div className="flex justify-center">
@@ -45,7 +45,7 @@ function SocialAuth({ title, onClose }: Props) {
             key={index}
             type="button"
             onClick={() => loginGoogle()}
-            className="px-[12px] py-[8px] border border-gray-300 bg-white shadow-md rounded-md"
+            className="px-[12px] py-[8px] border border-neutral-200 bg-white rounded-md"
           >
             <div className="flex items-center justify-center gap-[10px]">
               <Image

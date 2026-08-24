@@ -22,7 +22,7 @@ function DesignPanel({ control, errors }: Props) {
       initial={{ opacity: 0, x: 30 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5, delay: 0.15 }}
-      className="w-full lg:w-[400px] bg-white rounded-sm border border-gray-300 shadow-sm p-[15px]"
+      className="w-full lg:w-[400px] bg-white rounded-sm border border-neutral-200 shadow-sm p-[15px]"
     >
       <div className="space-y-[15px]">
         <div className="space-y-[5px] w-full">
@@ -36,7 +36,7 @@ function DesignPanel({ control, errors }: Props) {
                 {...field}
                 type="text"
                 error={errors.customName?.message}
-                className="w-full border border-gray-300 rounded-sm p-[6px_10px] text-[0.9rem] outline-none focus:border-gray-400"
+                className="w-full border border-neutral-200 rounded-sm p-[6px_10px] text-[0.9rem] outline-none focus:border-primary"
               />
             )}
           />
@@ -55,7 +55,7 @@ function DesignPanel({ control, errors }: Props) {
                   <Textarea
                     id="customContent"
                     {...field}
-                    className="w-full h-[150px] rounded-sm p-[6px_10px] border border-gray-300 focus:border-gray-400"
+                    className="w-full h-[150px] rounded-sm p-[6px_10px] border border-neutral-200 focus:border-primary"
                     error={isOver || !!errors.customContent}
                     placeholder="Nhập nội dung thiệp..."
                   />
@@ -84,7 +84,9 @@ function DesignPanel({ control, errors }: Props) {
                     field.onChange(field.value === "bold" ? "normal" : "bold")
                   }
                   className={`w-8 h-8 flex items-center justify-center rounded-sm border ${
-                    field.value === "bold" ? "border-black" : "border-gray-300"
+                    field.value === "bold"
+                      ? "border-primary"
+                      : "border-neutral-200"
                   }`}
                 >
                   <Bold size={18} />
@@ -104,8 +106,8 @@ function DesignPanel({ control, errors }: Props) {
                   }
                   className={`w-8 h-8 flex items-center justify-center rounded-sm border ${
                     field.value === "italic"
-                      ? "border-black"
-                      : "border-gray-300"
+                      ? "border-primary"
+                      : "border-neutral-200"
                   }`}
                 >
                   <Italic size={18} />
@@ -124,7 +126,7 @@ function DesignPanel({ control, errors }: Props) {
               <Select
                 id="fontFamily"
                 {...field}
-                className="w-full border border-gray-300 rounded-sm p-[6px_10px] text-[0.9rem] outline-none focus:border-gray-400"
+                className="w-full border border-neutral-200 rounded-sm p-[6px_10px] text-[0.9rem] outline-none focus:border-primary"
               >
                 {FONTS.map((f) => (
                   <option key={f} value={f} style={{ fontFamily: f }}>

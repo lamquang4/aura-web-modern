@@ -22,25 +22,24 @@ function EditCardForm() {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const {
-    control,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<UpdateCardData>({
-    resolver: zodResolver(updateCardSchema),
-    mode: "onBlur",
-    defaultValues: {
-      name: "",
-      content: "",
-      status: "",
-    },
-  });
-
   const { data: cardData, isLoading } = useGetCardById(id ?? "");
   const { mutate: updateCard, isPending: isLoadingUpdate } = useUpdateCard();
 
   const card = cardData?.data;
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<UpdateCardData>({
+    resolver: zodResolver(updateCardSchema),
+    mode: "onBlur",
+    values: {
+      name: card?.name ?? "",
+      content: card?.content ?? "",
+      status: card?.status ?? "",
+    },
+  });
 
   const {
     previewImages: previewFrontImage,
@@ -68,13 +67,7 @@ function EditCardForm() {
       navigate("/admin/cards");
       return;
     }
-
-    reset({
-      name: card.name || "",
-      content: card.content || "",
-      status: card.status || "",
-    });
-  }, [isLoading, card, navigate, reset]);
+  }, [isLoading, card, navigate]);
 
   const onSubmit = (data: UpdateCardData) => {
     const formData = new FormData();
@@ -111,11 +104,11 @@ function EditCardForm() {
           className="flex flex-col gap-7 w-full"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <h2 className="text-neutral">Chỉnh sửa thiệp</h2>
+          <h2 className="text-neutral-300">Chỉnh sửa thiệp</h2>
 
           <div className="flex gap-[25px] w-full flex-col">
             <div className="md:p-[25px] p-[15px] bg-white rounded-md flex flex-col gap-[15px] w-full">
-              <h5 className="font-bold text-neutral">Hình thiệp</h5>
+              <h5 className="font-bold text-neutral-300">Hình thiệp</h5>
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 items-start">
                 <div className="flex flex-col gap-[15px]">
@@ -172,7 +165,7 @@ function EditCardForm() {
             </div>
 
             <div className="md:p-[25px] p-[15px] bg-white rounded-md flex flex-col gap-[15px] w-full">
-              <h5 className="font-bold text-neutral">Thông tin chung</h5>
+              <h5 className="font-bold text-neutral-300">Thông tin chung</h5>
 
               <div className="flex flex-col gap-1">
                 <Label htmlFor="name" required>
@@ -185,7 +178,7 @@ function EditCardForm() {
                     <Input
                       type="text"
                       id="name"
-                      className="border border-gray-300 p-[6px_10px] text-[0.9rem] w-full outline-none focus:border-gray-400"
+                      className="border border-neutral-200 p-[6px_10px] text-[0.9rem] w-full outline-none focus:border-primary"
                       error={errors.name?.message}
                       {...field}
                     />
@@ -204,7 +197,7 @@ function EditCardForm() {
                   render={({ field }) => (
                     <Textarea
                       id="content"
-                      className="w-full h-[150px] rounded-sm p-[6px_10px] border border-gray-300 focus:border-gray-400"
+                      className="w-full h-[150px] rounded-sm p-[6px_10px] border border-neutral-200 focus:border-primary"
                       placeholder="Nhập nội dung thiệp..."
                       error={!!errors.content}
                       {...field}
@@ -224,7 +217,7 @@ function EditCardForm() {
                   render={({ field }) => (
                     <Select
                       id="status"
-                      className="border border-gray-300 p-[6px_10px] text-[0.9rem] w-full outline-none focus:border-gray-400"
+                      className="border border-neutral-200 p-[6px_10px] text-[0.9rem] w-full outline-none focus:border-primary"
                       error={errors.status?.message}
                       {...field}
                     >

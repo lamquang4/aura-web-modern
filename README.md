@@ -2,9 +2,9 @@
 
 Website cho phép người dùng viết lời chúc trên các mẫu thiệp có sẵn theo từng dịp lễ và gửi đến bạn bè, người thân hoặc người yêu.
 
-![](docs/images/ui1.png)
+![](docs/images/ui1.webp)
 
-![](docs/images/ui2.png)
+![](docs/images/ui2.webp)
 
 ## Demo
 

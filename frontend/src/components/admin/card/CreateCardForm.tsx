@@ -87,11 +87,11 @@ function CreateCardForm() {
           className="flex flex-col gap-7 w-full"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <h2 className="text-neutral">Thêm thiệp</h2>
+          <h2 className="text-neutral-300">Thêm thiệp</h2>
 
           <div className="flex flex-col gap-[25px] w-full">
             <div className="md:p-[25px] p-[15px] bg-white rounded-md flex flex-col gap-[15px] w-full">
-              <h5 className="font-bold text-neutral">Hình thiệp</h5>
+              <h5 className="font-bold text-neutral-300">Hình thiệp</h5>
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 items-start">
                 <div className="flex flex-col gap-[15px]">
@@ -125,7 +125,7 @@ function CreateCardForm() {
             </div>
 
             <div className="md:p-[25px] p-[15px] bg-white rounded-md flex flex-col gap-[15px] w-full">
-              <h5 className="font-bold text-neutral">Thông tin chung</h5>
+              <h5 className="font-bold text-neutral-300">Thông tin chung</h5>
 
               <div className="flex flex-col gap-1">
                 <Label htmlFor="" required>
@@ -134,7 +134,7 @@ function CreateCardForm() {
                 <Input
                   type="text"
                   id="name"
-                  className="border border-gray-300 p-[6px_10px] text-[0.9rem] w-full outline-none focus:border-gray-400"
+                  className="border border-neutral-200 p-[6px_10px] text-[0.9rem] w-full outline-none focus:border-primary"
                   error={errors.name?.message}
                   {...register("name")}
                 />
@@ -147,7 +147,7 @@ function CreateCardForm() {
                 </Label>
                 <Textarea
                   id="content"
-                  className="w-full h-[150px] rounded-sm p-[6px_10px] border border-gray-300 focus:border-gray-400"
+                  className="w-full h-[150px] rounded-sm p-[6px_10px] border border-neutral-200 focus:border-primary"
                   placeholder="Nhập nội dung thiệp..."
                   error={!!errors.content}
                   {...register("content")}
@@ -161,7 +161,7 @@ function CreateCardForm() {
                 </Label>
                 <Select
                   id="status"
-                  className="border border-gray-300 p-[6px_10px] text-[0.9rem] w-full outline-none focus:border-gray-400"
+                  className="border border-neutral-200 p-[6px_10px] text-[0.9rem] w-full outline-none focus:border-primary"
                   error={errors.status?.message}
                   {...register("status")}
                 >
@@ -182,6 +182,7 @@ function CreateCardForm() {
             >
               {isLoading ? "Đang thêm..." : "Thêm"}
             </Button>
+
             <Link
               to="/admin/cards"
               className="p-[6px_10px] bg-danger text-white text-[0.9rem] text-center rounded-sm"

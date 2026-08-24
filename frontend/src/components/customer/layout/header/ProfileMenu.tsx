@@ -25,24 +25,24 @@ function ProfileMenu({ profileMenuOpen }: Props) {
     >
       {account ? (
         <>
-          <p className="border-b p-2.5 border-gray-200 max-w-[210px] overflow-hidden text-ellipsis whitespace-nowrap text-center">
+          <p className="border-b p-2.5 border-neutral-200 max-w-[210px] overflow-hidden text-ellipsis whitespace-nowrap text-center">
             Xin chào, {account.fullname}
           </p>
 
           <Link
-            className="hover:bg-gray-100 w-full block p-2.5"
+            className="hover:bg-neutral-100 w-full block p-2.5"
             to="/account/profile"
           >
             Thông tin tài khoản
           </Link>
 
-          <Link className="hover:bg-gray-100 w-full block p-2.5" to="/saved">
+          <Link className="hover:bg-neutral-100 w-full block p-2.5" to="/saved">
             Thiệp của tôi
           </Link>
 
           <Button
             onClick={logout}
-            className="hover:bg-gray-100 w-full block p-2.5 text-left"
+            className="hover:bg-neutral-100 w-full block p-2.5 text-left"
           >
             Đăng xuất
           </Button>
@@ -51,14 +51,14 @@ function ProfileMenu({ profileMenuOpen }: Props) {
         <>
           <Button
             onClick={() => dispatch(openAuthModal("login"))}
-            className="hover:bg-gray-100 w-full block p-2.5 text-left"
+            className="hover:bg-neutral-100 w-full block p-2.5 text-left"
           >
             Đăng nhập
           </Button>
 
           <Button
             onClick={() => dispatch(openAuthModal("register"))}
-            className="hover:bg-gray-100 w-full block p-2.5 text-left"
+            className="hover:bg-neutral-100 w-full block p-2.5 text-left"
           >
             Đăng ký
           </Button>

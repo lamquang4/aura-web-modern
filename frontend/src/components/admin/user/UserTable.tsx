@@ -78,7 +78,7 @@ function UserTable({ users, isLoading }: Props) {
   return (
     <table className="w-[350%] border-collapse sm:w-[220%] xl:w-full text-[0.9rem]">
       <thead>
-        <tr className="bg-[#E9EDF2] text-left">
+        <tr className="text-left">
           <th className="p-[1rem]">Họ tên</th>
 
           <th className="p-[1rem]">Email</th>
@@ -140,13 +140,13 @@ function UserTable({ users, isLoading }: Props) {
                       <LockKeyhole
                         strokeWidth={1.5}
                         size={22}
-                        className="text-neutral"
+                        className="text-neutral-300"
                       />
                     ) : (
                       <LockKeyholeOpen
                         strokeWidth={1.5}
                         size={22}
-                        className="text-neutral"
+                        className="text-neutral-300"
                       />
                     )}
                   </Button>

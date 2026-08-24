@@ -38,7 +38,7 @@ function AccountInfo() {
               <Input
                 type="text"
                 name="fullname"
-                className="w-full rounded-sm p-[6px_10px] text-[0.9rem] border border-gray-300  focus:outline-0"
+                className="w-full rounded-sm p-[6px_10px] text-[0.9rem] border border-neutral-200 focus:border-primary"
                 value={data?.fullname}
                 readOnly
               />
@@ -54,7 +54,7 @@ function AccountInfo() {
               <Input
                 type="text"
                 name="email"
-                className="w-full rounded-sm p-[6px_10px] text-[0.9rem] border border-gray-300  focus:outline-0"
+                className="w-full rounded-sm p-[6px_10px] text-[0.9rem] border border-neutral-200 focus:border-primary"
                 value={data?.email}
                 readOnly
               />

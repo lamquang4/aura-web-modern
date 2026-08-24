@@ -67,7 +67,7 @@ function Pagination({ totalPages, currentPage, limit, totalItems }: Props) {
             <Select
               value={limit}
               onChange={handleLimitChange}
-              className="p-1 border border-gray-300 focus:border-black"
+              className="p-1 border border-neutral-200 focus:border-black"
             >
               <option value="12">12</option>
               <option value="24">24</option>
@@ -89,7 +89,7 @@ function Pagination({ totalPages, currentPage, limit, totalItems }: Props) {
             >
               <Button
                 type="button"
-                className="h-8.5 w-8.5 inline-flex justify-center items-center gap-x-2 border border-gray-300 hover:bg-gray-100"
+                className="h-8.5 w-8.5 inline-flex justify-center items-center gap-x-2 border border-neutral-200 hover:bg-neutral-100"
                 aria-label="Previous"
                 disabled={currentPage <= 1}
                 onClick={() => currentPage > 1 && goToPage(currentPage - 1)}
@@ -104,7 +104,7 @@ function Pagination({ totalPages, currentPage, limit, totalItems }: Props) {
                       type="button"
                       disabled
                       key={`ellipsis-${index}`}
-                      className="group h-8.5 w-8.5 flex justify-center items-center border border-gray-300"
+                      className="group h-8.5 w-8.5 flex justify-center items-center border border-neutral-200"
                     >
                       ...
                     </Button>
@@ -115,10 +115,10 @@ function Pagination({ totalPages, currentPage, limit, totalItems }: Props) {
                   <Button
                     key={page}
                     onClick={() => goToPage(page as number)}
-                    className={`h-8.5 w-8.5 flex justify-center items-center font-medium border border-gray-300 ${
+                    className={`h-8.5 w-8.5 flex justify-center items-center font-medium border border-neutral-200 ${
                       currentPage === page
                         ? "bg-primary text-white"
-                        : "hover:bg-gray-100"
+                        : "hover:bg-neutral-100"
                     }`}
                   >
                     {page}
@@ -131,7 +131,7 @@ function Pagination({ totalPages, currentPage, limit, totalItems }: Props) {
                 onClick={() =>
                   currentPage < totalPages && goToPage(currentPage + 1)
                 }
-                className="h-8.5 w-8.5 inline-flex justify-center items-center gap-x-2 border border-gray-300 hover:bg-gray-100"
+                className="h-8.5 w-8.5 inline-flex justify-center items-center gap-x-2 border border-neutral-200 hover:bg-neutral-100"
               >
                 <ChevronRight size={18} strokeWidth={1.5} />
               </Button>

@@ -7,8 +7,10 @@ import useDebounce from "../../../hooks/useDebounce";
 
 interface Props {
   search: string;
+  className: string;
 }
-function SuggestionCard({ search }: Props) {
+
+function SuggestionCard({ search, className }: Props) {
   const [keyword, setKeyword] = useState("");
 
   const debouncedKeyword = useDebounce(keyword, 500);
@@ -25,21 +27,21 @@ function SuggestionCard({ search }: Props) {
   }, [search]);
 
   return (
-    <>
+    <div className={className}>
       <div className="p-2.5">
         <p className="font-medium text-balance">
           Kết quả tìm kiếm cho <span className="text-danger">{search}</span>
         </p>
       </div>
 
-      <div className="overflow-y-auto max-h-96 flex flex-col">
+      <div className="overflow-y-auto max-h-90">
         {isLoading ? (
           <Loading height={25} size={35} color={"#d9534f"} thickness={3} />
         ) : cards.length > 0 ? (
           cards.map((card) => (
             <div className="flex w-full" key={card.cardId}>
               <Link to={`/design/card/${card.cardId}`} className="w-full">
-                <div className="hover:bg-[#F7F7F7] p-2.5 w-full flex gap-3.5 border-t border-gray-200">
+                <div className="hover:bg-neutral-100 p-2.5 w-full flex gap-3.5 border-b border-neutral-200">
                   <div className="w-[80px] h-[80px] overflow-hidden">
                     <Image
                       src={`${card.frontImage}`}
@@ -55,12 +57,12 @@ function SuggestionCard({ search }: Props) {
             </div>
           ))
         ) : (
-          <p className="p-4 text-center text-[0.9rem] text-gray-500">
+          <p className="p-4 text-center text-[0.9rem] text-neutral-300">
             Không tìm thấy kết quả
           </p>
         )}
       </div>
-    </>
+    </div>
   );
 }
 

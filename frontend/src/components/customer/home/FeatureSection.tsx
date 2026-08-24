@@ -33,7 +33,7 @@ function FeatureSection() {
           {features.map((item, index) => {
             return (
               <div
-                className="w-full p-[15px] bg-white border border-gray-300"
+                className="w-full p-[15px] bg-white border border-neutral-200"
                 key={index}
               >
                 <div className="mb-[30px]">

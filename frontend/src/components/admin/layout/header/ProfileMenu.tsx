@@ -25,7 +25,7 @@ function ProfileMenu({ menuOpen, onToggleMenu }: Props) {
           onMouseLeave={onToggleMenu}
         >
           <div className="flex cursor-pointer items-center gap-2">
-            <div className="w-[34px] h-[34px] p-1 rounded-full border border-gray-300 overflow-hidden">
+            <div className="w-[34px] h-[34px] p-1 rounded-full border border-neutral-200 overflow-hidden">
               <Image
                 src="/assets/user.png"
                 alt=""
@@ -38,15 +38,11 @@ function ProfileMenu({ menuOpen, onToggleMenu }: Props) {
 
           {menuOpen && (
             <div
-              className={`absolute top-full right-0 max-w z-20 bg-white shadow-md rounded-md border border-gray-200 transition-all duration-100 origin-top`}
+              className={`absolute top-full right-0 max-w z-20 bg-white shadow-md rounded-md transition-all duration-100 origin-top`}
             >
-              <p className="border-b p-3 border-gray-300 max-w-[210px] overflow-hidden text-ellipsis whitespace-nowrap text-center font-medium">
-                Xin chào, {account.fullname}
-              </p>
-
               <Link
                 to={"/admin/account/profile"}
-                className="block hover:bg-gray-100 p-3 whitespace-nowrap"
+                className="block hover:bg-neutral-100 p-3 whitespace-nowrap"
               >
                 <div className="flex items-center gap-2 font-medium">
                   <CircleUserRound size={18} />
@@ -56,7 +52,7 @@ function ProfileMenu({ menuOpen, onToggleMenu }: Props) {
 
               <Button
                 onClick={logout}
-                className="w-full hover:bg-gray-100 p-3 text-danger whitespace-nowrap"
+                className="w-full hover:bg-neutral-100 p-3 text-danger whitespace-nowrap"
               >
                 <div className="flex items-center gap-2 font-medium">
                   <DoorOpen size={18} />

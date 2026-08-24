@@ -21,10 +21,10 @@ function CardSliderSkeleton({ count }: Props) {
       {Array.from({ length: count }).map((_, index) => (
         <SwiperSlide key={index}>
           <div className="animate-pulse space-y-[15px]">
-            <div className="w-full pt-[120%] bg-gray-200 relative" />
+            <div className="w-full pt-[120%] bg-neutral-200 relative" />
 
             <div className="space-y-[6px]">
-              <div className="h-[14px] bg-gray-200 rounded w-3/4 mx-auto" />
+              <div className="h-[14px] bg-neutral-200 rounded w-3/4 mx-auto" />
             </div>
           </div>
         </SwiperSlide>

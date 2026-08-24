@@ -56,7 +56,7 @@ function CardTable({ cards, isLoading }: Props) {
   return (
     <table className="w-[350%] border-collapse sm:w-[220%] xl:w-full text-[0.9rem]">
       <thead>
-        <tr className="bg-[#E9EDF2] text-left">
+        <tr className="text-left">
           <th className="p-[1rem]">Tên</th>
           <th className="p-[1rem]">Hình mặt trước</th>
           <th className="p-[1rem]">Hình mặt sau</th>
@@ -79,7 +79,7 @@ function CardTable({ cards, isLoading }: Props) {
           </tr>
         ) : cards.length > 0 ? (
           cards.map((card) => (
-            <tr key={card.cardId} className="hover:bg-[#f2f3f8]">
+            <tr key={card.cardId}>
               <td className="p-[1rem] text-[0.9rem] font-semibold">
                 {card.name}
               </td>
@@ -130,13 +130,13 @@ function CardTable({ cards, isLoading }: Props) {
                       <Eye
                         strokeWidth={1.5}
                         size={22}
-                        className="text-neutral"
+                        className="text-neutral-300"
                       />
                     ) : (
                       <EyeOff
                         strokeWidth={1.5}
                         size={22}
-                        className="text-neutral"
+                        className="text-neutral-300"
                       />
                     )}
                   </Button>

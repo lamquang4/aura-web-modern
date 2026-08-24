@@ -51,7 +51,7 @@ function LoginForm() {
     <>
       <section className="bg-[#F1F4F9] w-full">
         <div className="flex justify-center items-center h-screen">
-          <div className="relative bg-white rounded-lg shadow-md border border-gray-300 max-w-[850px] w-full h-[500px]">
+          <div className="relative bg-white rounded-lg shadow-md border border-neutral-200 max-w-[850px] w-full h-[500px]">
             <div className="h-full grid grid-cols-1 sm:grid-cols-2 items-center">
               <div className="w-full px-4 sm:px-8 bg-white">
                 <h1 className="relative text-center uppercase mb-6">
@@ -69,7 +69,7 @@ function LoginForm() {
                     <Input
                       type="text"
                       id="email"
-                      className="text-[0.9rem] block w-full px-3 py-2 border border-gray-200"
+                      className="text-[0.9rem] block w-full px-3 py-2 border border-neutral-200 focus:border-primary"
                       placeholder="Nhập email"
                       error={errors.email?.message}
                       {...register("email")}
@@ -87,20 +87,20 @@ function LoginForm() {
                         type={!showPassword ? "password" : "text"}
                         id="password"
                         placeholder="Nhập mật khẩu"
-                        className="text-[0.9rem] block w-full px-3 pr-12 py-2 border border-gray-200"
+                        className="text-[0.9rem] block w-full px-3 pr-12 py-2 border border-neutral-200 focus:border-primary"
                         error={errors.password?.message}
                         {...register("password")}
                       />
 
                       <Button
                         type="button"
-                        className="absolute hover-scale right-3 top-1/2 -translate-y-1/2 text-neutral"
+                        className="absolute hover-scale right-3 top-1/2 -translate-y-1/2"
                         onClick={toggleShowPassword}
                       >
                         {!showPassword ? (
-                          <Eye size={22} />
+                          <Eye size={22} className="text-neutral-300" />
                         ) : (
-                          <EyeOff size={22} />
+                          <EyeOff size={22} className="text-neutral-300" />
                         )}
                       </Button>
                     </div>
@@ -118,7 +118,7 @@ function LoginForm() {
                 </form>
               </div>
 
-              <div className="hidden sm:block border-l-2 border-gray-200">
+              <div className="hidden sm:block border-l-2 border-neutral-200">
                 <Image
                   src={"/assets/hero1.png"}
                   alt={"hero"}
