@@ -1,4 +1,4 @@
-export const MAX_CHARS = 200;
+export const MAX_CONTENT_LENGTH = 200;
 
 export const FONTS = [
   "Arial",

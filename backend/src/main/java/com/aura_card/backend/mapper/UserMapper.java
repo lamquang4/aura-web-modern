@@ -5,6 +5,7 @@ import com.aura_card.backend.dto.request.UpdateUserRequest;
 import com.aura_card.backend.dto.response.AccountResponse;
 import com.aura_card.backend.dto.response.UserResponse;
 import com.aura_card.backend.model.User;
+import com.aura_card.backend.enums.AuthProvider;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +19,7 @@ public class UserMapper {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(request.getRole())
                 .status(request.getStatus())
-                .provider("LOCAL")
+                .provider(AuthProvider.LOCAL)
                 .build();
     }
 
@@ -37,9 +38,9 @@ public class UserMapper {
                 .userId(user.getUserId())
                 .email(user.getEmail())
                 .fullname(user.getFullname())
-                .role(user.getRole())
-                .status(user.getStatus())
-                .provider(user.getProvider())
+                .role(user.getRole().name())
+                .status(user.getStatus().name())
+                .provider(user.getProvider().name())
                 .createdAt(user.getCreatedAt())
                 .updatedAt(user.getUpdatedAt())
                 .build();
@@ -50,8 +51,8 @@ public class UserMapper {
                 .userId(user.getUserId())
                 .email(user.getEmail())
                 .fullname(user.getFullname())
-                .role(user.getRole())
-                .provider(user.getProvider()) 
+                .role(user.getRole().name())
+                .provider(user.getProvider().name()) 
                 .build();
     }
 }

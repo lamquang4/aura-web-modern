@@ -9,7 +9,7 @@ import Button from "../../ui/Button";
 import Input from "../../ui/Input";
 import FieldError from "../../ui/FieldError";
 import { Bold, Italic } from "lucide-react";
-import { FONTS, MAX_CHARS } from "../../../constants/constants";
+import { FONTS, MAX_CONTENT_LENGTH } from "../../../constants/limit";
 
 interface Props {
   control: Control<SavedCardData>;
@@ -49,7 +49,7 @@ function DesignPanel({ control, errors }: Props) {
             name="customContent"
             control={control}
             render={({ field }) => {
-              const isOver = field.value.length > MAX_CHARS;
+              const isOver = field.value.length > MAX_CONTENT_LENGTH;
               return (
                 <div>
                   <Textarea
@@ -63,7 +63,7 @@ function DesignPanel({ control, errors }: Props) {
                   <FieldError message={errors.customContent?.message} />
 
                   <span className={`${isOver ? "text-danger" : ""}`}>
-                    {field.value.length}/{MAX_CHARS} ký tự
+                    {field.value.length}/{MAX_CONTENT_LENGTH} ký tự
                   </span>
                 </div>
               );

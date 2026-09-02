@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { MAX_CONTENT_LENGTH } from "../constants/limit";
 
 export const createCardSchema = z.object({
   name: z.string().trim().min(1, "Tên thiệp không để trống"),
@@ -6,7 +7,10 @@ export const createCardSchema = z.object({
     .string()
     .trim()
     .min(1, "Nội dung không để trống")
-    .max(200, "Nội dung không được vượt quá 200 ký tự"),
+    .max(
+      MAX_CONTENT_LENGTH,
+      `Nội dung không được vượt quá ${MAX_CONTENT_LENGTH} ký tự`,
+    ),
   status: z
     .string()
     .min(1, "Tình trạng không để trống")
@@ -23,7 +27,10 @@ export const updateCardSchema = z.object({
     .string()
     .trim()
     .min(1, "Nội dung không để trống")
-    .max(200, "Nội dung không được vượt quá 200 ký tự"),
+    .max(
+      MAX_CONTENT_LENGTH,
+      `Nội dung không được vượt quá ${MAX_CONTENT_LENGTH} ký tự`,
+    ),
   status: z
     .string()
     .min(1, "Tình trạng không để trống")

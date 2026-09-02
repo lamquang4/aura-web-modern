@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.aura_card.backend.dto.request.LoginRequest;
 import com.aura_card.backend.dto.request.OAuth2LoginRequest;
 import com.aura_card.backend.dto.request.RegisterRequest;
@@ -15,7 +14,6 @@ import com.aura_card.backend.dto.response.LoginResponse;
 import com.aura_card.backend.dto.response.UserResponse;
 import com.aura_card.backend.service.AuthService;
 import com.aura_card.backend.dto.response.ApiResponse;
-
 import jakarta.validation.Valid;
 
 @Validated

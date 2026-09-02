@@ -35,20 +35,20 @@ function Envelope({ isOpened, onOpen }: Props) {
             </svg>
           </div>
 
-          <div className="absolute top-0 left-0 z-[11]">
+          <motion.div
+            className="absolute top-0 left-0 z-[11]"
+            initial={false}
+            animate={{ rotateX: isOpened ? -55 : 0 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            style={{ transformOrigin: "50% 100%", perspective: 800 }}
+          >
             <svg xmlns="http://www.w3.org/2000/svg" height="300" width="300">
-              <motion.polygon
+              <polygon
                 points="0,100 150,200 300,100"
-                animate={
-                  isOpened
-                    ? { points: "0,100 150,-20 300,100" }
-                    : { points: "0,100 150,200 300,100" }
-                }
-                transition={{ duration: 0.5, ease: "easeOut" }}
                 style={{ fill: "#FA8B7E", stroke: "#FA8B7E", strokeWidth: 2 }}
               />
             </svg>
-          </div>
+          </motion.div>
 
           <Button
             onClick={onOpen}

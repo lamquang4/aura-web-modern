@@ -31,7 +31,7 @@ export const cardKeys = {
     [
       ...cardKeys.admins(),
       params.page ?? 1,
-      params.limit ?? 10,
+      params.limit ?? 12,
       params.q ?? "",
       params.status ?? "",
     ] as const,

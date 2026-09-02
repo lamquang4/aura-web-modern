@@ -1,7 +1,9 @@
 package com.aura_card.backend.dto.request;
 
-import jakarta.validation.constraints.Pattern;
+import com.aura_card.backend.enums.UserRole;
+import com.aura_card.backend.enums.UserStatus;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,11 +19,9 @@ public class UpdateUserRequest {
 
     private String password; // mật khẩu mới
 
-    @NotBlank(message = "Chức vụ không để trống")
-    @Pattern(regexp = "CUSTOMER|ADMIN", message = "Chức vụ không hợp lệ")
-    private String role;
+    @NotNull(message = "Chức vụ không để trống")
+    private UserRole role;
 
-    @NotBlank(message = "Tình trạng không để trống")
-    @Pattern(regexp = "ACTIVE|LOCKED", message = "Tình trạng không hợp lệ")
-    private String status;
+    @NotNull(message = "Tình trạng không để trống")
+    private UserStatus status;
 }

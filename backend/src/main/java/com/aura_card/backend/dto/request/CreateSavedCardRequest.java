@@ -1,6 +1,8 @@
 package com.aura_card.backend.dto.request;
 
+import com.aura_card.backend.constant.LimitConstants;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,6 +17,7 @@ public class CreateSavedCardRequest {
     private String customName;
 
     @NotBlank(message = "Nội dung không để trống")
+    @Size(max = LimitConstants.MAX_CONTENT_LENGTH, message = "Nội dung không được vượt quá 200 ký tự")
     private String customContent;
 
     @NotBlank(message = "Font family không để trống")

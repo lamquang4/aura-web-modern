@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import type { AxiosError } from "axios";
 import { authApi } from "../../apis/authApi";
-import { setCookie, removeCookie } from "../../utils/cookieUtil";
+import { jwtUtil } from "../../utils/jwtUtil";
 import type {
   ApiResponse,
   ErrorResponse,
@@ -14,10 +14,12 @@ import type {
   OAuth2LoginRequest,
 } from "../../types/type";
 import { userKeys } from "./useUsers";
+import { userApi } from "../../apis/userApi";
 
 // Đăng nhập thủ công
 export const useLogin = () => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   return useMutation<
     ApiResponse<LoginResponse>,
@@ -25,16 +27,18 @@ export const useLogin = () => {
     LoginRequest
   >({
     mutationFn: (data) => authApi.login(data),
-    onSuccess: (res) => {
+    onSuccess: async (res) => {
       toast.success(res.message);
 
-      if (res.data.role === "ADMIN") {
-        setCookie("token-admin", res.data.token, 1);
-        navigate("/admin/account/profile");
-      } else {
-        setCookie("token-customer", res.data.token, 1);
-        navigate("/");
-      }
+      const role = res.data.role;
+      jwtUtil.setToken(role, res.data.token);
+
+      await queryClient.fetchQuery({
+        queryKey: userKeys.me(),
+        queryFn: userApi.getMe,
+      });
+
+      navigate(role === "ADMIN" ? "/admin/account/profile" : "/");
     },
     onError: (error) => {
       toast.error(error.response?.data?.message ?? "Đăng nhập thất bại");
@@ -62,6 +66,7 @@ export const useRegister = () => {
 // Đăng nhập Google
 export const useLoginOAuth2 = () => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   return useMutation<
     ApiResponse<LoginResponse>,
@@ -69,16 +74,18 @@ export const useLoginOAuth2 = () => {
     OAuth2LoginRequest
   >({
     mutationFn: (data) => authApi.loginOAuth2(data),
-    onSuccess: (res) => {
+    onSuccess: async (res) => {
       toast.success(res.message);
 
-      if (res.data.role === "ADMIN") {
-        setCookie("token-admin", res.data.token, 1);
-        navigate("/admin/account/profile");
-      } else {
-        setCookie("token-customer", res.data.token, 1);
-        navigate("/");
-      }
+      const role = res.data.role;
+      jwtUtil.setToken(role, res.data.token);
+
+      await queryClient.fetchQuery({
+        queryKey: userKeys.me(),
+        queryFn: userApi.getMe,
+      });
+
+      navigate(role === "ADMIN" ? "/admin/account/profile" : "/");
     },
     onError: (error) => {
       toast.error(error.response?.data?.message ?? "Đăng nhập thất bại");
@@ -95,7 +102,7 @@ export const useLogout = () => {
   const logout = () => {
     const isAdmin = location.pathname.startsWith("/admin");
 
-    removeCookie(isAdmin ? "token-admin" : "token-customer");
+    jwtUtil.clearToken(isAdmin ? "ADMIN" : "CUSTOMER");
 
     queryClient.removeQueries({ queryKey: userKeys.me() });
 

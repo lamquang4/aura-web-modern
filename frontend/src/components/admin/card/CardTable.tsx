@@ -84,7 +84,7 @@ function CardTable({ cards, isLoading }: Props) {
                 {card.name}
               </td>
               <td className="p-[1rem]">
-                <div className="relative group w-[80px] h-[80px] overflow-hidden">
+                <div className="relative group w-[100px] h-[100px] overflow-hidden">
                   <Image
                     src={`${card.frontImage}`}
                     alt={card.name}
@@ -98,7 +98,7 @@ function CardTable({ cards, isLoading }: Props) {
 
               <td className="p-[1rem]">
                 {card.backImage && (
-                  <div className="relative group w-[80px] h-[80px] overflow-hidden">
+                  <div className="relative group w-[100px] h-[100px] overflow-hidden">
                     <Image
                       src={`${card.backImage}`}
                       alt={card.name}

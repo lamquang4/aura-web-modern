@@ -151,7 +151,7 @@ export interface SavedCardDetailResponse {
 }
 
 export interface JwtPayload {
-  id: string;
+  sub: string; // userId
   exp: number;
   iat: number;
   role: UserRole;

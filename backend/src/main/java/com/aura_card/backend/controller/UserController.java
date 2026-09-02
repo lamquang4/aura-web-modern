@@ -5,8 +5,14 @@ import com.aura_card.backend.dto.request.UpdateUserRequest;
 import com.aura_card.backend.dto.response.AccountResponse;
 import com.aura_card.backend.dto.response.ApiResponse;
 import com.aura_card.backend.dto.response.UserResponse;
+import com.aura_card.backend.enums.UserRole;
+import com.aura_card.backend.enums.UserStatus;
 import com.aura_card.backend.service.UserService;
+import com.aura_card.backend.exception.AppException;
+import com.aura_card.backend.exception.ErrorCode;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@Validated
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -39,11 +46,11 @@ public class UserController {
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ApiResponse<List<UserResponse>>> getUsers(
-            @RequestParam(defaultValue = "1") int page,
-            @RequestParam(defaultValue = "12") int limit,
+            @RequestParam(defaultValue = "1") @Min(1) int page,
+            @RequestParam(defaultValue = "12") @Min(1) int limit,
             @RequestParam(required = false) String q,
-            @RequestParam(required = false) String role,
-            @RequestParam(required = false) String status) {
+            @RequestParam(required = false) UserRole role,
+            @RequestParam(required = false) UserStatus status) {
 
         Page<UserResponse> data = userService.getUsers(page, limit, q, role, status);
 
@@ -70,6 +77,9 @@ public class UserController {
     @PreAuthorize("hasAnyRole('ADMIN', 'CUSTOMER')")
     public ResponseEntity<ApiResponse<AccountResponse>> getAccount(
             @AuthenticationPrincipal String userId) {
+        if (userId == null || userId.isBlank()) {
+            throw new AppException(ErrorCode.UNAUTHORIZED);
+        }
         return ResponseEntity.ok(ApiResponse.<AccountResponse>builder()
                 .message("Lấy tài khoản thành công")
                 .data(userService.getAccount(userId))

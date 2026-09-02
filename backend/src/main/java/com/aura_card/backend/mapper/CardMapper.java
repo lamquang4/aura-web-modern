@@ -31,7 +31,7 @@ public class CardMapper {
                 .frontImage(card.getFrontImage())
                 .backImage(card.getBackImage())
                 .content(card.getContent())
-                .status(card.getStatus())
+                .status(card.getStatus().name())
                 .build();
     }
 
@@ -41,7 +41,7 @@ public class CardMapper {
                 .name(card.getName())
                 .frontImage(card.getFrontImage())
                 .backImage(card.getBackImage())
-                .status(card.getStatus())
+                .status(card.getStatus().name())
                 .build();
     }
 }

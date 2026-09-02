@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getCookie } from "../utils/cookieUtil";
+import { jwtUtil } from "../utils/jwtUtil";
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BACKEND_URL,
@@ -7,14 +7,11 @@ const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use((config) => {
-  const adminToken = getCookie("token-admin");
-  const customerToken = getCookie("token-customer");
-
   const isAdminRequest =
     config.url?.startsWith("/admin") ||
     window.location.pathname.startsWith("/admin");
 
-  const token = isAdminRequest ? adminToken : customerToken;
+  const token = jwtUtil.getRawToken(isAdminRequest ? "ADMIN" : "CUSTOMER");
 
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;

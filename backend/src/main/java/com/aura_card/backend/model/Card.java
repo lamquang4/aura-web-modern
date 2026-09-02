@@ -1,5 +1,8 @@
 package com.aura_card.backend.model;
 
+import com.aura_card.backend.constant.LimitConstants;
+import com.aura_card.backend.enums.CardStatus;
+
 import java.time.LocalDateTime;
 
 import org.springframework.data.annotation.CreatedDate;
@@ -26,7 +29,7 @@ public class Card {
     private String cardId;
 
     @NotBlank(message = "Nội dung không để trống")
-    @Size(max = 200, message = "Nội dung không được vượt quá 200 ký tự")
+    @Size(max = LimitConstants.MAX_CONTENT_LENGTH, message = "Nội dung không được vượt quá 200 ký tự")
     private String content;
 
     @NotBlank(message = "Hình mặt trước không để trống")
@@ -40,7 +43,7 @@ public class Card {
 
     @NotNull(message = "Tình trạng không để trống")
     @Indexed
-    private String status; // ACTIVE | INACTIVE
+    private CardStatus status; // ACTIVE | INACTIVE
 
     @CreatedDate
     private LocalDateTime createdAt;

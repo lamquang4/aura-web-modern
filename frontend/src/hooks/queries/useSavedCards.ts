@@ -17,7 +17,7 @@ export const savedCardKeys = {
   lists: () => [...savedCardKeys.all, "list"] as const,
 
   listParams: (params: { page?: number; limit?: number }) =>
-    [...savedCardKeys.lists(), params.page ?? 1, params.limit ?? 12] as const,
+    [...savedCardKeys.lists(), params.page ?? 1, params.limit ?? 6] as const,
 
   detail: (savedCardId: string) =>
     [...savedCardKeys.all, "detail", savedCardId] as const,

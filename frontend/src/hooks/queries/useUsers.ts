@@ -10,7 +10,7 @@ import type {
   UserResponse,
 } from "../../types/type";
 import type { AxiosError } from "axios";
-import { useToken } from "../../utils/cookieUtil";
+import { cookieUtil } from "../../utils/cookieUtil";
 import { useLocation } from "react-router-dom";
 
 export const userKeys = {
@@ -22,7 +22,7 @@ export const userKeys = {
     [
       ...userKeys.lists(),
       params?.page ?? 1,
-      params?.limit ?? 10,
+      params?.limit ?? 12,
       params?.q ?? "",
       params?.role ?? "",
       params?.status ?? "",
@@ -37,8 +37,8 @@ export const useGetMe = () => {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith("/admin");
 
-  const tokenCustomer = useToken("token-customer");
-  const tokenAdmin = useToken("token-admin");
+  const tokenCustomer = cookieUtil.get("token-customer");
+  const tokenAdmin = cookieUtil.get("token-admin");
 
   const hasToken = isAdminRoute ? !!tokenAdmin : !!tokenCustomer;
 

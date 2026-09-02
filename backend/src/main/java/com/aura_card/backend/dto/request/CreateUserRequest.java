@@ -1,8 +1,10 @@
 package com.aura_card.backend.dto.request;
 
+import com.aura_card.backend.enums.UserRole;
+import com.aura_card.backend.enums.UserStatus;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,11 +27,9 @@ public class CreateUserRequest {
     @Size(min = 6, message = "Mật khẩu tối thiểu 6 ký tự")
     private String password;
 
-    @NotBlank(message = "Role không để trống")
-    @Pattern(regexp = "CUSTOMER|ADMIN", message = "Role không hợp lệ")
-    private String role;
+    @NotNull(message = "Role không để trống")
+    private UserRole role;
 
-    @NotBlank(message = "Tình trạng không để trống")
-    @Pattern(regexp = "ACTIVE|LOCKED", message = "Tình trạng không hợp lệ")
-    private String status;
+    @NotNull(message = "Tình trạng không để trống")
+    private UserStatus status;
 }

@@ -4,7 +4,7 @@ import ImageViewer from "../../ui/ImageViewer";
 import { ReactSortable } from "react-sortablejs";
 import Button from "../../ui/Button";
 import Input from "../../ui/Input";
-import { CircleX, CloudUpload } from "lucide-react";
+import { CloudUpload, X } from "lucide-react";
 import Label from "../../ui/Label";
 interface SortableImage {
   id: string;
@@ -115,14 +115,14 @@ function InputImage({
                 <div className="absolute top-[6px] right-[6px]">
                   <Button
                     type="button"
-                    className="bg-white flex justify-center items-center rounded-full"
+                    className="bg-white flex justify-center items-center rounded-full border p-0.5"
                     onClick={(e) => {
                       e.stopPropagation();
                       e.preventDefault();
                       onRemovePreviewImage(index);
                     }}
                   >
-                    <CircleX size={25} />
+                    <X size={22} strokeWidth={2} />
                   </Button>
                 </div>
               </div>

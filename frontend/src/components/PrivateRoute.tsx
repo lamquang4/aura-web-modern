@@ -1,13 +1,12 @@
 import { Navigate } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
-import Cookies from "js-cookie";
-import type { JwtPayload } from "../types/type";
+import type { UserRole } from "../types/type";
+import { jwtUtil } from "../utils/jwtUtil";
 
 interface PrivateRouteProps {
   children: React.ReactNode;
-  allowedRoles: string[];
+  allowedRoles: UserRole[];
   redirectPath: string;
-  role: "ADMIN" | "CUSTOMER";
+  role: UserRole;
 }
 
 const PrivateRoute = ({
@@ -16,40 +15,23 @@ const PrivateRoute = ({
   redirectPath = "/login",
   role,
 }: PrivateRouteProps) => {
-  const token =
-    role === "ADMIN"
-      ? Cookies.get("token-admin")
-      : Cookies.get("token-customer");
+  const token = jwtUtil.getRawToken(role);
 
   if (!token) {
     return <Navigate to={redirectPath} replace />;
   }
 
   try {
-    const decoded = jwtDecode<JwtPayload>(token);
-    // kiểm tra token hết hạn
-    const isExpired = decoded.exp * 1000 < Date.now();
-    if (isExpired) {
-      if (role === "ADMIN") {
-        Cookies.remove("token-admin");
-      } else {
-        Cookies.remove("token-customer");
+    if (!jwtUtil.hasRole(role, allowedRoles)) {
+      if (jwtUtil.isExpired(role)) {
+        jwtUtil.clearToken(role);
       }
-      return <Navigate to={redirectPath} replace />;
-    }
-
-    // kiểm tra quyền truy cập
-    if (!allowedRoles.includes(decoded.role)) {
       return <Navigate to={redirectPath} replace />;
     }
 
     return <>{children}</>;
   } catch {
-    if (role === "ADMIN") {
-      Cookies.remove("token-admin");
-    } else {
-      Cookies.remove("token-customer");
-    }
+    jwtUtil.clearToken(role);
     return <Navigate to={redirectPath} replace />;
   }
 };

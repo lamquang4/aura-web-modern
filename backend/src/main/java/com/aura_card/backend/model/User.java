@@ -9,6 +9,10 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.aura_card.backend.enums.AuthProvider;
+import com.aura_card.backend.enums.UserRole;
+import com.aura_card.backend.enums.UserStatus;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -39,14 +43,14 @@ public class User {
 
     private Integer gender;
 
-    @NotBlank(message = "Chức vụ không để trống")
-    private String role; // ADMIN | USER
+    @NotNull(message = "Chức vụ không để trống")
+    private UserRole role; // ADMIN | USER
 
     @NotNull(message = "Tình trạng không để trống")
-    private String status; // ACTIVE | LOCKED
+    private UserStatus status; // ACTIVE | LOCKED
 
-    @NotBlank
-    private String provider;
+    @NotNull(message = "Provider không để trống")
+    private AuthProvider provider;
 
     private String providerId;
 

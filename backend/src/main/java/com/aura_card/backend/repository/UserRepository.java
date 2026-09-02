@@ -7,6 +7,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.aura_card.backend.model.User;
+import com.aura_card.backend.enums.UserRole;
+import com.aura_card.backend.enums.UserStatus;
 
 public interface UserRepository extends MongoRepository<User, String> {
 
@@ -16,19 +18,19 @@ public interface UserRepository extends MongoRepository<User, String> {
 
     Page<User> findByFullnameContainingIgnoreCase(String fullname, Pageable pageable);
 
-    Page<User> findByRole(String role, Pageable pageable);
+    Page<User> findByRole(UserRole role, Pageable pageable);
 
-    Page<User> findByStatus(String status, Pageable pageable);
+    Page<User> findByStatus(UserStatus status, Pageable pageable);
 
-    Page<User> findByRoleAndStatus(String role, String status, Pageable pageable);
+    Page<User> findByRoleAndStatus(UserRole role, UserStatus status, Pageable pageable);
 
-    Page<User> findByFullnameContainingIgnoreCaseAndRole(String fullname, String role, Pageable pageable);
+    Page<User> findByFullnameContainingIgnoreCaseAndRole(String fullname, UserRole role, Pageable pageable);
 
-    Page<User> findByFullnameContainingIgnoreCaseAndStatus(String fullname, String status, Pageable pageable);
+    Page<User> findByFullnameContainingIgnoreCaseAndStatus(String fullname, UserStatus status, Pageable pageable);
 
     Page<User> findByFullnameContainingIgnoreCaseAndRoleAndStatus(
             String fullname,
-            String role,
-            String status,
+            UserRole role,
+            UserStatus status,
             Pageable pageable);
 }
