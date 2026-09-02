@@ -38,7 +38,7 @@ function CardSlider({ title, isLoading = false, cards }: Props) {
                     slidesPerView: 3,
                   },
                   1024: {
-                    slidesPerView: 4,
+                    slidesPerView: 3,
                   },
                   1640: {
                     slidesPerView: 4,

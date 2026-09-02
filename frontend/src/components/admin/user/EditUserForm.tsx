@@ -37,11 +37,11 @@ function EditUserForm() {
   } = useForm<UpdateUserData>({
     resolver: zodResolver(updateUserSchema),
     mode: "onBlur",
-    defaultValues: {
-      fullname: "",
+    values: {
+      fullname: user?.fullname || "",
       password: "",
-      status: "",
-      role: "",
+      status: user?.status?.toString() || "",
+      role: user?.role || "",
     },
   });
 
@@ -53,14 +53,7 @@ function EditUserForm() {
       navigate("/admin/users");
       return;
     }
-
-    reset({
-      fullname: user.fullname || "",
-      password: "",
-      status: user.status?.toString() || "",
-      role: user.role || "",
-    });
-  }, [isLoading, user, navigate, reset]);
+  }, [isLoading, user, navigate]);
 
   const onSubmit = (data: UpdateUserData) => {
     if (data.status === "LOCKED" && id === account?.userId) {

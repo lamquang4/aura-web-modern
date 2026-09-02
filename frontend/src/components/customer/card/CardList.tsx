@@ -27,7 +27,7 @@ function CardList({ title, cards, isLoading = false, total }: Props) {
         <CardListSkeleton count={12} />
       ) : cards.length > 0 ? (
         <div
-          className={`grid grid-cols-2 gap-x-[10px] gap-y-[35px] lg:grid-cols-3 2xl:grid-cols-4 ${
+          className={`grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-x-[10px] gap-y-[35px] ${
             cards.length <= 0 ? "h-[50vh]" : ""
           }`}
         >

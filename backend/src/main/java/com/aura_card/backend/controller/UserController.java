@@ -99,7 +99,7 @@ public class UserController {
 
     // Cập nhật người dùng
     @PutMapping("/{userId}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'CUSTOMER')")
     public ResponseEntity<ApiResponse<UserResponse>> updateUser(
             @PathVariable String userId,
             @RequestBody @Valid UpdateUserRequest request) {
