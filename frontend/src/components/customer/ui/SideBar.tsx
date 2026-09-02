@@ -12,7 +12,6 @@ function SideBar() {
   const account = accountData?.data;
 
   const { logout } = useLogout();
-
   return (
     <div className="w-full max-w-full lg:max-w-[300px] self-start lg:sticky lg:top-[5rem] bg-white ">
       <div className="text-[0.9rem] font-medium">
