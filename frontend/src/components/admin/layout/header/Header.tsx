@@ -37,7 +37,7 @@ function Header({ onToggleMenu }: Props) {
           <div className="flex gap-[15px] sm:gap-[20px] items-center">
             <Button
               onClick={handleFullscreen}
-              className="w-8.5 h-8.5 rounded-lg border border-border justify-center items-center flex relative"
+              className="w-8.5 h-8.5 rounded-lg border border-border justify-center items-center flex lg:hidden"
             >
               <Maximize size={18} />
             </Button>

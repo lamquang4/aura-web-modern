@@ -70,18 +70,18 @@ function Header() {
 
             {/* Mobile */}
             <div className="flex lg:hidden items-center gap-4 relative">
-              <Button onClick={toggleSearch}>
+              <Button onClick={toggleSearch} className="p-2 -m-2">
                 <Search size={24} strokeWidth={1.5} />
               </Button>
 
-              <div
-                className="relative cursor-pointer group"
+              <Button
+                className="relative group p-2 -m-2"
                 onMouseEnter={toggleProfileMenu}
                 onMouseLeave={toggleProfileMenu}
               >
                 <UserRound size={24} strokeWidth={1.5} />
                 <ProfileMenu profileMenuOpen={profileMenuOpen} />
-              </div>
+              </Button>
             </div>
           </div>
 
