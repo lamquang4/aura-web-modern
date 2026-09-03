@@ -8,7 +8,7 @@ interface Props {
 
 function DesignCardHeader({ isLoadingSave }: Props) {
   return (
-    <header className="w-full bg-white sticky top-0 border-b border-neutral-200 z-15">
+    <header className="w-full bg-white sticky top-0 border-b border-border z-15">
       <div className="py-4 px-4 relative">
         <div className="w-full max-w-[1200px] mx-auto flex justify-between items-center">
           <Link to="/">
@@ -27,7 +27,7 @@ function DesignCardHeader({ isLoadingSave }: Props) {
               type="submit"
               form="form-design"
               disabled={isLoadingSave}
-              className="p-[6px_10px] bg-primary text-white text-[0.9rem] rounded-md"
+              className="p-[8px_12px] bg-info text-white text-[0.9rem] rounded-md"
             >
               {isLoadingSave ? "Đang lưu..." : "Lưu"}
             </motion.button>
@@ -35,7 +35,7 @@ function DesignCardHeader({ isLoadingSave }: Props) {
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}>
               <Link
                 to="/cards"
-                className="p-[6px_10px] bg-danger text-white text-[0.9rem] rounded-md"
+                className="p-[8px_12px] bg-danger text-white text-[0.9rem] rounded-md"
               >
                 Trở về
               </Link>

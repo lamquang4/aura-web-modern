@@ -15,9 +15,9 @@ function ActionButtons({ onReset }: Props) {
           whileTap={{ scale: 0.9 }}
           type="button"
           onClick={onReset}
-          className="w-[35px] h-[35px] flex justify-center items-center rounded-full border border-black p-1"
+          className="w-[38px] h-[38px] flex justify-center items-center rounded-full border border-black p-1"
         >
-          <Play size={22} />
+          <Play size={24} strokeWidth={1.5} />
         </motion.button>
 
         <ToolTip text="Phát lại" />

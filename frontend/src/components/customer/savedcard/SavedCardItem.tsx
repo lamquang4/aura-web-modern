@@ -34,7 +34,7 @@ function SavedCardItem({ savedCard }: SavedCardItemProps) {
   return (
     <div className="flex flex-col gap-[10px] relative">
       <div
-        className="relative w-full aspect-[4/3] rounded-sm bg-neutral-100"
+        className="relative w-full aspect-[4/3] rounded-sm bg-bg"
         ref={containerRef}
       >
         <Link
@@ -68,7 +68,7 @@ function SavedCardItem({ savedCard }: SavedCardItemProps) {
         <h5 className="font-medium text-[0.95rem] truncate">
           {savedCard.customName}
         </h5>
-        <p className="text-[0.85rem] text-neutral-300">
+        <p className="text-[0.85rem] text-text-muted">
           {new Date(savedCard.createdAt).toLocaleString("en-GB")}
         </p>
       </div>

@@ -12,7 +12,7 @@ function ListHeader({ title, totalItems, addLink }: Props) {
   return (
     <div className="py-[1.3rem] px-[1.2rem] space-y-[20px]">
       <div className="flex justify-between items-center flex-wrap gap-[20px]">
-        <h2 className="text-neutral-300">
+        <h2 className="text-text-muted">
           {title} ({totalItems})
         </h2>
 

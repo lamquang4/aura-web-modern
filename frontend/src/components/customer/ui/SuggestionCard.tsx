@@ -41,7 +41,7 @@ function SuggestionCard({ search, className }: Props) {
           cards.map((card) => (
             <div className="flex w-full" key={card.cardId}>
               <Link to={`/design/card/${card.cardId}`} className="w-full">
-                <div className="hover:bg-neutral-100 p-2.5 w-full flex gap-3.5 border-b border-neutral-200">
+                <div className="hover:bg-bg p-2.5 w-full flex gap-3.5 border-b border-border">
                   <div className="w-[80px] h-[80px] overflow-hidden">
                     <Image
                       src={`${card.frontImage}`}
@@ -57,7 +57,7 @@ function SuggestionCard({ search, className }: Props) {
             </div>
           ))
         ) : (
-          <p className="p-4 text-center text-[0.9rem] text-neutral-300">
+          <p className="p-4 text-center text-[0.9rem] text-text-muted">
             Không tìm thấy kết quả
           </p>
         )}

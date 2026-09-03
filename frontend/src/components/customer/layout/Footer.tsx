@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Image from "../../ui/Image";
 function Footer() {
   return (
-    <footer className="bg-neutral-100 px-[15px]">
+    <footer className="bg-bg px-[15px]">
       <div className="mx-auto w-full max-w-[1200px]">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4 py-10">
           <div className="col-span-full lg:col-span-1 space-y-4">
@@ -14,7 +14,7 @@ function Footer() {
                 loading="eager"
               />
             </Link>
-            <p className="font-medium text-neutral-300 hover:text-inherit">
+            <p className="font-medium text-text-muted hover:text-inherit">
               Aura cho phép bạn có thể lưu giữ những lời chúc chân thành và gửi
               đi những tấm thiệp đầy ý nghĩa đến những người bạn yêu thương
             </p>
@@ -26,7 +26,7 @@ function Footer() {
               <li>
                 <Link
                   to="/"
-                  className=" font-medium text-[0.9rem] text-neutral-300 hover:text-inherit"
+                  className=" font-medium text-[0.9rem] text-text-muted hover:text-inherit"
                 >
                   Trang chủ
                 </Link>
@@ -35,7 +35,7 @@ function Footer() {
               <li>
                 <Link
                   to={"/cards"}
-                  className="font-medium text-[0.9rem] text-neutral-300 hover:text-inherit"
+                  className="font-medium text-[0.9rem] text-text-muted hover:text-inherit"
                 >
                   Tất cả thiệp
                 </Link>
@@ -49,7 +49,7 @@ function Footer() {
               <li>
                 <Link
                   to="/"
-                  className=" font-medium text-[0.9rem] text-neutral-300 hover:text-inherit"
+                  className=" font-medium text-[0.9rem] text-text-muted hover:text-inherit"
                 >
                   Trang chủ
                 </Link>
@@ -58,7 +58,7 @@ function Footer() {
               <li>
                 <Link
                   to={"/cards"}
-                  className="font-medium text-[0.9rem] text-neutral-300 hover:text-inherit"
+                  className="font-medium text-[0.9rem] text-text-muted hover:text-inherit"
                 >
                   Tất cả thiệp
                 </Link>
@@ -72,7 +72,7 @@ function Footer() {
               <li>
                 <Link
                   to="/"
-                  className=" font-medium text-[0.9rem] text-neutral-300 hover:text-inherit"
+                  className=" font-medium text-[0.9rem] text-text-muted hover:text-inherit"
                 >
                   Trang chủ
                 </Link>
@@ -81,7 +81,7 @@ function Footer() {
               <li>
                 <Link
                   to={"/cards"}
-                  className="font-medium text-[0.9rem] text-neutral-300 hover:text-inherit"
+                  className="font-medium text-[0.9rem] text-text-muted hover:text-inherit"
                 >
                   Tất cả thiệp
                 </Link>
@@ -90,7 +90,7 @@ function Footer() {
           </div>
         </div>
 
-        <div className="py-4 border-t border-neutral-200 text-center">
+        <div className="py-4 border-t border-border text-center">
           <p className="font-medium">© QuangLam - Vietnam 2026</p>
         </div>
       </div>

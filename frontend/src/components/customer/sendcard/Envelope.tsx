@@ -52,7 +52,7 @@ function Envelope({ isOpened, onOpen }: Props) {
 
           <Button
             onClick={onOpen}
-            className="z-20 bg-yellow-400 w-[25px] h-[25px] rounded-full absolute top-[182px] left-[138px] hover:scale-110"
+            className="z-20 bg-yellow-400 w-[28px] h-[28px] rounded-full absolute top-[182px] left-[138px] hover:scale-110"
           />
         </motion.div>
       )}

@@ -65,10 +65,10 @@ function InputImage({
         htmlFor={InputId}
         onDrop={handleDrop}
         onDragOver={handleDragOver}
-        className="flex flex-col p-[15px] items-center justify-center w-full min-h-70 h-full border-2 border-neutral-200 border-dashed rounded-lg cursor-pointer bg-neutral-100"
+        className="flex flex-col p-[15px] items-center justify-center w-full min-h-70 h-full border-2 border-border border-dashed rounded-lg cursor-pointer bg-bg"
       >
         {!previewImages.length ? (
-          <div className="flex flex-col items-center justify-center text-neutral-300 space-y-4">
+          <div className="flex flex-col items-center justify-center text-text-muted space-y-4">
             <CloudUpload size={48} />
 
             <div className="space-y-2 text-center">

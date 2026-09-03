@@ -46,7 +46,7 @@ function FilterDropDownMenu({ title, array, paramName }: Props) {
       </div>
 
       {isOpen && (
-        <div className="bg-white absolute border border-neutral-200 z-10 top-full left-0 shadow-md font-medium text-[#444]">
+        <div className="bg-white absolute border border-border z-10 top-full left-0 shadow-md font-medium text-text">
           {array.map((item, index) => {
             const isActive =
               currentValue ===
@@ -56,7 +56,7 @@ function FilterDropDownMenu({ title, array, paramName }: Props) {
                 key={index}
                 onClick={() => handleClick(item.value)}
                 className={`w-full text-left text-[0.9rem] px-3 py-2.5 ${
-                  isActive && "bg-neutral-100"
+                  isActive && "bg-bg"
                 }`}
               >
                 {item.name}

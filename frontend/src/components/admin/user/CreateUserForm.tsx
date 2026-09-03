@@ -55,11 +55,11 @@ function CreateUserForm() {
         className="flex flex-col gap-7 w-full"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <h2 className="text-neutral-300">Thêm người dùng</h2>
+        <h2 className="text-text-muted">Thêm người dùng</h2>
 
         <div className="flex gap-[25px] w-full flex-col">
           <div className="md:p-[25px] p-[15px] bg-white rounded-md flex flex-col gap-[20px] w-full">
-            <h5 className="font-bold text-neutral-300">Thông tin tài khoản</h5>
+            <h5 className="font-bold text-text-muted">Thông tin tài khoản</h5>
 
             <div className="flex flex-col gap-1">
               <Label htmlFor="fullname" required>
@@ -68,7 +68,7 @@ function CreateUserForm() {
               <Input
                 type="text"
                 id="fullname"
-                className="border border-neutral-200 p-[6px_10px] text-[0.9rem] w-full outline-none focus:border-primary"
+                className="border border-border p-[6px_10px] text-[0.9rem] w-full outline-none focus:border-primary"
                 error={errors.fullname?.message}
                 {...register("fullname")}
               />
@@ -82,7 +82,7 @@ function CreateUserForm() {
               <Input
                 type="email"
                 id="email"
-                className="lowercase border border-neutral-200 p-[6px_10px] text-[0.9rem] w-full outline-none focus:border-primary"
+                className="lowercase border border-border p-[6px_10px] text-[0.9rem] w-full outline-none focus:border-primary"
                 error={errors.email?.message}
                 {...register("email")}
               />
@@ -95,7 +95,7 @@ function CreateUserForm() {
               </Label>
               <Select
                 id="status"
-                className="border border-neutral-200 p-[6px_10px] w-full focus:border-primary"
+                className="border border-border p-[6px_10px] w-full focus:border-primary"
                 error={errors.status?.message}
                 {...register("status")}
               >
@@ -112,7 +112,7 @@ function CreateUserForm() {
               </Label>
               <Select
                 id="role"
-                className="border border-neutral-200 p-[6px_10px] w-full focus:border-primary"
+                className="border border-border p-[6px_10px] w-full focus:border-primary"
                 error={errors.role?.message}
                 {...register("role")}
               >
@@ -130,7 +130,7 @@ function CreateUserForm() {
               <Input
                 type="password"
                 id="password"
-                className="border border-neutral-200 p-[6px_10px] text-[0.9rem] w-full outline-none focus:border-primary"
+                className="border border-border p-[6px_10px] text-[0.9rem] w-full outline-none focus:border-primary"
                 error={errors.password?.message}
                 {...register("password")}
               />
@@ -143,13 +143,13 @@ function CreateUserForm() {
           <Button
             disabled={isLoading}
             type="submit"
-            className="p-[6px_10px] hover-scale bg-success text-white font-medium text-center rounded-sm"
+            className="p-[8px_12px] hover-scale bg-success text-white font-medium text-center rounded-sm"
           >
             {isLoading ? "Đang thêm..." : "Thêm"}
           </Button>
           <Link
             to="/admin/users"
-            className="p-[6px_10px] hover-scale bg-danger text-white text-[0.9rem] text-center rounded-sm"
+            className="p-[8px_12px] hover-scale bg-danger text-white text-[0.9rem] text-center rounded-sm"
           >
             Trở về
           </Link>

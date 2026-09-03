@@ -130,13 +130,13 @@ function CardTable({ cards, isLoading }: Props) {
                       <Eye
                         strokeWidth={1.5}
                         size={22}
-                        className="text-neutral-300"
+                        className="text-text-muted"
                       />
                     ) : (
                       <EyeOff
                         strokeWidth={1.5}
                         size={22}
-                        className="text-neutral-300"
+                        className="text-text-muted"
                       />
                     )}
                   </Button>

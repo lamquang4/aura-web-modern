@@ -69,7 +69,7 @@ function AccountInfo() {
                   <Input
                     type="text"
                     id="fullname"
-                    className="border border-neutral-200 p-[6px_10px] w-full focus:border-primary"
+                    className="border border-border p-[6px_10px] w-full focus:border-primary"
                     error={errors.fullname?.message}
                     {...field}
                   />
@@ -88,7 +88,7 @@ function AccountInfo() {
               <Input
                 type="text"
                 name="email"
-                className="w-full rounded-sm p-[6px_10px] text-[0.9rem] border border-neutral-200 focus:border-primary"
+                className="w-full rounded-sm p-[6px_10px] text-[0.9rem] border border-border focus:border-primary"
                 value={account?.email}
                 readOnly
               />

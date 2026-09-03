@@ -27,7 +27,7 @@ function SearchDesktop() {
     <div className="relative w-full flex-1">
       <form
         onSubmit={handleSearch}
-        className={`flex items-stretch w-ful overflow-hidden duration-200 border border-neutral-200 focus-within:border-primary rounded-lg font-medium`}
+        className={`flex items-stretch w-ful overflow-hidden duration-200 border border-border focus-within:border-primary rounded-lg font-medium`}
       >
         <Button className="font-medium px-2" type="submit">
           <Search size={24} strokeWidth={1.5} />
@@ -53,7 +53,7 @@ function SearchDesktop() {
       {focused && search && (
         <SuggestionCard
           search={search}
-          className="absolute top-[110%] left-0 w-full z-20 bg-white shadow-lg border border-neutral-200 rounded-md py-2"
+          className="absolute top-[110%] left-0 w-full z-20 bg-white shadow-lg border border-border rounded-md py-2"
         />
       )}
     </div>

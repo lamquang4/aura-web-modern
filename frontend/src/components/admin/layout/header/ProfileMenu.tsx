@@ -25,7 +25,7 @@ function ProfileMenu({ menuOpen, onToggleMenu }: Props) {
           onMouseLeave={onToggleMenu}
         >
           <div className="flex cursor-pointer items-center gap-2">
-            <div className="w-[34px] h-[34px] p-1 rounded-full border border-neutral-200 overflow-hidden">
+            <div className="w-[34px] h-[34px] p-1 rounded-full border border-border overflow-hidden">
               <Image
                 src="/assets/user.png"
                 alt=""
@@ -42,7 +42,7 @@ function ProfileMenu({ menuOpen, onToggleMenu }: Props) {
             >
               <Link
                 to={"/admin/account/profile"}
-                className="block hover:bg-neutral-100 p-3 whitespace-nowrap"
+                className="block hover:bg-bg p-3 whitespace-nowrap"
               >
                 <div className="flex items-center gap-2 font-medium">
                   <CircleUserRound size={18} />
@@ -52,7 +52,7 @@ function ProfileMenu({ menuOpen, onToggleMenu }: Props) {
 
               <Button
                 onClick={logout}
-                className="w-full hover:bg-neutral-100 p-3 text-danger whitespace-nowrap"
+                className="w-full hover:bg-bg p-3 text-danger whitespace-nowrap"
               >
                 <div className="flex items-center gap-2 font-medium">
                   <DoorOpen size={18} />

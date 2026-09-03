@@ -42,7 +42,7 @@ function SearchMobile({ onToggleSearch, searchOpen }: Props) {
 
   return (
     <div
-      className={`absolute left-0 w-full bg-white border-t border-neutral-200 transition-all duration-300 overflow-hidden font-medium ${
+      className={`absolute left-0 w-full bg-white border-t border-border transition-all duration-300 overflow-hidden font-medium ${
         searchOpen
           ? "opacity-100 visible top-full"
           : "opacity-0 invisible top-[90px]"
@@ -76,7 +76,7 @@ function SearchMobile({ onToggleSearch, searchOpen }: Props) {
         {focused && search && (
           <SuggestionCard
             search={search}
-            className="fixed left-1/2 translate-x-[-50%] z-12 w-full bg-white shadow-lg border-neutral-200 border"
+            className="fixed left-1/2 translate-x-[-50%] z-12 w-full bg-white shadow-lg border-border border"
           />
         )}
       </div>

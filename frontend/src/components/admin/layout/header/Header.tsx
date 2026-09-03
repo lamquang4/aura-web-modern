@@ -25,11 +25,11 @@ function Header({ onToggleMenu }: Props) {
   };
   return (
     <>
-      <header className="sticky top-0 z-10 flex w-full bg-white border-neutral-200 items-center border-b font-medium">
+      <header className="sticky top-0 z-10 flex w-full bg-white border-border items-center border-b font-medium">
         <div className="w-full flex justify-between items-center sm:px-[20px] py-3.5 px-[15px]">
           <Button
             onClick={onToggleMenu}
-            className="w-8.5 h-8.5 rounded-lg border border-neutral-200 justify-center items-center flex"
+            className="w-8.5 h-8.5 rounded-lg border border-border justify-center items-center flex"
           >
             <Menu size={18} />
           </Button>
@@ -37,7 +37,7 @@ function Header({ onToggleMenu }: Props) {
           <div className="flex gap-[15px] sm:gap-[20px] items-center">
             <Button
               onClick={handleFullscreen}
-              className="w-8.5 h-8.5 rounded-lg border border-neutral-200 justify-center items-center flex relative"
+              className="w-8.5 h-8.5 rounded-lg border border-border justify-center items-center flex relative"
             >
               <Maximize size={18} />
             </Button>

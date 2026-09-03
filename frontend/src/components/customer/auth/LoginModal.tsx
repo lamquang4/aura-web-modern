@@ -71,7 +71,7 @@ function LoginModal({ onClose, onSwitchRegister }: Props) {
               </Button>
             </div>
 
-            <hr className="border-neutral-200" />
+            <hr className="border-border" />
 
             <form className="space-y-[15px]" onSubmit={handleSubmit(onSubmit)}>
               <div className="space-y-[5px]">
@@ -81,7 +81,7 @@ function LoginModal({ onClose, onSwitchRegister }: Props) {
                 <Input
                   type="text"
                   id="email"
-                  className="text-[0.9rem] block w-full px-3 py-2 border border-neutral-200 focus:border-primary"
+                  className="text-[0.9rem] block w-full px-3 py-2 border border-border focus:border-primary"
                   placeholder="Nhập email"
                   error={errors.email?.message}
                   {...register("email")}
@@ -99,14 +99,14 @@ function LoginModal({ onClose, onSwitchRegister }: Props) {
                     type={!showPassword ? "password" : "text"}
                     id="password"
                     placeholder="Nhập mật khẩu"
-                    className="text-[0.9rem] block w-full px-3 pr-12 py-2 border border-neutral-200 focus:border-primary"
+                    className="text-[0.9rem] block w-full px-3 pr-12 py-2 border border-border focus:border-primary"
                     error={errors.password?.message}
                     {...register("password")}
                   />
 
                   <Button
                     type="button"
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-300"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted"
                     onClick={toggleShowPassword}
                   >
                     {!showPassword ? <Eye size={22} /> : <EyeOff size={22} />}

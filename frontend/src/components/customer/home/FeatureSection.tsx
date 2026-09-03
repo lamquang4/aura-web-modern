@@ -33,7 +33,7 @@ function FeatureSection() {
           {features.map((item, index) => {
             return (
               <div
-                className="w-full p-[15px] bg-white border border-neutral-200"
+                className="w-full p-[15px] bg-white border border-border"
                 key={index}
               >
                 <div className="mb-[30px]">
@@ -44,7 +44,7 @@ function FeatureSection() {
                     loading="lazy"
                   />
                 </div>
-                <div>
+                <div className="space-y-[10px]">
                   <h4>{item.title}</h4>
                   <p className="leading-[1.5rem]">{item.desc}</p>
                 </div>

@@ -140,13 +140,13 @@ function UserTable({ users, isLoading }: Props) {
                       <LockKeyhole
                         strokeWidth={1.5}
                         size={22}
-                        className="text-neutral-300"
+                        className="text-text-muted"
                       />
                     ) : (
                       <LockKeyholeOpen
                         strokeWidth={1.5}
                         size={22}
-                        className="text-neutral-300"
+                        className="text-text-muted"
                       />
                     )}
                   </Button>

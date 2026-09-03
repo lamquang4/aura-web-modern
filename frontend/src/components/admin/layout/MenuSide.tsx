@@ -92,7 +92,7 @@ function MenuSide({ menuOpen, onToggleMenu }: Props) {
         className={` ${menuOpen ? "left-0" : "left-[-100%]"} 
         ${
           menuOpen ? "xl:translate-x-[-100%] xl:p-0 xl:w-0" : "xl:translate-x-0"
-        } custom-scroll fixed border top-0 h-screen w-[320px] pb-5 bg-white transition-all duration-350 ease-in-out z-100 xl:sticky overflow-y-auto border-b border-neutral-200`}
+        } custom-scroll fixed border top-0 h-screen w-[320px] pb-5 bg-white transition-all duration-350 ease-in-out z-100 xl:sticky overflow-y-auto border-b border-border`}
       >
         <div className="mb-[20px] flex justify-center sticky top-0 bg-white px-3.5 py-4.5">
           <Link to="/">
@@ -118,7 +118,7 @@ function MenuSide({ menuOpen, onToggleMenu }: Props) {
                           openMenus[item.key] ||
                           item.children.some((child) => pathname === child.path)
                             ? "text-primary"
-                            : "hover:bg-neutral-100"
+                            : "hover:bg-bg"
                         } rounded-lg p-3 w-full cursor-pointer flex justify-between items-center`}
                       >
                         <p className="font-medium flex items-center gap-[10px]">
@@ -149,7 +149,7 @@ function MenuSide({ menuOpen, onToggleMenu }: Props) {
                             className={`rounded-lg w-full cursor-pointer my-[5px] ${
                               pathname === child.path
                                 ? "text-white bg-primary"
-                                : "hover:bg-neutral-100"
+                                : "hover:bg-bg"
                             }`}
                           >
                             <Link
@@ -168,7 +168,7 @@ function MenuSide({ menuOpen, onToggleMenu }: Props) {
                       className={`${
                         pathname === item.path
                           ? "text-white bg-primary"
-                          : "hover:bg-neutral-100"
+                          : "hover:bg-bg"
                       } rounded-lg p-3 w-full cursor-pointer flex justify-between items-center`}
                     >
                       <p className="font-medium flex items-center gap-[10px]">

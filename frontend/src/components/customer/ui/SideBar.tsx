@@ -28,8 +28,8 @@ function SideBar() {
           to="/account/profile"
           className={`border-l-4 py-3 px-3.5 ${
             pathname === "/account/profile"
-              ? "bg-neutral-100 border-primary"
-              : "hover:bg-neutral-100 border-transparent"
+              ? "bg-bg border-primary"
+              : "hover:bg-bg border-transparent"
           }`}
         >
           <div className="flex items-center gap-5">
@@ -42,8 +42,8 @@ function SideBar() {
           to="/saved"
           className={`border-l-4 py-3 px-3.5  ${
             pathname === "/saved"
-              ? "bg-neutral-100 border-primary"
-              : "hover:bg-neutral-100 border-transparent"
+              ? "bg-bg border-primary"
+              : "hover:bg-bg border-transparent"
           }`}
         >
           <div className="flex items-center gap-5">
@@ -55,7 +55,7 @@ function SideBar() {
         <Button
           type="button"
           onClick={logout}
-          className="border-l-4 border-transparent py-3 px-3.5 text-left text-danger font-medium hover:bg-neutral-100 w-full"
+          className="border-l-4 border-transparent py-3 px-3.5 text-left text-danger font-medium hover:bg-bg w-full"
         >
           <div className="flex items-center gap-5">
             <DoorOpen size={20} />
