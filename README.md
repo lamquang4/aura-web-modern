@@ -6,7 +6,7 @@ Website cho phép người dùng viết lời chúc trên các mẫu thiệp có
 
 ![](docs/images/ui2.webp)
 
-## Demo
+**Live demo**
 
 Website: [![Live Demo](https://img.shields.io/badge/Live_Demo-000000?style=flat-square&logo=render&logoColor=white)](https://aura-web-modern.onrender.com)
 
