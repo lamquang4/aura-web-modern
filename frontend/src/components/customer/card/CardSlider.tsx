@@ -59,7 +59,7 @@ function CardSlider({ title, isLoading = false, cards }: Props) {
           <div className="flex justify-center items-center">
             <Link
               to={"/cards"}
-              className="bg-black text-white border-0 cursor-pointer text-[0.9rem] font-medium w-auto !flex p-[10px_12px] items-center justify-center gap-[5px]"
+              className="bg-black text-white text-[0.9rem] font-medium w-auto p-[10px_12px]"
             >
               Xem tất cả
             </Link>

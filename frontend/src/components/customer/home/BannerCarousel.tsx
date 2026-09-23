@@ -57,7 +57,7 @@ function BannerCarousel() {
 
                       <Link
                         to="/cards"
-                        className="relative inline-flex items-center justify-center h-[45px] w-[120px] text-[0.9rem] font-semibold border border-black text-black overflow-hidden transition-colors duration-500 hover:text-white mx-auto md:mx-0 group"
+                        className="relative inline-flex items-center justify-center h-[40px] w-[115px] text-[0.9rem] font-semibold border border-black text-black overflow-hidden transition-colors duration-500 hover:text-white mx-auto md:mx-0 group"
                       >
                         <span className="relative z-10 flex items-center justify-center h-full">
                           Bắt đầu

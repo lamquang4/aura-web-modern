@@ -50,7 +50,7 @@ function CreateUserForm() {
   };
 
   return (
-    <div className="py-[30px] sm:px-[25px] px-[15px] bg-[#F1F4F9] h-full">
+    <div className="py-[30px] sm:px-[25px] px-[15px] h-full">
       <form
         className="flex flex-col gap-7 w-full"
         onSubmit={handleSubmit(onSubmit)}

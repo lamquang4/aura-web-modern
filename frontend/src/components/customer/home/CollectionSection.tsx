@@ -34,7 +34,7 @@ function CollectionSection() {
                   <h4 className="uppercase">{card.title}</h4>
 
                   <Link
-                    className="border border-black p-[6px_10px] text-[0.9rem] font-medium text-center inline-block w-fit hover:bg-black hover:text-white"
+                    className="border border-black p-[6px_10px] text-[0.9rem] font-medium text-center inline-block w-fit transition-colors duration-300 hover:bg-black hover:text-white"
                     to={card.link}
                   >
                     Xem thêm

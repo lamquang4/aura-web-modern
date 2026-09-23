@@ -6,6 +6,7 @@ import { useGetSavedCardById } from "../../../hooks/queries/useSavedCards";
 import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import { AnimatePresence, motion } from "framer-motion";
+import { fireConfetti } from "../../../utils/confetti";
 
 function SendCardContainer() {
   const { id } = useParams();
@@ -35,16 +36,21 @@ function SendCardContainer() {
       return;
     }
 
-    const t0 = setTimeout(() => setShowCard(true), 700);
-    const t1 = setTimeout(() => setIsFlipped(true), 1500);
+    const t0 = setTimeout(() => setShowCard(true), 600); // khớp với exit duration của envelope
+    const t1 = setTimeout(() => setIsFlipped(true), 1400); // hiện mặt trước 800ms trước khi lật
+    const t2 = setTimeout(() => setShowButtons(true), 2100); // flip 700ms xong + buffer nhẹ
 
-    const t2 = setTimeout(() => setShowButtons(true), 2400);
     return () => {
       clearTimeout(t0);
       clearTimeout(t1);
       clearTimeout(t2);
     };
   }, [isOpened]);
+
+  const handleOpenCard = () => {
+    setIsOpened(true);
+    fireConfetti();
+  };
 
   const handleReset = () => {
     setIsOpened(false);
@@ -58,7 +64,7 @@ function SendCardContainer() {
         className="relative h-screen overflow-hidden bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: "url('/assets/bg-design.webp')" }}
       >
-        <Envelope isOpened={isOpened} onOpen={() => setIsOpened(true)} />
+        <Envelope isOpened={isOpened} onOpen={() => handleOpenCard()} />
 
         <AnimatePresence>
           {showCard && savedCard && (

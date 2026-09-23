@@ -65,7 +65,7 @@ function InputImage({
         htmlFor={InputId}
         onDrop={handleDrop}
         onDragOver={handleDragOver}
-        className="flex flex-col p-[15px] items-center justify-center w-full min-h-70 h-full border-2 border-border border-dashed rounded-lg cursor-pointer bg-bg"
+        className="flex flex-col p-[15px] items-center justify-center w-full min-h-70 h-full border-2 border-border border-dashed bg-bg rounded-lg cursor-pointer"
       >
         {!previewImages.length ? (
           <div className="flex flex-col items-center justify-center text-text-muted space-y-4">

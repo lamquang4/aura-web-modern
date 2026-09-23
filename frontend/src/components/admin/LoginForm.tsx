@@ -49,7 +49,7 @@ function LoginForm() {
 
   return (
     <>
-      <section className="bg-[#F1F4F9] w-full">
+      <section className="bg-bg-admin w-full">
         <div className="flex justify-center items-center h-screen">
           <div className="relative bg-white rounded-lg shadow-md border border-border max-w-[850px] w-full h-[500px]">
             <div className="h-full grid grid-cols-1 sm:grid-cols-2 items-center">

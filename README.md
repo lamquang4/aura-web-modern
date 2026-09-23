@@ -1,6 +1,10 @@
 # WEBSITE THIỆP CHÚC ĐIỆN TỬ
 
-Website cho phép người dùng viết lời chúc trên các mẫu thiệp có sẵn theo từng dịp lễ và gửi đến bạn bè, người thân hoặc người yêu.
+Website thiệp chúc điện tử, cho phép người dùng lựa chọn các mẫu thiệp có sẵn theo từng dịp, tùy chỉnh lời chúc, font chữ và màu chữ, sau đó tạo liên kết để gửi thiệp đến bạn bè, người thân hoặc người yêu.
+
+Người nhận có thể truy cập liên kết và mở phong bì điện tử để xem thiệp cùng lời chúc được cá nhân hóa.
+
+Hệ thống cũng cung cấp trang quản trị để quản lý mẫu thiệp và tài khoản người dùng với cơ chế phân quyền theo vai trò.
 
 ![](docs/images/ui1.webp)
 
@@ -14,18 +18,18 @@ Admin: [![Live Demo](https://img.shields.io/badge/Live_Demo-000000?style=flat-sq
 
 **Viết lời chúc vào thiệp**
 
-[Xem video demo](https://quanglam.vercel.app/assets/projects/project4/video2.mp4)
+[Xem video demo](https://quanglam.vercel.app/assets/projects/project4/video1.mp4)
 
 **Gửi thiệp chúc cho người thân**
 
-[Xem video demo](https://quanglam.vercel.app/assets/projects/project4/video1.mp4)
+[Xem video demo](https://quanglam.vercel.app/assets/projects/project4/video2.mp4)
 
 ## Cài đặt môi trường
 
 **1. Clone repository**
 
 ```
-https://github.com/lamquang4/aura-web-modern.git
+git clone https://github.com/lamquang4/aura-web-modern.git
 ```
 
 **2. Chạy website bằng Docker**
@@ -43,4 +47,14 @@ docker compose up --build
 | Database   | MongoDB                                                                                                                                                                                 |
 | Storage    | Cloudinary                                                                                                                                                                              |
 | Monitoring | Actuator + Prometheus + Zipkin                                                                                                                                                          |
-| Deployment | Render                                                                                                                                                                                  |
+| Deployment | Frontend + Backend on Render                                                                                                                                                            |
+
+## Chức năng chính
+
+**1. Quản lý thiệp:** Cho phép quản trị viên tạo, chỉnh sửa và xóa các mẫu thiệp trên hệ thống.
+
+**2. Quản lý thiệp tùy chỉnh:** Cho phép người dùng đã đăng nhập lựa chọn mẫu thiệp có sẵn, cá nhân hóa lời chúc với font chữ và màu chữ tùy chỉnh, đồng thời lưu lại thiệp đã tạo để sử dụng, chỉnh sửa hoặc xóa sau này.
+
+**3. Gửi và nhận thiệp:** Cho phép người dùng tạo và chia sẻ liên kết thiệp đến người nhận. Người nhận có thể truy cập liên kết, mở phong bì điện tử và xem nội dung lời chúc được cá nhân hóa.
+
+**4. Quản lý người dùng:** Cho phép quản trị viên quản lý tài khoản người dùng trên hệ thống.
