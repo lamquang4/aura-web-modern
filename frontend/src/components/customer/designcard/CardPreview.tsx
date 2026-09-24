@@ -66,7 +66,7 @@ function CardPreview({
           </div>
         </div>
 
-        <div style={{ perspective: "1000px" }} className="w-full max-w-[400px]">
+        <div style={{ perspective: "1000px" }} className="w-[400px]">
           <motion.div
             animate={{ rotateY: isFlipped ? 180 : 0 }}
             transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
