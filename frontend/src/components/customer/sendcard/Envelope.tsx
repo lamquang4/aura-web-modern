@@ -119,7 +119,7 @@ function Envelope({ isOpened, onOpen }: Props) {
           <Button
             onClick={onOpen}
             onPointerDown={(e) => e.stopPropagation()}
-            className="z-30 bg-yellow-400 w-[32px] h-[32px] rounded-full absolute top-[245px] left-[139px] hover:scale-110 shadow-md"
+            className="z-30 bg-yellow-400 w-[32px] h-[32px] rounded-full absolute top-[245px] left-[139px] hover-scale shadow-md"
           />
         </motion.div>
       )}

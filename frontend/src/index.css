@@ -13,10 +13,9 @@
   --color-success: #74c69d;
   --color-info: #076ffe;
   --color-danger: #d9534f;
-  --color-bg: #f3f4f6;
+  --color-bg: #e7e9ed;
   --color-bg-admin: #f1f4f9;
   --color-border: #d1d5db;
-  --color-skeleton: #e5e7eb;
   --color-text: #444444;
   --color-text-muted: #74767d;
   --font-family: "Quicksand", sans-serif;
@@ -95,6 +94,9 @@
 }
 
 @layer components {
+  .hover-scale {
+    @apply transition-all duration-200 ease-out hover:scale-[1.1];
+  }
 }
 
 @layer utilities {

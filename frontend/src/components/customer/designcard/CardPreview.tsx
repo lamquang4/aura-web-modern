@@ -53,12 +53,11 @@ function CardPreview({
         <div className="absolute top-0 right-0 z-10">
           <div className="relative group">
             <motion.button
-              whileHover={{ scale: 1.1, rotate: -10 }}
-              whileTap={{ scale: 0.9 }}
+              whileHover={{ rotate: 20 }}
               onClick={handleFlip}
               disabled={isAnimating}
               type="button"
-              className="w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center"
+              className="w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center hover-scale"
             >
               <RefreshCw size={20} />
             </motion.button>

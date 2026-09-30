@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import Image from "../../ui/Image";
+import Button from "../../ui/Button";
 
 interface Props {
   isLoadingSave: boolean;
@@ -21,25 +21,21 @@ function DesignCardHeader({ isLoadingSave }: Props) {
           </Link>
 
           <div className="flex gap-3">
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.97 }}
+            <Button
               type="submit"
               form="form-design"
               disabled={isLoadingSave}
-              className="p-[8px_12px] bg-info text-white text-[0.9rem] rounded-md"
+              className="p-[8px_12px] bg-info text-white text-[0.9rem] rounded-md font-medium hover-scale"
             >
               {isLoadingSave ? "Đang lưu..." : "Lưu"}
-            </motion.button>
+            </Button>
 
-            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}>
-              <Link
-                to="/cards"
-                className="p-[8px_12px] bg-danger text-white text-[0.9rem] rounded-md"
-              >
-                Trở về
-              </Link>
-            </motion.div>
+            <Link
+              to="/cards"
+              className="p-[8px_12px] bg-danger text-white text-[0.9rem] rounded-md font-medium hover-scale"
+            >
+              Trở về
+            </Link>
           </div>
         </div>
       </div>

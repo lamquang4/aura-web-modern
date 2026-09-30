@@ -34,7 +34,7 @@ function SavedCardItem({ savedCard }: SavedCardItemProps) {
   return (
     <div className="flex flex-col gap-[10px] relative">
       <div
-        className="relative w-full aspect-[4/3] rounded-sm bg-skeleton"
+        className="relative w-full aspect-[4/3] rounded-sm bg-bg"
         ref={containerRef}
       >
         <Link
@@ -59,6 +59,7 @@ function SavedCardItem({ savedCard }: SavedCardItemProps) {
         {isOpen && (
           <CardActionMenu
             cardId={savedCard.savedCardId}
+            cardName={savedCard.customName}
             onClose={() => setIsOpen(false)}
           />
         )}

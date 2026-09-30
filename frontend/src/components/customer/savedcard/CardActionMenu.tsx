@@ -10,15 +10,28 @@ import {
 import { useDeleteSavedCard } from "../../../hooks/queries/useSavedCards";
 import toast from "react-hot-toast";
 import Button from "../../ui/Button";
+import { buildEmailMessage } from "../../../utils/emailMessage";
 
-interface CardActionMenuProps {
+interface Props {
   cardId: string;
+  cardName: string;
   onClose: () => void;
 }
 
-function CardActionMenu({ cardId, onClose }: CardActionMenuProps) {
+function CardActionMenu({ cardId, cardName, onClose }: Props) {
   const { mutate: deleteSavedCard, isPending: isLoadingDelete } =
     useDeleteSavedCard();
+
+  function handleOpenEmailShare(cardId: string, cardName?: string) {
+    const { subject, text } = buildEmailMessage(cardId, cardName);
+
+    const gmailUrl =
+      `https://mail.google.com/mail/u/0/?view=cm&fs=1` +
+      `&su=${encodeURIComponent(subject)}` +
+      `&body=${encodeURIComponent(text)}`;
+
+    window.open(gmailUrl, "_blank");
+  }
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(`${window.location.origin}/send/${cardId}`);
@@ -33,7 +46,7 @@ function CardActionMenu({ cardId, onClose }: CardActionMenuProps) {
   };
 
   return (
-    <div className="absolute top-[40px] right-[8px] bg-white shadow-md rounded-sm z-20 p-0 w-[200px]">
+    <div className="absolute top-[40px] right-[8px] bg-white shadow-md rounded-sm z-20 p-0 w-auto">
       <Link
         className="p-[14px_12px] hover:bg-bg w-full text-info"
         to={`/design/savedcard/${cardId}`}
@@ -79,23 +92,24 @@ function CardActionMenu({ cardId, onClose }: CardActionMenuProps) {
         className="p-[14px_12px] hover:bg-bg w-full"
         to="https://m.me/"
         target="_blank"
-        onClick={onClose}
       >
         <div className="flex items-center gap-2 font-medium">
           <MessageCircleMore size={18} /> <span>Chia sẻ Messenger</span>
         </div>
       </Link>
 
-      <Link
+      <Button
         className="p-[14px_12px] hover:bg-bg w-full"
-        to={`https://mail.google.com/mail/u/0/?view=cm&fs=1&su=Gửi thiệp`}
-        target="_blank"
-        onClick={onClose}
+        onClick={() => {
+          handleOpenEmailShare(cardId, cardName);
+          onClose();
+        }}
       >
         <div className="flex items-center gap-2 font-medium">
-          <Mail size={18} /> <span>Chia sẻ Gmail</span>
+          <Mail size={18} />
+          <span>Chia sẻ Gmail</span>
         </div>
-      </Link>
+      </Button>
     </div>
   );
 }
