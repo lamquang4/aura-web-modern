@@ -21,7 +21,7 @@ function ProfileMenu({ profileMenuOpen }: Props) {
 
   return (
     <div
-      className={`text-[0.9rem] font-medium absolute top-full right-0 z-20 bg-white shadow-md rounded-sm overflow-hidden w-max transition-all duration-100 origin-top`}
+      className={` font-medium absolute top-full right-0 z-20 bg-white shadow-md rounded-sm overflow-hidden w-max transition-all duration-100 origin-top`}
     >
       {account ? (
         <>
@@ -30,19 +30,19 @@ function ProfileMenu({ profileMenuOpen }: Props) {
           </p>
 
           <Link
-            className="hover:bg-bg w-full block p-2.5"
+            className="hover:bg-muted w-full block p-2.5"
             to="/account/profile"
           >
             Thông tin tài khoản
           </Link>
 
-          <Link className="hover:bg-bg w-full block p-2.5" to="/saved">
+          <Link className="hover:bg-muted w-full block p-2.5" to="/saved">
             Thiệp của tôi
           </Link>
 
           <Button
             onClick={logout}
-            className="hover:bg-bg w-full block p-2.5 text-left"
+            className="hover:bg-muted w-full block p-2.5 text-left"
           >
             Đăng xuất
           </Button>
@@ -51,14 +51,14 @@ function ProfileMenu({ profileMenuOpen }: Props) {
         <>
           <Button
             onClick={() => dispatch(openAuthModal("login"))}
-            className="hover:bg-bg w-full block p-2.5 text-left"
+            className="hover:bg-muted w-full block p-2.5 text-left"
           >
             Đăng nhập
           </Button>
 
           <Button
             onClick={() => dispatch(openAuthModal("register"))}
-            className="hover:bg-bg w-full block p-2.5 text-left"
+            className="hover:bg-muted w-full block p-2.5 text-left"
           >
             Đăng ký
           </Button>

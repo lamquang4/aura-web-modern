@@ -43,7 +43,7 @@ function CardFlip({ card, isFlipped }: Props) {
               loading="eager"
             />
             <div
-              className="absolute top-[46%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] text-center text-[1.2rem] leading-6 whitespace-pre-line"
+              className="absolute top-[46%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] text-center leading-6 whitespace-pre-line text-[1rem]!"
               style={{
                 color: card.fontColor || "black",
                 fontFamily: card.fontFamily || "Arial",

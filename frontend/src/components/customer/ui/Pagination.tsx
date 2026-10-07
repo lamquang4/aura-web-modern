@@ -52,10 +52,10 @@ function Pagination({ totalPages, currentPage, totalItems }: Props) {
 
   return (
     <div className="mt-[20px] px-[15px]">
-      <div className="flex items-center justify-center w-full flex-wrap gap-2.5 text-[0.9rem]">
+      <div className="flex items-center justify-center w-full flex-wrap gap-2.5 ">
         <Button
           type="button"
-          className="h-8.5 w-8.5 flex justify-center items-center hover:bg-bg text-primary border border-primary rounded-sm"
+          className="h-8.5 w-8.5 flex justify-center items-center hover:bg-muted text-primary border border-primary rounded-sm"
           disabled={currentPage <= 1}
           onClick={() => currentPage > 1 && goToPage(currentPage - 1)}
         >
@@ -83,7 +83,7 @@ function Pagination({ totalPages, currentPage, totalItems }: Props) {
               className={`h-8.5 w-8.5 flex justify-center items-center text-primary font-medium rounded-sm ${
                 currentPage === page
                   ? "bg-primary text-white"
-                  : " hover:bg-bg border border-primary"
+                  : " hover:bg-muted border border-primary"
               }`}
             >
               {page}
@@ -94,7 +94,7 @@ function Pagination({ totalPages, currentPage, totalItems }: Props) {
         <Button
           disabled={currentPage >= totalPages}
           onClick={() => currentPage < totalPages && goToPage(currentPage + 1)}
-          className="h-8.5 w-8.5 flex justify-center items-center hover:bg-bg text-primary border border-primary rounded-sm"
+          className="h-8.5 w-8.5 flex justify-center items-center hover:bg-muted text-primary border border-primary rounded-sm"
         >
           <ChevronRight size={22} />
         </Button>

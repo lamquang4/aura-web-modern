@@ -57,7 +57,7 @@ function CardPreview({
               onClick={handleFlip}
               disabled={isAnimating}
               type="button"
-              className="w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center hover-scale"
+              className="w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center hover-scale hover:bg-muted"
             >
               <RefreshCw size={20} />
             </motion.button>
@@ -111,7 +111,7 @@ function CardPreview({
                     color: fontColor,
                     border: `2px dashed ${fontColor || "#8AB6E6"}`,
                   }}
-                  className="text-[1.2rem] leading-6 whitespace-pre-line p-2 outline-0 text-center"
+                  className=" leading-6 whitespace-pre-line p-2 outline-0 text-center text-[1rem]!"
                 />
               </div>
             </div>

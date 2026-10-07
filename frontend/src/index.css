@@ -8,17 +8,47 @@
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap");
 @import "tailwindcss";
 
-@theme {
-  --color-primary: #60a5fa;
-  --color-success: #74c69d;
-  --color-info: #076ffe;
-  --color-danger: #d9534f;
-  --color-bg: #f3f3f3;
-  --color-bg-admin: #f1f4f9;
-  --color-border: #d1d5db;
-  --color-text: #444444;
-  --color-text-muted: #74767d;
-  --font-family: "Quicksand", sans-serif;
+:root {
+  --background-1: #ffffff;
+  --background-2: #f1f4f9;
+  --primary: #60a5fa;
+  --foreground: #444444;
+  --success: #74c69d;
+  --info: #076ffe;
+  --danger: #d9534f;
+  --border: #d1d5db;
+  --muted: #eeeeee;
+  --muted-foreground: #72747b;
+  --text-h1: 1.8rem;
+  --text-h2: 1.6rem;
+  --text-h3: 1.4rem;
+  --text-h4: 1.2rem;
+  --text-h5: 1rem;
+  --text-body: 0.9rem;
+  --text-small: 0.75rem;
+}
+
+@theme inline {
+  --color-background-1: var(--background-1);
+  --color-background-2: var(--background-2);
+  --color-primary: var(--primary);
+  --color-foreground: var(--foreground);
+  --color-success: var(--success);
+  --color-info: var(--info);
+  --color-danger: var(--danger);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --text-h1: var(--text-h1);
+  --text-h2: var(--text-h2);
+  --text-h3: var(--text-h3);
+  --text-h4: var(--text-h4);
+  --text-h5: var(--text-h5);
+  --text-body: var(--text-body);
+  --text-small: var(--text-small);
+
+  --font-sans: "Quicksand", sans-serif;
 }
 
 @layer base {
@@ -27,7 +57,12 @@
   }
 
   body {
-    @apply font-family text-text;
+    @apply text-foreground font-sans text-body;
+  }
+
+  button,
+  label {
+    @apply font-medium;
   }
 
   a,
@@ -40,34 +75,27 @@
   }
 
   h1 {
-    @apply text-[1.8rem] font-bold;
-  }
-  h2 {
-    @apply text-[1.6rem] font-bold;
-  }
-  h3 {
-    @apply text-[1.4rem] font-bold;
-  }
-  h4 {
-    @apply text-[1.2rem] font-bold;
-  }
-  h5 {
-    @apply text-[1rem] font-semibold;
+    @apply text-h1 font-bold;
   }
 
-  p,
-  span,
-  input,
-  select,
-  label,
-  textarea,
-  button,
-  a {
-    @apply text-[0.9rem];
+  h2 {
+    @apply text-h2 font-bold;
+  }
+
+  h3 {
+    @apply text-h3 font-bold;
+  }
+
+  h4 {
+    @apply text-h4 font-semibold;
+  }
+
+  h5 {
+    @apply text-h5 font-semibold;
   }
 
   small {
-    @apply text-[0.75rem];
+    @apply text-small;
   }
 
   input[type="number"]::-webkit-outer-spin-button,
@@ -77,15 +105,15 @@
   }
 
   table thead tr {
-    @apply bg-bg-admin;
+    @apply bg-background-2;
   }
 
   table tbody tr:hover {
-    @apply bg-bg;
+    @apply bg-muted;
   }
 
   table thead tr th {
-    font-weight: 650;
+    font-weight: 600;
   }
 
   table td:first-child {
@@ -99,13 +127,11 @@
   }
 }
 
-@layer utilities {
-}
-
 .swiper-pagination-bullet {
-  background-color: var(--color-text) !important;
+  background-color: var(--foreground) !important;
   opacity: 1 !important;
 }
+
 .swiper-pagination-bullet-active {
-  background-color: var(--color-primary) !important;
+  background-color: var(--primary) !important;
 }

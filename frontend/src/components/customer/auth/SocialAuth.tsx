@@ -33,9 +33,7 @@ function SocialAuth({ title, onClose }: Props) {
     <>
       <div className="flex items-center">
         <div className="flex-grow border-t border-border" />
-        <span className="px-[0.6rem] text-[0.9rem] text-black whitespace-nowrap">
-          Hoặc {title} bằng
-        </span>
+        <span className="px-[0.6rem] whitespace-nowrap">Hoặc {title} bằng</span>
         <div className="flex-grow border-t border-border" />
       </div>
 

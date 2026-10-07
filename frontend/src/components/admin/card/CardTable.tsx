@@ -54,7 +54,7 @@ function CardTable({ cards, isLoading }: Props) {
     updateStatus(cardId);
   };
   return (
-    <table className="w-[350%] border-collapse sm:w-[220%] xl:w-full text-[0.9rem]">
+    <table className="w-[350%] border-collapse sm:w-[220%] xl:w-full ">
       <thead>
         <tr className="text-left">
           <th className="p-[1rem]">Tên</th>
@@ -67,7 +67,7 @@ function CardTable({ cards, isLoading }: Props) {
               paramName="status"
             />
           </th>
-          <th className="p-[1rem]  ">Hành động</th>
+          <th className="p-[1rem]">Hành động</th>
         </tr>
       </thead>
       <tbody>
@@ -80,7 +80,7 @@ function CardTable({ cards, isLoading }: Props) {
         ) : cards.length > 0 ? (
           cards.map((card) => (
             <tr key={card.cardId}>
-              <td className="p-[1rem] text-[0.9rem] font-semibold">
+              <td className="p-[1rem]">
                 {card.name}
               </td>
               <td className="p-[1rem]">
@@ -115,7 +115,7 @@ function CardTable({ cards, isLoading }: Props) {
                 {card.status === "ACTIVE" && "Hiện"}
                 {card.status === "INACTIVE" && "Ẩn"}
               </td>
-              <td className="p-[1rem]  ">
+              <td className="p-[1rem]">
                 <div className="flex items-center gap-[15px]">
                   <Button
                     disabled={isLoadingUpdate}
@@ -130,13 +130,13 @@ function CardTable({ cards, isLoading }: Props) {
                       <Eye
                         strokeWidth={1.5}
                         size={22}
-                        className="text-text-muted"
+                        className="text-muted-foreground"
                       />
                     ) : (
                       <EyeOff
                         strokeWidth={1.5}
                         size={22}
-                        className="text-text-muted"
+                        className="text-muted-foreground"
                       />
                     )}
                   </Button>

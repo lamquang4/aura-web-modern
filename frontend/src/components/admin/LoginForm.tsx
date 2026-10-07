@@ -49,7 +49,7 @@ function LoginForm() {
 
   return (
     <>
-      <section className="bg-bg-admin w-full">
+      <section className="bg-background-2 w-full">
         <div className="flex justify-center items-center h-screen">
           <div className="relative bg-white rounded-lg shadow-md border border-border max-w-[850px] w-full h-[500px]">
             <div className="h-full grid grid-cols-1 sm:grid-cols-2 items-center">
@@ -69,7 +69,7 @@ function LoginForm() {
                     <Input
                       type="text"
                       id="email"
-                      className="text-[0.9rem] block w-full px-3 py-2 border border-border focus:border-primary"
+                      className=" block w-full px-3 py-2 border border-border focus:border-primary"
                       placeholder="Nhập email"
                       error={errors.email?.message}
                       {...register("email")}
@@ -87,7 +87,7 @@ function LoginForm() {
                         type={!showPassword ? "password" : "text"}
                         id="password"
                         placeholder="Nhập mật khẩu"
-                        className="text-[0.9rem] block w-full px-3 pr-12 py-2 border border-border focus:border-primary"
+                        className=" block w-full px-3 pr-12 py-2 border border-border focus:border-primary"
                         error={errors.password?.message}
                         {...register("password")}
                       />
@@ -98,9 +98,9 @@ function LoginForm() {
                         onClick={toggleShowPassword}
                       >
                         {!showPassword ? (
-                          <Eye size={22} className="text-text-muted" />
+                          <Eye size={22} className="text-muted-foreground" />
                         ) : (
-                          <EyeOff size={22} className="text-text-muted" />
+                          <EyeOff size={22} className="text-muted-foreground" />
                         )}
                       </Button>
                     </div>
@@ -111,7 +111,7 @@ function LoginForm() {
                   <Button
                     disabled={isLoading}
                     type="submit"
-                    className="w-full bg-primary text-[0.9rem] text-white focus:outline-none font-semibold rounded-sm px-5 py-2.5 text-center mt-6"
+                    className="w-full bg-primary  text-white focus:outline-none font-semibold rounded-sm px-5 py-2.5 text-center mt-6"
                   >
                     Đăng nhập
                   </Button>

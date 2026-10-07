@@ -14,7 +14,7 @@ function SideBar() {
   const { logout } = useLogout();
   return (
     <div className="w-full max-w-full lg:max-w-[300px] self-start lg:sticky lg:top-[5rem] bg-white ">
-      <div className="text-[0.9rem] font-medium">
+      <div className=" font-medium">
         <div className="px-3.5 py-3 flex gap-5 items-center">
           <UserStar size={20} />
 
@@ -28,8 +28,8 @@ function SideBar() {
           to="/account/profile"
           className={`border-l-4 py-3 px-3.5 ${
             pathname === "/account/profile"
-              ? "bg-bg border-primary"
-              : "hover:bg-bg border-transparent"
+              ? "bg-muted border-primary"
+              : "hover:bg-muted border-transparent"
           }`}
         >
           <div className="flex items-center gap-5">
@@ -42,8 +42,8 @@ function SideBar() {
           to="/saved"
           className={`border-l-4 py-3 px-3.5  ${
             pathname === "/saved"
-              ? "bg-bg border-primary"
-              : "hover:bg-bg border-transparent"
+              ? "bg-muted border-primary"
+              : "hover:bg-muted border-transparent"
           }`}
         >
           <div className="flex items-center gap-5">
@@ -55,7 +55,7 @@ function SideBar() {
         <Button
           type="button"
           onClick={logout}
-          className="border-l-4 border-transparent py-3 px-3.5 text-left text-danger font-medium hover:bg-bg w-full"
+          className="border-l-4 border-transparent py-3 px-3.5 text-left text-danger font-medium hover:bg-muted w-full"
         >
           <div className="flex items-center gap-5">
             <DoorOpen size={20} />

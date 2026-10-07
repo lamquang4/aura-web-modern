@@ -25,7 +25,7 @@ function DesignPanel({ control, errors }: Props) {
       className="w-full lg:w-[400px] bg-white rounded-sm border border-border shadow-sm p-[15px]"
     >
       <div className="space-y-[15px]">
-        <div className="space-y-[5px] w-full">
+        <div className="flex flex-col gap-1 w-full">
           <Label htmlFor="customName">Tên thiệp</Label>
           <Controller
             name="customName"
@@ -36,14 +36,14 @@ function DesignPanel({ control, errors }: Props) {
                 {...field}
                 type="text"
                 error={errors.customName?.message}
-                className="w-full border border-border rounded-sm p-[6px_10px] text-[0.9rem] outline-none focus:border-primary"
+                className="w-full border border-border rounded-sm p-[6px_10px]  outline-none focus:border-primary"
               />
             )}
           />
           <FieldError message={errors.customName?.message} />
         </div>
 
-        <div className="space-y-[5px] w-full">
+        <div className="flex flex-col gap-1 w-full">
           <Label htmlFor="customContent">Lời chúc</Label>
           <Controller
             name="customContent"
@@ -71,7 +71,7 @@ function DesignPanel({ control, errors }: Props) {
           />
         </div>
 
-        <div className="space-y-[5px] w-full">
+        <div className="flex flex-col gap-1 w-full">
           <Label>Định dạng</Label>
           <div className="flex gap-2">
             <Controller
@@ -84,9 +84,7 @@ function DesignPanel({ control, errors }: Props) {
                     field.onChange(field.value === "bold" ? "normal" : "bold")
                   }
                   className={`w-8 h-8 flex items-center justify-center rounded-sm border ${
-                    field.value === "bold"
-                      ? "border-primary"
-                      : "border-border"
+                    field.value === "bold" ? "border-primary" : "border-border"
                   }`}
                 >
                   <Bold size={18} />
@@ -117,7 +115,7 @@ function DesignPanel({ control, errors }: Props) {
           </div>
         </div>
 
-        <div className="space-y-[5px] w-full">
+        <div className="flex flex-col gap-1 w-full">
           <Label htmlFor="fontFamily">Kiểu chữ</Label>
           <Controller
             name="fontFamily"
@@ -126,7 +124,7 @@ function DesignPanel({ control, errors }: Props) {
               <Select
                 id="fontFamily"
                 {...field}
-                className="w-full border border-border rounded-sm p-[6px_10px] text-[0.9rem] outline-none focus:border-primary"
+                className="w-full border border-border rounded-sm p-[6px_10px]  outline-none focus:border-primary"
               >
                 {FONTS.map((f) => (
                   <option key={f} value={f} style={{ fontFamily: f }}>
@@ -138,7 +136,7 @@ function DesignPanel({ control, errors }: Props) {
           />
         </div>
 
-        <div className="space-y-[5px] w-full">
+        <div className="flex flex-col gap-1 w-full">
           <Label>Màu chữ</Label>
           <Controller
             name="fontColor"

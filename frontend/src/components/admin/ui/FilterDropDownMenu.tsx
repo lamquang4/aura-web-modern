@@ -55,8 +55,8 @@ function FilterDropDownMenu({ title, array, paramName }: Props) {
               <Button
                 key={index}
                 onClick={() => handleClick(item.value)}
-                className={`w-full text-left text-[0.9rem] px-3 py-2.5 ${
-                  isActive && "bg-bg"
+                className={`w-full text-left  px-3 py-2.5 ${
+                  isActive && "bg-muted"
                 }`}
               >
                 {item.name}

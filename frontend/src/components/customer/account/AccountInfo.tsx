@@ -58,7 +58,7 @@ function AccountInfo() {
             <div className="space-y-[5px] w-full">
               <Label
                 htmlFor=""
-                className="block text-left text-[0.9rem] font-medium"
+                className="block text-left  font-medium"
               >
                 Họ tên:
               </Label>
@@ -81,14 +81,14 @@ function AccountInfo() {
             <div className="space-y-[5px] w-full">
               <Label
                 htmlFor=""
-                className="block text-left text-[0.9rem] font-medium"
+                className="block text-left  font-medium"
               >
                 Email:
               </Label>
               <Input
                 type="text"
                 name="email"
-                className="w-full rounded-sm p-[6px_10px] text-[0.9rem] border border-border focus:border-primary"
+                className="w-full rounded-sm p-[6px_10px]  border border-border focus:border-primary"
                 value={account?.email}
                 readOnly
               />

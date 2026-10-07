@@ -8,43 +8,40 @@ function AccountInfo() {
   return (
     <div className="py-[30px] sm:px-[25px] px-[15px] h-full">
       <form className="flex flex-col gap-7 w-full">
-        <h2 className="text-text-muted">Tài khoản</h2>
+        <h2>Tài khoản</h2>
 
         <div className="gap-[25px] w-full flex flex-wrap lg:flex-nowrap">
           <div className="sm:p-[25px] p-[15px] bg-white rounded-md flex flex-col gap-[20px] w-full">
-            <h5 className="font-bold text-text-muted">Thông tin tài khoản</h5>
+            <h5 className="font-bold">Thông tin tài khoản</h5>
 
             <div className="flex flex-col gap-1 w-full ">
-              <Label htmlFor="" className="text-[0.9rem] font-medium">
-                Họ tên
-              </Label>
+              <Label htmlFor="fullname">Họ tên</Label>
               <Input
+                id="fullname"
                 type="text"
                 name="fullname"
-                value={account?.fullname}
+                value={account?.fullname ?? ""}
                 readOnly
                 className="border border-border p-[6px_10px] w-full focus:border-primary"
               />
             </div>
 
             <div className="flex flex-col gap-1 w-full ">
-              <Label htmlFor="" className="text-[0.9rem] font-medium">
-                Email
-              </Label>
+              <Label htmlFor="email">Email</Label>
               <Input
+                id="email"
                 type="text"
                 name="email"
-                value={account?.email}
+                value={account?.email ?? ""}
                 readOnly
                 className="border border-border p-[6px_10px] w-full focus:border-primary"
               />
             </div>
 
-            <div className="flex flex-col gap-1 w-full ">
-              <Label htmlFor="" className="text-[0.9rem] font-medium">
-                Chức vụ
-              </Label>
+            <div className="flex flex-col gap-1 w-full">
+              <Label htmlFor="role">Chức vụ</Label>
               <Input
+                id="role"
                 type="text"
                 name="role"
                 value={account?.role === "ADMIN" ? "Quản trị viên" : ""}

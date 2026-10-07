@@ -76,7 +76,7 @@ function UserTable({ users, isLoading }: Props) {
     updateUserStatus(userId);
   };
   return (
-    <table className="w-[350%] border-collapse sm:w-[220%] xl:w-full text-[0.9rem]">
+    <table className="w-[350%] border-collapse sm:w-[220%] xl:w-full ">
       <thead>
         <tr className="text-left">
           <th className="p-[1rem]">Họ tên</th>
@@ -98,7 +98,7 @@ function UserTable({ users, isLoading }: Props) {
               paramName="status"
             />
           </th>
-          <th className="p-[1rem]  ">Hành động</th>
+          <th className="p-[1rem]">Hành động</th>
         </tr>
       </thead>
       <tbody>
@@ -110,11 +110,11 @@ function UserTable({ users, isLoading }: Props) {
           </tr>
         ) : users.length > 0 ? (
           users.map((user) => (
-            <tr key={user.userId} className="hover:bg-[#f2f3f8]">
-              <td className="p-[1rem] text-[0.9rem] font-semibold">
+            <tr key={user.userId}>
+              <td className="p-[1rem]">
                 {user.fullname}
               </td>
-              <td className="p-[1rem]  ">{user.email}</td>
+              <td className="p-[1rem]">{user.email}</td>
 
               <td className="p-[1rem]">
                 {user.role === "ADMIN" && "Quản trị viên"}
@@ -125,7 +125,7 @@ function UserTable({ users, isLoading }: Props) {
                 {user.status === "ACTIVE" && "Bình thường"}
                 {user.status === "LOCKED" && "Bị khóa"}
               </td>
-              <td className="p-[1rem]  ">
+              <td className="p-[1rem]">
                 <div className="flex items-center gap-[15px]">
                   <Button
                     disabled={isLoadingUpdate}
@@ -140,13 +140,13 @@ function UserTable({ users, isLoading }: Props) {
                       <LockKeyhole
                         strokeWidth={1.5}
                         size={22}
-                        className="text-text-muted"
+                        className="text-muted-foreground"
                       />
                     ) : (
                       <LockKeyholeOpen
                         strokeWidth={1.5}
                         size={22}
-                        className="text-text-muted"
+                        className="text-muted-foreground"
                       />
                     )}
                   </Button>

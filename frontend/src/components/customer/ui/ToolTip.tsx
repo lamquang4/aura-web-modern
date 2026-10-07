@@ -55,7 +55,7 @@ function ToolTip({ text }: Props) {
       ref={ref}
       className={`absolute z-50 px-2 py-0.5 bg-black text-white rounded-sm opacity-0 transition-all duration-300 group-hover:opacity-100 whitespace-nowrap font-medium pointer-events-none select-none ${positionClass} ${verticalClass}`}
     >
-      <small className="text-[0.8rem]">{text}</small>
+      <small className="">{text}</small>
 
       <span
         className={`absolute w-[8px] h-[8px] bg-black rotate-45

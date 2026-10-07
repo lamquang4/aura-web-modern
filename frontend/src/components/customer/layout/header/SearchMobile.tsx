@@ -56,7 +56,7 @@ function SearchMobile({ onToggleSearch, searchOpen }: Props) {
               required
               placeholder="Bạn cần tìm gì..."
               maxLength={50}
-              className="w-full rounded outline-none text-[0.9rem]"
+              className="w-full rounded outline-none "
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               onFocus={() => setFocused(true)}

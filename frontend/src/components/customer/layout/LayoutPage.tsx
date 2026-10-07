@@ -8,10 +8,10 @@ export default function LayoutPage({
   children: React.ReactNode;
 }) {
   return (
-    <>
+    <div className="min-h-screen bg-background-1">
       <Header />
       {children}
       <Footer />
-    </>
+    </div>
   );
 }

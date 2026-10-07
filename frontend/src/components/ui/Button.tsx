@@ -7,10 +7,7 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 function Button({ children, className, ...props }: Props) {
   return (
     <button
-      className={twMerge(
-        "text-[0.9rem] outline-none cursor-pointer",
-        className,
-      )}
+      className={twMerge("outline-none cursor-pointer", className)}
       {...props}
     >
       {children}

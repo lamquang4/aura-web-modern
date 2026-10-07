@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Image from "../../ui/Image";
 function Footer() {
   return (
-    <footer className="bg-bg px-[15px]">
+    <footer className="bg-muted px-[15px]">
       <div className="mx-auto w-full max-w-[1200px]">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4 py-10">
           <div className="col-span-full lg:col-span-1 space-y-4">
@@ -14,7 +14,7 @@ function Footer() {
                 loading="eager"
               />
             </Link>
-            <p className="font-medium text-text-muted hover:text-inherit">
+            <p className="font-medium text-muted-foreground hover:text-inherit">
               Aura cho phép bạn có thể lưu giữ những lời chúc chân thành và gửi
               đi những tấm thiệp đầy ý nghĩa đến những người bạn yêu thương
             </p>
@@ -22,11 +22,11 @@ function Footer() {
 
           <div className="lg:mx-auto text-left space-y-4">
             <h5 className="relative font-bold uppercase">Các trang</h5>
-            <ul className="transition-all duration-500 text-[0.9rem] space-y-4">
+            <ul className="transition-all duration-500  space-y-4">
               <li>
                 <Link
                   to="/"
-                  className=" font-medium text-[0.9rem] text-text-muted hover:text-inherit"
+                  className="font-medium  text-muted-foreground hover:text-inherit"
                 >
                   Trang chủ
                 </Link>
@@ -35,7 +35,7 @@ function Footer() {
               <li>
                 <Link
                   to={"/cards"}
-                  className="font-medium text-[0.9rem] text-text-muted hover:text-inherit"
+                  className="font-medium  text-muted-foreground hover:text-inherit"
                 >
                   Tất cả thiệp
                 </Link>
@@ -45,11 +45,11 @@ function Footer() {
 
           <div className="lg:mx-auto text-left space-y-4">
             <h5 className="relative font-bold uppercase">Các trang</h5>
-            <ul className="transition-all duration-500 text-[0.9rem] space-y-4">
+            <ul className="transition-all duration-500  space-y-4">
               <li>
                 <Link
                   to="/"
-                  className=" font-medium text-[0.9rem] text-text-muted hover:text-inherit"
+                  className=" font-medium  text-muted-foreground hover:text-inherit"
                 >
                   Trang chủ
                 </Link>
@@ -58,7 +58,7 @@ function Footer() {
               <li>
                 <Link
                   to={"/cards"}
-                  className="font-medium text-[0.9rem] text-text-muted hover:text-inherit"
+                  className="font-medium  text-muted-foreground hover:text-inherit"
                 >
                   Tất cả thiệp
                 </Link>
@@ -68,11 +68,11 @@ function Footer() {
 
           <div className="lg:mx-auto text-left space-y-4">
             <h5 className="relative font-bold uppercase">Các trang</h5>
-            <ul className="transition-all duration-500 text-[0.9rem] space-y-4">
+            <ul className="transition-all duration-500  space-y-4">
               <li>
                 <Link
                   to="/"
-                  className=" font-medium text-[0.9rem] text-text-muted hover:text-inherit"
+                  className="font-medium  text-muted-foreground hover:text-inherit"
                 >
                   Trang chủ
                 </Link>
@@ -81,7 +81,7 @@ function Footer() {
               <li>
                 <Link
                   to={"/cards"}
-                  className="font-medium text-[0.9rem] text-text-muted hover:text-inherit"
+                  className="font-medium text-muted-foreground hover:text-inherit"
                 >
                   Tất cả thiệp
                 </Link>

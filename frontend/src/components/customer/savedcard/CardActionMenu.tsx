@@ -48,7 +48,7 @@ function CardActionMenu({ cardId, cardName, onClose }: Props) {
   return (
     <div className="absolute top-[40px] right-[8px] bg-white shadow-md rounded-sm z-20 p-0 w-auto">
       <Link
-        className="p-[14px_12px] hover:bg-bg w-full text-info"
+        className="p-[14px_12px] hover:bg-muted w-full text-info"
         to={`/design/savedcard/${cardId}`}
         onClick={onClose}
       >
@@ -59,7 +59,7 @@ function CardActionMenu({ cardId, cardName, onClose }: Props) {
       </Link>
 
       <Button
-        className="p-[14px_12px] hover:bg-bg text-danger w-full"
+        className="p-[14px_12px] hover:bg-muted text-danger w-full"
         onClick={handleDeleteSavedCard}
         disabled={isLoadingDelete}
       >
@@ -69,7 +69,7 @@ function CardActionMenu({ cardId, cardName, onClose }: Props) {
       </Button>
 
       <Link
-        className="p-[14px_12px] hover:bg-bg w-full"
+        className="p-[14px_12px] hover:bg-muted w-full"
         to={`/send/${cardId}`}
         onClick={onClose}
       >
@@ -79,7 +79,7 @@ function CardActionMenu({ cardId, cardName, onClose }: Props) {
       </Link>
 
       <Button
-        className="p-[14px_12px] hover:bg-bg w-full"
+        className="p-[14px_12px] hover:bg-muted w-full"
         onClick={handleCopyLink}
       >
         <div className="flex items-center gap-2 font-medium">
@@ -89,7 +89,7 @@ function CardActionMenu({ cardId, cardName, onClose }: Props) {
       </Button>
 
       <Link
-        className="p-[14px_12px] hover:bg-bg w-full"
+        className="p-[14px_12px] hover:bg-muted w-full"
         to="https://m.me/"
         target="_blank"
       >
@@ -99,7 +99,7 @@ function CardActionMenu({ cardId, cardName, onClose }: Props) {
       </Link>
 
       <Button
-        className="p-[14px_12px] hover:bg-bg w-full"
+        className="p-[14px_12px] hover:bg-muted w-full"
         onClick={() => {
           handleOpenEmailShare(cardId, cardName);
           onClose();

@@ -25,14 +25,14 @@ function DesignCardHeader({ isLoadingSave }: Props) {
               type="submit"
               form="form-design"
               disabled={isLoadingSave}
-              className="p-[8px_12px] bg-info text-white text-[0.9rem] rounded-md font-medium hover-scale"
+              className="p-[8px_12px] bg-info text-white  rounded-md font-medium hover-scale"
             >
               {isLoadingSave ? "Đang lưu..." : "Lưu"}
             </Button>
 
             <Link
               to="/cards"
-              className="p-[8px_12px] bg-danger text-white text-[0.9rem] rounded-md font-medium hover-scale"
+              className="p-[8px_12px] bg-danger text-white  rounded-md font-medium hover-scale"
             >
               Trở về
             </Link>

@@ -12,14 +12,14 @@ function ListHeader({ title, totalItems, addLink }: Props) {
   return (
     <div className="py-[1.3rem] px-[1.2rem] space-y-[20px]">
       <div className="flex justify-between items-center flex-wrap gap-[20px]">
-        <h2 className="text-text-muted">
+        <h2>
           {title} ({totalItems})
         </h2>
 
         {addLink && (
           <Link
             to={addLink}
-            className="bg-primary text-white border-0 cursor-pointer text-[0.9rem] font-medium w-auto !flex p-[10px_12px] items-center justify-center gap-[5px]"
+            className="bg-primary text-white border-0 cursor-pointer  font-medium w-auto !flex p-[10px_12px] items-center justify-center gap-[5px]"
           >
             <CirclePlus size={22} /> Thêm
           </Link>

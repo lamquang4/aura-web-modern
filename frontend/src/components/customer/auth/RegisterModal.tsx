@@ -76,14 +76,14 @@ function RegisterModal({ onClose, onSwitchLogin }: Props) {
             <hr className="border-border" />
 
             <form className="space-y-[15px]" onSubmit={handleSubmit(onSubmit)}>
-              <div className="space-y-[5px]">
-                <Label htmlFor="" required>
+              <div className="flex flex-col gap-1">
+                <Label htmlFor="email" required>
                   Email
                 </Label>
                 <Input
                   type="text"
                   id="email"
-                  className="text-[0.9rem] block w-full px-3 py-2 border border-border focus:border-primary"
+                  className=" block w-full px-3 py-2 border border-border focus:border-primary"
                   placeholder="Nhập email"
                   error={errors.email?.message}
                   {...register("email", {
@@ -95,14 +95,14 @@ function RegisterModal({ onClose, onSwitchLogin }: Props) {
                 <FieldError message={errors.email?.message} />
               </div>
 
-              <div className="space-y-[5px]">
-                <Label htmlFor="" required>
+              <div className="flex flex-col gap-1">
+                <Label htmlFor="fullname" required>
                   Họ tên
                 </Label>
                 <Input
                   type="text"
                   id="fullname"
-                  className="text-[0.9rem] block w-full px-3 py-2 border border-border focus:border-primary"
+                  className=" block w-full px-3 py-2 border border-border focus:border-primary"
                   placeholder="Nhập họ tên"
                   error={errors.fullname?.message}
                   {...register("fullname")}
@@ -110,8 +110,8 @@ function RegisterModal({ onClose, onSwitchLogin }: Props) {
                 <FieldError message={errors.fullname?.message} />
               </div>
 
-              <div className="space-y-[5px]">
-                <Label htmlFor="" required>
+              <div className="flex flex-col gap-1">
+                <Label htmlFor="password" required>
                   Mật khẩu
                 </Label>
 
@@ -120,14 +120,14 @@ function RegisterModal({ onClose, onSwitchLogin }: Props) {
                     type={!showPassword ? "password" : "text"}
                     id="password"
                     placeholder="Nhập mật khẩu"
-                    className="text-[0.9rem] block w-full px-3 pr-12 py-2 border border-border focus:border-primary"
+                    className=" block w-full px-3 pr-12 py-2 border border-border focus:border-primary"
                     error={errors.password?.message}
                     {...register("password")}
                   />
 
                   <Button
                     type="button"
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
                     onClick={toggleShowPassword}
                   >
                     {!showPassword ? <Eye size={22} /> : <EyeOff size={22} />}
@@ -139,7 +139,7 @@ function RegisterModal({ onClose, onSwitchLogin }: Props) {
               <Button
                 disabled={isLoading}
                 type="submit"
-                className="w-full bg-primary text-white focus:outline-none font-semibold rounded-sm uppercase text-[0.9rem] px-5 py-2.5 text-center"
+                className="w-full bg-primary text-white focus:outline-none font-semibold rounded-sm uppercase  px-5 py-2.5 text-center"
               >
                 Đăng kí
               </Button>

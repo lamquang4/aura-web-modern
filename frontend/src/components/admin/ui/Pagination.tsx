@@ -61,7 +61,7 @@ function Pagination({ totalPages, currentPage, limit, totalItems }: Props) {
   return (
     <>
       {totalItems > 0 && (
-        <div className="flex items-center justify-center bg-white px-[15px] py-3 w-full flex-wrap gap-5 sm:gap-3 text-[0.9rem]">
+        <div className="flex items-center justify-center bg-white px-[15px] py-3 w-full flex-wrap gap-5 sm:gap-3 ">
           <div className="flex gap-2 items-center">
             Số dòng mỗi trang
             <Select
@@ -89,7 +89,7 @@ function Pagination({ totalPages, currentPage, limit, totalItems }: Props) {
             >
               <Button
                 type="button"
-                className="h-8.5 w-8.5 inline-flex justify-center items-center gap-x-2 border border-border hover:bg-bg"
+                className="h-8.5 w-8.5 inline-flex justify-center items-center gap-x-2 border border-border hover:bg-muted"
                 aria-label="Previous"
                 disabled={currentPage <= 1}
                 onClick={() => currentPage > 1 && goToPage(currentPage - 1)}
@@ -118,7 +118,7 @@ function Pagination({ totalPages, currentPage, limit, totalItems }: Props) {
                     className={`h-8.5 w-8.5 flex justify-center items-center font-medium border border-border ${
                       currentPage === page
                         ? "bg-primary text-white"
-                        : "hover:bg-bg"
+                        : "hover:bg-muted"
                     }`}
                   >
                     {page}
@@ -131,7 +131,7 @@ function Pagination({ totalPages, currentPage, limit, totalItems }: Props) {
                 onClick={() =>
                   currentPage < totalPages && goToPage(currentPage + 1)
                 }
-                className="h-8.5 w-8.5 inline-flex justify-center items-center gap-x-2 border border-border hover:bg-bg"
+                className="h-8.5 w-8.5 inline-flex justify-center items-center gap-x-2 border border-border hover:bg-muted"
               >
                 <ChevronRight size={18} strokeWidth={1.5} />
               </Button>

@@ -42,7 +42,7 @@ function ProfileMenu({ menuOpen, onToggleMenu }: Props) {
             >
               <Link
                 to={"/admin/account/profile"}
-                className="block hover:bg-bg p-3 whitespace-nowrap"
+                className="block hover:bg-muted p-3 whitespace-nowrap"
               >
                 <div className="flex items-center gap-2 font-medium">
                   <CircleUserRound size={18} />
@@ -52,7 +52,7 @@ function ProfileMenu({ menuOpen, onToggleMenu }: Props) {
 
               <Button
                 onClick={logout}
-                className="w-full hover:bg-bg p-3 text-danger whitespace-nowrap"
+                className="w-full hover:bg-muted p-3 text-danger whitespace-nowrap"
               >
                 <div className="flex items-center gap-2 font-medium">
                   <DoorOpen size={18} />

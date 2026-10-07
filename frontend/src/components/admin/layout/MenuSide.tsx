@@ -118,7 +118,7 @@ function MenuSide({ menuOpen, onToggleMenu }: Props) {
                           openMenus[item.key] ||
                           item.children.some((child) => pathname === child.path)
                             ? "text-primary"
-                            : "hover:bg-bg"
+                            : "hover:bg-muted"
                         } rounded-lg p-3 w-full cursor-pointer flex justify-between items-center`}
                       >
                         <p className="font-medium flex items-center gap-[10px]">
@@ -149,13 +149,10 @@ function MenuSide({ menuOpen, onToggleMenu }: Props) {
                             className={`rounded-lg w-full cursor-pointer my-[5px] ${
                               pathname === child.path
                                 ? "text-white bg-primary"
-                                : "hover:bg-bg"
+                                : "hover:bg-muted"
                             }`}
                           >
-                            <Link
-                              to={child.path}
-                              className="text-[0.9rem] font-medium p-3"
-                            >
+                            <Link to={child.path} className=" font-medium p-3">
                               {child.label}
                             </Link>
                           </li>
@@ -168,7 +165,7 @@ function MenuSide({ menuOpen, onToggleMenu }: Props) {
                       className={`${
                         pathname === item.path
                           ? "text-white bg-primary"
-                          : "hover:bg-bg"
+                          : "hover:bg-muted"
                       } rounded-lg p-3 w-full cursor-pointer flex justify-between items-center`}
                     >
                       <p className="font-medium flex items-center gap-[10px]">
