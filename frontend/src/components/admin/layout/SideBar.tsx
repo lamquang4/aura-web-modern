@@ -104,10 +104,10 @@ function SideBar({ menuOpen, onToggleMenu }: Props) {
             />
           </Link>
         </div>
-        <ul className="flex flex-col gap-[15px] font-semibold px-3.5">
+        <ul className="flex flex-col gap-[15px] font-medium px-3.5">
           {menuData.map((group, groupIndex) => (
             <div key={groupIndex} className="flex flex-col gap-[10px]">
-              <p className="  uppercase">{group.title}</p>
+              <p className="uppercase">{group.title}</p>
               {group.items.map((item, index) => (
                 <li key={index}>
                   {item.children ? (
@@ -121,7 +121,7 @@ function SideBar({ menuOpen, onToggleMenu }: Props) {
                             : "hover:bg-muted"
                         } rounded-lg p-3 w-full cursor-pointer flex justify-between items-center`}
                       >
-                        <p className="font-medium flex items-center gap-[10px]">
+                        <p className="flex items-center gap-[10px]">
                           {item.icon} {item.label}
                         </p>
                         <Button>
@@ -152,7 +152,7 @@ function SideBar({ menuOpen, onToggleMenu }: Props) {
                                 : "hover:bg-muted"
                             }`}
                           >
-                            <Link to={child.path} className=" font-medium p-3">
+                            <Link to={child.path} className="p-3">
                               {child.label}
                             </Link>
                           </li>
@@ -168,7 +168,7 @@ function SideBar({ menuOpen, onToggleMenu }: Props) {
                           : "hover:bg-muted"
                       } rounded-lg p-3 w-full cursor-pointer flex justify-between items-center`}
                     >
-                      <p className="font-medium flex items-center gap-[10px]">
+                      <p className="flex items-center gap-[10px]">
                         {item.icon} {item.label}
                       </p>
                     </Link>

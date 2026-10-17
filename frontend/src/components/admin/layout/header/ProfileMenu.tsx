@@ -54,7 +54,7 @@ function ProfileMenu() {
         <div className="w-[34px] h-[34px] p-1 rounded-full border border-border overflow-hidden">
           <Image
             src="/assets/user.png"
-            alt=""
+            alt="user"
             className="w-full h-full object-contain"
             loading="eager"
           />
