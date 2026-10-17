@@ -60,19 +60,13 @@
     @apply text-foreground font-sans text-body;
   }
 
-  button,
-  label {
-    @apply font-medium;
-  }
+ 
 
   a,
   img {
     @apply block;
   }
 
-  button {
-    @apply cursor-pointer;
-  }
 
   h1 {
     @apply text-h1 font-bold;

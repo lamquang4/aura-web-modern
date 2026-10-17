@@ -7,7 +7,7 @@ interface Props extends React.LabelHTMLAttributes<HTMLLabelElement> {
 
 function Label({ children, required, className, ...props }: Props) {
   return (
-    <label {...props} className={twMerge(className)}>
+    <label {...props} className={twMerge("font-normal", className)}>
       {children}
       {required && <span className="ml-1 text-danger">*</span>}
     </label>

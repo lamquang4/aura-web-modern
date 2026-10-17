@@ -26,7 +26,22 @@ function App() {
     <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
       <QueryClientProvider client={queryClient}>
         <Router>
-          <Toaster />
+          <Toaster
+            toastOptions={{
+              success: {
+                iconTheme: {
+                  primary: "var(--success)",
+                  secondary: "#ffffff",
+                },
+              },
+              error: {
+                iconTheme: {
+                  primary: "var(--danger)",
+                  secondary: "#ffffff",
+                },
+              },
+            }}
+          />
           <ScrollToTop />
           <LayoutRoute />
         </Router>

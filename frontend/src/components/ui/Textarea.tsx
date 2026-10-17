@@ -11,7 +11,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, Props>(
       <textarea
         ref={ref}
         className={twMerge(
-          " outline-none transition-colors resize-none",
+          "outline-none transition-colors resize-none",
           className,
           error && "border-danger focus:border-danger",
         )}

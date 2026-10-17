@@ -163,7 +163,7 @@ function RegisterModal({ onClose, onSwitchLogin }: Props) {
 
       {isLoading && (
         <Overplay className="z-99">
-          <Loading height={0} size={55} color="white" thickness={8} />
+          <Loading size={55} color="white" thickness={8} />
           <h4 className="text-white">Vui lòng chờ trong giây lát...</h4>
         </Overplay>
       )}

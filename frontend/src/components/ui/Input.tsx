@@ -2,7 +2,7 @@ import React, { forwardRef } from "react";
 import { twMerge } from "tailwind-merge";
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
-  error?: string | boolean;
+  error?: string;
 }
 
 const Input = forwardRef<HTMLInputElement, Props>(
@@ -13,7 +13,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
         className={twMerge(
           "outline-none transition-colors",
           className,
-          error && "border-danger focus:border-danger",
+          error && "border-danger! focus:border-danger!",
         )}
         {...props}
       />
