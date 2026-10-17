@@ -1,13 +1,14 @@
 import { type ReactNode, useEffect, useState } from "react";
 import Header from "./header/Header";
-import MenuSide from "./MenuSide";
+import SideBar from "./SideBar";
 
 interface LayoutProps {
   children: ReactNode;
 }
 
 function LayoutPage({ children }: LayoutProps) {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  
   const toggleMenu = () => {
     setMenuOpen((prev) => !prev);
   };
@@ -28,7 +29,7 @@ function LayoutPage({ children }: LayoutProps) {
   }, []);
   return (
     <div className="flex min-h-screen w-full relative bg-background-2">
-      <MenuSide menuOpen={menuOpen} onToggleMenu={toggleMenu} />
+      <SideBar menuOpen={menuOpen} onToggleMenu={toggleMenu} />
       <main className="w-full">
         <Header onToggleMenu={toggleMenu} />
         {children}

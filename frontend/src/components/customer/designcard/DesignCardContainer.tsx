@@ -11,8 +11,8 @@ import {
   useUpdateSavedCard,
 } from "../../../hooks/queries/useSavedCards";
 import { useGetMe } from "../../../hooks/queries/useUsers";
-import { useAppDispatch } from "../../../redux/store";
-import { openAuthModal } from "../../../redux/slices/authModalSlice";
+import { useAppDispatch } from "../../../store/store";
+import { openAuthModal } from "../../../store/slices/authModalSlice";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {

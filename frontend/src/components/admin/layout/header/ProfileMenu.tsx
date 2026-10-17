@@ -1,69 +1,71 @@
-import { memo } from "react";
+import { memo, useState } from "react";
 import Image from "../../../ui/Image";
-import { Link } from "react-router-dom";
-import Button from "../../../ui/Button";
 import { CircleUserRound, DoorOpen } from "lucide-react";
 import { useGetMe } from "../../../../hooks/queries/useUsers";
 import { useLogout } from "../../../../hooks/queries/useAuth";
+import type { DropdownMenuItem } from "../../../ui/DropdownMenu";
+import DropdownMenu from "../../../ui/DropdownMenu";
 
-interface Props {
-  menuOpen: boolean;
-  onToggleMenu: () => void;
-}
+function ProfileMenu() {
+  const [dropDownOpen, setDropDownOpen] = useState<boolean>(false);
 
-function ProfileMenu({ menuOpen, onToggleMenu }: Props) {
+  const handleToggleDropdown = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    setDropDownOpen((prev) => !prev);
+  };
+
   const { data: accountData } = useGetMe();
   const account = accountData?.data;
 
   const { logout } = useLogout();
+
+  const items: DropdownMenuItem[] = [
+    {
+      label: "Tài khoản",
+      icon: <CircleUserRound size={22} />,
+      href: "/admin/account/profile",
+      onClick: close,
+    },
+    {
+      label: "Đăng xuất",
+      icon: <DoorOpen size={22} />,
+      onClick: () => {
+        close();
+        logout();
+      },
+      textColor: "text-danger",
+    },
+  ];
+
+  if (!account) {
+    return;
+  }
   return (
-    <>
-      {account && (
-        <div
-          className="relative"
-          onMouseEnter={onToggleMenu}
-          onMouseLeave={onToggleMenu}
-        >
-          <div className="flex cursor-pointer items-center gap-2">
-            <div className="w-[34px] h-[34px] p-1 rounded-full border border-border overflow-hidden">
-              <Image
-                src="/assets/user.png"
-                alt=""
-                className="w-full h-full object-contain"
-                loading="eager"
-              />
-            </div>
-            <p className="font-medium">{account.fullname}</p>
-          </div>
-
-          {menuOpen && (
-            <div
-              className={`absolute top-full right-0 max-w z-20 bg-white shadow-md rounded-md transition-all duration-100 origin-top`}
-            >
-              <Link
-                to={"/admin/account/profile"}
-                className="block hover:bg-muted p-3 whitespace-nowrap"
-              >
-                <div className="flex items-center gap-2 font-medium">
-                  <CircleUserRound size={18} />
-                  <p>Tài khoản</p>
-                </div>
-              </Link>
-
-              <Button
-                onClick={logout}
-                className="w-full hover:bg-muted p-3 text-danger whitespace-nowrap"
-              >
-                <div className="flex items-center gap-2 font-medium">
-                  <DoorOpen size={18} />
-                  <p>Đăng xuất</p>
-                </div>
-              </Button>
-            </div>
-          )}
+    <div
+      className="relative"
+      onMouseEnter={() => setDropDownOpen(true)}
+      onMouseLeave={() => setDropDownOpen(false)}
+    >
+      <div
+        className="flex cursor-pointer items-center gap-2"
+        onClick={handleToggleDropdown}
+      >
+        <div className="w-[34px] h-[34px] p-1 rounded-full border border-border overflow-hidden">
+          <Image
+            src="/assets/user.png"
+            alt=""
+            className="w-full h-full object-contain"
+            loading="eager"
+          />
         </div>
+        <p className="font-medium">{account.fullname}</p>
+      </div>
+
+      {dropDownOpen && (
+        <DropdownMenu items={items} horizontal="right" vertical="bottom" />
       )}
-    </>
+    </div>
   );
 }
 

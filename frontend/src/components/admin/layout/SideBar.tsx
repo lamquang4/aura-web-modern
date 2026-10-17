@@ -74,7 +74,7 @@ const menuData: MenuGroup[] = [
   },
 ];
 
-function MenuSide({ menuOpen, onToggleMenu }: Props) {
+function SideBar({ menuOpen, onToggleMenu }: Props) {
   const location = useLocation();
   const pathname = location.pathname;
   const [openMenus, setOpenMenus] = useState<Record<string, boolean>>({});
@@ -98,7 +98,7 @@ function MenuSide({ menuOpen, onToggleMenu }: Props) {
           <Link to="/">
             <Image
               src={"/assets/logo.png"}
-              alt=""
+              alt="logo"
               className="w-[90px]"
               loading="eager"
             />
@@ -185,4 +185,4 @@ function MenuSide({ menuOpen, onToggleMenu }: Props) {
   );
 }
 
-export default memo(MenuSide);
+export default memo(SideBar);

@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import {
   Copy,
   Eye,
@@ -7,10 +6,11 @@ import {
   Pencil,
   Trash2,
 } from "lucide-react";
-import { useDeleteSavedCard } from "../../../hooks/queries/useSavedCards";
 import toast from "react-hot-toast";
-import Button from "../../ui/Button";
+import { useDeleteSavedCard } from "../../../hooks/queries/useSavedCards";
 import { buildEmailMessage } from "../../../utils/emailMessage";
+import type { DropdownMenuItem } from "../../ui/DropdownMenu";
+import DropdownMenu from "../../ui/DropdownMenu";
 
 interface Props {
   cardId: string;
@@ -41,75 +41,57 @@ function CardActionMenu({ cardId, cardName, onClose }: Props) {
 
   const handleDeleteSavedCard = () => {
     deleteSavedCard(cardId);
-
     onClose();
   };
 
+  const handleShareEmail = () => {
+    handleOpenEmailShare(cardId, cardName);
+    onClose();
+  };
+
+  const items: DropdownMenuItem[] = [
+    {
+      label: "Chỉnh sửa thiệp lưu",
+      icon: <Pencil size={18} />,
+      href: `/design/savedcard/${cardId}`,
+      onClick: onClose,
+      textColor: "text-info",
+    },
+    {
+      label: "Xóa thiệp lưu",
+      icon: <Trash2 size={18} />,
+      onClick: handleDeleteSavedCard,
+      disabled: isLoadingDelete,
+      textColor: "text-danger",
+    },
+    {
+      label: "Xem trước gửi thiệp",
+      icon: <Eye size={18} />,
+      href: `/send/${cardId}`,
+      onClick: onClose,
+    },
+    {
+      label: "Sao chép link gửi",
+      icon: <Copy size={18} />,
+      onClick: handleCopyLink,
+    },
+    {
+      label: "Chia sẻ Messenger",
+      icon: <MessageCircleMore size={18} />,
+      href: "https://m.me/",
+      target: "_blank",
+      onClick: onClose,
+    },
+    {
+      label: "Chia sẻ Gmail",
+      icon: <Mail size={18} />,
+      onClick: handleShareEmail,
+    },
+  ];
+
   return (
-    <div className="absolute top-[40px] right-[8px] bg-white shadow-md rounded-sm z-20 p-0 w-auto">
-      <Link
-        className="p-[14px_12px] hover:bg-muted w-full text-info"
-        to={`/design/savedcard/${cardId}`}
-        onClick={onClose}
-      >
-        <div className="flex items-center gap-2 font-medium ">
-          <Pencil size={18} />
-          <span>Chỉnh sửa thiệp lưu</span>
-        </div>
-      </Link>
-
-      <Button
-        className="p-[14px_12px] hover:bg-muted text-danger w-full"
-        onClick={handleDeleteSavedCard}
-        disabled={isLoadingDelete}
-      >
-        <div className="flex items-center gap-2 font-medium">
-          <Trash2 size={18} /> <span> Xóa thiệp lưu</span>
-        </div>
-      </Button>
-
-      <Link
-        className="p-[14px_12px] hover:bg-muted w-full"
-        to={`/send/${cardId}`}
-        onClick={onClose}
-      >
-        <div className="flex items-center gap-2 font-medium">
-          <Eye size={18} /> <span>Xem trước gửi thiệp</span>
-        </div>
-      </Link>
-
-      <Button
-        className="p-[14px_12px] hover:bg-muted w-full"
-        onClick={handleCopyLink}
-      >
-        <div className="flex items-center gap-2 font-medium">
-          <Copy size={18} />
-          <span>Sao chép link gửi</span>
-        </div>
-      </Button>
-
-      <Link
-        className="p-[14px_12px] hover:bg-muted w-full"
-        to="https://m.me/"
-        target="_blank"
-      >
-        <div className="flex items-center gap-2 font-medium">
-          <MessageCircleMore size={18} /> <span>Chia sẻ Messenger</span>
-        </div>
-      </Link>
-
-      <Button
-        className="p-[14px_12px] hover:bg-muted w-full"
-        onClick={() => {
-          handleOpenEmailShare(cardId, cardName);
-          onClose();
-        }}
-      >
-        <div className="flex items-center gap-2 font-medium">
-          <Mail size={18} />
-          <span>Chia sẻ Gmail</span>
-        </div>
-      </Button>
+    <div className="absolute top-[40px] right-[8px] z-20">
+      <DropdownMenu items={items} horizontal="right" vertical="bottom" />
     </div>
   );
 }

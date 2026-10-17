@@ -1,10 +1,10 @@
 import { memo } from "react";
-import { Link } from "react-router-dom";
-import { openAuthModal } from "../../../../redux/slices/authModalSlice";
-import Button from "../../../ui/Button";
+import { openAuthModal } from "../../../../store/slices/authModalSlice";
 import { useGetMe } from "../../../../hooks/queries/useUsers";
 import { useLogout } from "../../../../hooks/queries/useAuth";
-import { useAppDispatch } from "../../../../redux/store";
+import { useAppDispatch } from "../../../../store/store";
+import DropdownMenu, { type DropdownMenuItem } from "../../../ui/DropdownMenu";
+
 interface Props {
   profileMenuOpen: boolean;
 }
@@ -14,57 +14,37 @@ function ProfileMenu({ profileMenuOpen }: Props) {
   const account = accountData?.data;
 
   const { logout } = useLogout();
-
   const dispatch = useAppDispatch();
 
   if (!profileMenuOpen || isLoading) return null;
 
+  const items: DropdownMenuItem[] = account
+    ? [
+        { label: "Thông tin tài khoản", href: "/account/profile" },
+        { label: "Thiệp của tôi", href: "/saved" },
+        { label: "Đăng xuất", onClick: logout, textColor: "text-danger" },
+      ]
+    : [
+        { label: "Đăng nhập", onClick: () => dispatch(openAuthModal("login")) },
+        {
+          label: "Đăng ký",
+          onClick: () => dispatch(openAuthModal("register")),
+        },
+      ];
+
   return (
-    <div
-      className={` font-medium absolute top-full right-0 z-20 bg-white shadow-md rounded-sm overflow-hidden w-max transition-all duration-100 origin-top`}
-    >
-      {account ? (
-        <>
-          <p className="border-b p-2.5 border-border max-w-[210px] overflow-hidden text-ellipsis whitespace-nowrap text-center">
+    <DropdownMenu
+      items={items}
+      horizontal="right"
+      vertical="bottom"
+      header={
+        account && (
+          <p className="border-b px-2.5 py-3 border-border max-w-[210px] overflow-hidden text-ellipsis whitespace-nowrap text-center font-medium">
             Xin chào, {account.fullname}
           </p>
-
-          <Link
-            className="hover:bg-muted w-full block p-2.5"
-            to="/account/profile"
-          >
-            Thông tin tài khoản
-          </Link>
-
-          <Link className="hover:bg-muted w-full block p-2.5" to="/saved">
-            Thiệp của tôi
-          </Link>
-
-          <Button
-            onClick={logout}
-            className="hover:bg-muted w-full block p-2.5 text-left"
-          >
-            Đăng xuất
-          </Button>
-        </>
-      ) : (
-        <>
-          <Button
-            onClick={() => dispatch(openAuthModal("login"))}
-            className="hover:bg-muted w-full block p-2.5 text-left"
-          >
-            Đăng nhập
-          </Button>
-
-          <Button
-            onClick={() => dispatch(openAuthModal("register"))}
-            className="hover:bg-muted w-full block p-2.5 text-left"
-          >
-            Đăng ký
-          </Button>
-        </>
-      )}
-    </div>
+        )
+      }
+    />
   );
 }
 
