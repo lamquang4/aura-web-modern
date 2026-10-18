@@ -9,6 +9,7 @@ import {
   UsersRound,
 } from "lucide-react";
 import Overplay from "../../ui/Overplay";
+import { twMerge } from "tailwind-merge";
 interface Props {
   menuOpen: boolean;
   onToggleMenu: () => void;
@@ -88,97 +89,105 @@ function SideBar({ menuOpen, onToggleMenu }: Props) {
 
   return (
     <>
-      <nav
-        className={` ${menuOpen ? "left-0" : "left-[-100%]"} 
-        ${
-          menuOpen ? "xl:translate-x-[-100%] xl:p-0 xl:w-0" : "xl:translate-x-0"
-        } custom-scroll fixed border top-0 h-screen w-[320px] pb-5 bg-white transition-all duration-350 ease-in-out z-100 xl:sticky overflow-y-auto border-b border-border`}
+      <aside
+        className={twMerge(
+          "fixed top-0 left-0 z-100 h-screen w-[320px] transition-transform duration-300 ease-in-out",
+          "xl:sticky xl:translate-x-0 xl:shrink-0 xl:overflow-hidden xl:transition-[width]",
+          menuOpen ? "translate-x-0" : "-translate-x-full",
+          menuOpen ? "xl:w-0" : "xl:w-[320px]",
+        )}
       >
-        <div className="mb-[20px] flex justify-center sticky top-0 bg-white px-3.5 py-4.5">
-          <Link to="/">
-            <Image
-              src={"/assets/logo.png"}
-              alt="logo"
-              className="w-[90px]"
-              loading="eager"
-            />
-          </Link>
-        </div>
-        <ul className="flex flex-col gap-[15px] font-medium px-3.5">
-          {menuData.map((group, groupIndex) => (
-            <div key={groupIndex} className="flex flex-col gap-[10px]">
-              <p className="uppercase">{group.title}</p>
-              {group.items.map((item, index) => (
-                <li key={index}>
-                  {item.children ? (
-                    <>
-                      <div
-                        onClick={() => toggleOpen(item.key)}
+        <nav className="custom-scroll h-full w-[320px] overflow-y-auto bg-white pb-5">
+          <div className="mb-[20px] flex justify-center sticky top-0 px-3.5 py-4.5">
+            <Link to="/">
+              <Image
+                src={"/assets/logo.png"}
+                alt="logo"
+                className="w-[90px]"
+                loading="eager"
+              />
+            </Link>
+          </div>
+          <ul className="flex flex-col gap-[15px] font-medium px-3.5">
+            {menuData.map((group, groupIndex) => (
+              <div key={groupIndex} className="flex flex-col gap-[10px]">
+                <p className="uppercase">{group.title}</p>
+                {group.items.map((item, index) => (
+                  <li key={index}>
+                    {item.children ? (
+                      <>
+                        <div
+                          onClick={() => toggleOpen(item.key)}
+                          className={`${
+                            openMenus[item.key] ||
+                            item.children.some(
+                              (child) => pathname === child.path,
+                            )
+                              ? "text-primary"
+                              : "hover:bg-muted"
+                          } rounded-lg p-3 w-full cursor-pointer flex justify-between items-center`}
+                        >
+                          <p className="flex items-center gap-[10px]">
+                            {item.icon} {item.label}
+                          </p>
+                          <Button>
+                            {openMenus[item.key] ||
+                            item.children.some(
+                              (child) => pathname === child.path,
+                            ) ? (
+                              <ChevronDown size={18} />
+                            ) : (
+                              <ChevronUp size={18} />
+                            )}
+                          </Button>
+                        </div>
+                        <ul
+                          className={`max-h-0 overflow-hidden invisible transition-all duration-600 ease-in-out pl-[25px] ${
+                            openMenus[item.key] ||
+                            item.children.some(
+                              (child) => pathname === child.path,
+                            )
+                              ? "max-h-fit visible"
+                              : ""
+                          }`}
+                        >
+                          {item.children.map((child, childIndex) => (
+                            <li
+                              key={childIndex}
+                              className={`rounded-lg w-full cursor-pointer my-[5px] ${
+                                pathname === child.path
+                                  ? "text-white bg-primary"
+                                  : "hover:bg-muted"
+                              }`}
+                            >
+                              <Link to={child.path} className="p-3">
+                                {child.label}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </>
+                    ) : (
+                      <Link
+                        to={item.path}
                         className={`${
-                          openMenus[item.key] ||
-                          item.children.some((child) => pathname === child.path)
-                            ? "text-primary"
+                          pathname === item.path
+                            ? "text-white bg-primary"
                             : "hover:bg-muted"
                         } rounded-lg p-3 w-full cursor-pointer flex justify-between items-center`}
                       >
                         <p className="flex items-center gap-[10px]">
                           {item.icon} {item.label}
                         </p>
-                        <Button>
-                          {openMenus[item.key] ||
-                          item.children.some(
-                            (child) => pathname === child.path,
-                          ) ? (
-                            <ChevronDown size={18} />
-                          ) : (
-                            <ChevronUp size={18} />
-                          )}
-                        </Button>
-                      </div>
-                      <ul
-                        className={`max-h-0 overflow-hidden invisible transition-all duration-600 ease-in-out pl-[25px] ${
-                          openMenus[item.key] ||
-                          item.children.some((child) => pathname === child.path)
-                            ? "max-h-fit visible"
-                            : ""
-                        }`}
-                      >
-                        {item.children.map((child, childIndex) => (
-                          <li
-                            key={childIndex}
-                            className={`rounded-lg w-full cursor-pointer my-[5px] ${
-                              pathname === child.path
-                                ? "text-white bg-primary"
-                                : "hover:bg-muted"
-                            }`}
-                          >
-                            <Link to={child.path} className="p-3">
-                              {child.label}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </>
-                  ) : (
-                    <Link
-                      to={item.path}
-                      className={`${
-                        pathname === item.path
-                          ? "text-white bg-primary"
-                          : "hover:bg-muted"
-                      } rounded-lg p-3 w-full cursor-pointer flex justify-between items-center`}
-                    >
-                      <p className="flex items-center gap-[10px]">
-                        {item.icon} {item.label}
-                      </p>
-                    </Link>
-                  )}
-                </li>
-              ))}
-            </div>
-          ))}
-        </ul>
-      </nav>
+                      </Link>
+                    )}
+                  </li>
+                ))}
+              </div>
+            ))}
+          </ul>
+        </nav>
+      </aside>
 
       {menuOpen && <Overplay className="xl:hidden" onClose={onToggleMenu} />}
     </>
