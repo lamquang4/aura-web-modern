@@ -8,7 +8,7 @@ import {
   IdCardLanyard,
   UsersRound,
 } from "lucide-react";
-import Overplay from "../../ui/Overplay";
+import Overlay from "../../ui/Overlay";
 import { twMerge } from "tailwind-merge";
 interface Props {
   menuOpen: boolean;
@@ -189,7 +189,7 @@ function SideBar({ menuOpen, onToggleMenu }: Props) {
         </nav>
       </aside>
 
-      {menuOpen && <Overplay className="xl:hidden" onClose={onToggleMenu} />}
+      {menuOpen && <Overlay className="xl:hidden" onClose={onToggleMenu} />}
     </>
   );
 }

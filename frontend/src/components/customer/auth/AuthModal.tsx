@@ -6,7 +6,7 @@ import {
   closeAuthModal,
   switchAuthModal,
 } from "../../../store/slices/authModalSlice";
-import Overplay from "../../ui/Overplay";
+import Overlay from "../../ui/Overlay";
 
 function AuthModal() {
   const dispatch = useAppDispatch();
@@ -28,7 +28,7 @@ function AuthModal() {
           onSwitchLogin={() => dispatch(switchAuthModal("login"))}
         />
       )}
-      <Overplay onClose={() => dispatch(closeAuthModal())} className="z-97" />
+      <Overlay onClose={() => dispatch(closeAuthModal())} className="z-97" />
     </>
   );
 }

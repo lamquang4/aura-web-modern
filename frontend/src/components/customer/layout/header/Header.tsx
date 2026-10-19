@@ -7,7 +7,7 @@ import SearchMobile from "./SearchMobile";
 import AuthModal from "../../auth/AuthModal";
 import Button from "../../../ui/Button";
 import { Search, UserRound } from "lucide-react";
-import Overplay from "../../../ui/Overplay";
+import Overlay from "../../../ui/Overlay";
 
 function Header() {
   const [searchOpen, setSearchOpen] = useState<boolean>(false);
@@ -91,7 +91,7 @@ function Header() {
 
       <AuthModal />
 
-      {searchOpen && <Overplay onClose={toggleSearch} className="z-14" />}
+      {searchOpen && <Overlay onClose={toggleSearch} className="z-14" />}
     </>
   );
 }

@@ -8,7 +8,7 @@ import Label from "../../ui/Label";
 import { Eye, EyeOff, X } from "lucide-react";
 import SocialAuth from "./SocialAuth";
 import { useRegister } from "../../../hooks/queries/useAuth";
-import Overplay from "../../ui/Overplay";
+import Overlay from "../../ui/Overlay";
 import { registerSchema, type RegisterData } from "../../../schemas/authSchema";
 import FieldError from "../../ui/FieldError";
 
@@ -162,10 +162,10 @@ function RegisterModal({ onClose, onSwitchLogin }: Props) {
       </div>
 
       {isLoading && (
-        <Overplay className="z-99">
+        <Overlay className="z-99">
           <Loading size={55} color="white" thickness={8} />
           <h4 className="text-white">Vui lòng chờ trong giây lát...</h4>
-        </Overplay>
+        </Overlay>
       )}
     </>
   );
